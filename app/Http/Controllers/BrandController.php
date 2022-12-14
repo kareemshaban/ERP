@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Brand;
 use App\Http\Requests\StoreBrandRequest;
 use App\Http\Requests\UpdateBrandRequest;
+use App\Models\Employee;
 use Illuminate\Http\Request;
 use Illuminate\Database\QueryException;
+use Illuminate\Validation\Rule;
 
 class BrandController extends Controller
 {
@@ -39,20 +41,25 @@ class BrandController extends Controller
      */
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'code' => 'required|unique:brands',
-            'name' => 'required',
-        ]);
-        try {
-            Brand::create([
-                'code' => $request->code,
-                'name' => $request->name,
-            ]);
-            return redirect()->route('brands')->with('success' , __('main.created'));
-        } catch(QueryException $ex){
+            if($request -> id == 0){
+                $validated = $request->validate([
+                    'code' => 'required|unique:brands',
+                    'name' => 'required',
+                ]);
+                try {
+                    Brand::create([
+                        'code' => $request->code,
+                        'name' => $request->name,
+                    ]);
+                    return redirect()->route('brands')->with('success' , __('main.created'));
+                } catch(QueryException $ex){
 
-            return redirect()->route('brands')->with('error' ,  $ex->getMessage());
-        }
+                    return redirect()->route('brands')->with('error' ,  $ex->getMessage());
+                }
+            } else {
+              return  $this -> update($request);
+            }
+
 
     }
 
@@ -73,9 +80,11 @@ class BrandController extends Controller
      * @param  \App\Models\Brand  $brand
      * @return \Illuminate\Http\Response
      */
-    public function edit(Brand $brand)
+    public function edit($id)
     {
-        //
+        $brand = Brand::find($id);
+        echo json_encode ($brand);
+        exit;
     }
 
     /**
@@ -85,9 +94,25 @@ class BrandController extends Controller
      * @param  \App\Models\Brand  $brand
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateBrandRequest $request, Brand $brand)
+    public function update(Request $request)
     {
-        //
+        $brand = Brand::find($request -> id);
+        if($brand ) {
+            $validated = $request->validate([
+                'code' => ['required' , Rule::unique('brands')->ignore($request -> id)],
+                'name' => 'required',
+            ]);
+            try {
+                $brand -> update([
+                    'code' => $request->code,
+                    'name' => $request->name,
+                ]);
+                return redirect()->route('brands')->with('success', __('main.updated'));
+            } catch (QueryException $ex) {
+
+                return redirect()->route('brands')->with('error', $ex->getMessage());
+            }
+        }
     }
 
     /**

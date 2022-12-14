@@ -21,6 +21,12 @@ return [
     'delete_alert' => 'Do you Want to Delete This Data ?!',
     'confirm_btn' => 'Yes, Sure',
     'cancel_btn' => 'Cancel',
-    'deleted' => 'Data Has been deleted Successfully'
+    'deleted' => 'Data Has been deleted Successfully',
+    'updated' => 'Data Has been Updated Successfully',
+    'symbol' => 'symbol',
+    'account' => 'Account',
+    'description' => 'Description',
+    'parent' => 'Main Category',
+    'img_choose' => 'Choose Image'
 
 ];

@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Brand;
 use App\Models\Unit;
 use App\Http\Requests\StoreUnitRequest;
 use App\Http\Requests\UpdateUnitRequest;
+use Illuminate\Database\QueryException;
+use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class UnitController extends Controller
 {
@@ -15,7 +19,8 @@ class UnitController extends Controller
      */
     public function index()
     {
-        //
+        $units = Unit::all();
+        return view ('Units.index' , ['units' => $units] );
     }
 
     /**
@@ -34,9 +39,26 @@ class UnitController extends Controller
      * @param  \App\Http\Requests\StoreUnitRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreUnitRequest $request)
+    public function store(Request $request)
     {
-        //
+        if($request -> id == 0){
+            $validated = $request->validate([
+                'code' => 'required|unique:brands',
+                'name' => 'required',
+            ]);
+            try {
+                Unit::create([
+                    'code' => $request->code,
+                    'name' => $request->name,
+                ]);
+                return redirect()->route('units')->with('success' , __('main.created'));
+            } catch(QueryException $ex){
+
+                return redirect()->route('units')->with('error' ,  $ex->getMessage());
+            }
+        } else {
+            return  $this -> update($request);
+        }
     }
 
     /**
@@ -56,9 +78,11 @@ class UnitController extends Controller
      * @param  \App\Models\Unit  $unit
      * @return \Illuminate\Http\Response
      */
-    public function edit(Unit $unit)
+    public function edit($id)
     {
-        //
+        $unit = Unit::find($id);
+        echo json_encode ($unit);
+        exit;
     }
 
     /**
@@ -68,9 +92,25 @@ class UnitController extends Controller
      * @param  \App\Models\Unit  $unit
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateUnitRequest $request, Unit $unit)
+    public function update(Request $request)
     {
-        //
+        $unit = Unit::find($request -> id);
+        if($unit ) {
+            $validated = $request->validate([
+                'code' => ['required' , Rule::unique('units')->ignore($request -> id)],
+                'name' => 'required',
+            ]);
+            try {
+                $unit -> update([
+                    'code' => $request->code,
+                    'name' => $request->name,
+                ]);
+                return redirect()->route('units')->with('success', __('main.updated'));
+            } catch (QueryException $ex) {
+
+                return redirect()->route('units')->with('error', $ex->getMessage());
+            }
+        }
     }
 
     /**
@@ -79,8 +119,12 @@ class UnitController extends Controller
      * @param  \App\Models\Unit  $unit
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Unit $unit)
+    public function destroy( $id)
     {
-        //
+        $unit = Unit::find($id);
+        if($unit){
+            $unit -> delete();
+            return redirect()->route('units')->with('success', __('main.deleted'));
+        }
     }
 }

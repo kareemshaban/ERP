@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Brand;
 use App\Models\Currency;
-use App\Http\Requests\StoreCurrencyRequest;
-use App\Http\Requests\UpdateCurrencyRequest;
+use Illuminate\Database\QueryException;
+use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class CurrencyController extends Controller
 {
@@ -15,7 +17,8 @@ class CurrencyController extends Controller
      */
     public function index()
     {
-        //
+        $currencies = Currency::all();
+        return view('currency.index' , ['currencies' => $currencies]);
     }
 
     /**
@@ -34,9 +37,29 @@ class CurrencyController extends Controller
      * @param  \App\Http\Requests\StoreCurrencyRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreCurrencyRequest $request)
+    public function store(Request $request)
     {
-        //
+        if($request -> id == 0){
+            $validated = $request->validate([
+                'code' => 'required|unique:currencies',
+                'name' => 'required',
+                'symbol' => 'required|unique:currencies',
+            ]);
+            try {
+                Currency::create([
+                    'code' => $request->code,
+                    'name' => $request->name,
+                    'symbol' => $request -> symbol
+                ]);
+                return redirect()->route('currency')->with('success' , __('main.created'));
+            } catch(QueryException $ex){
+
+                return redirect()->route('currency')->with('error' ,  $ex->getMessage());
+            }
+        } else {
+            return  $this -> update($request);
+        }
+
     }
 
     /**
@@ -56,9 +79,11 @@ class CurrencyController extends Controller
      * @param  \App\Models\Currency  $currency
      * @return \Illuminate\Http\Response
      */
-    public function edit(Currency $currency)
+    public function edit($id)
     {
-        //
+        $currency = Currency::find($id);
+        echo json_encode ($currency);
+        exit;
     }
 
     /**
@@ -68,9 +93,27 @@ class CurrencyController extends Controller
      * @param  \App\Models\Currency  $currency
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateCurrencyRequest $request, Currency $currency)
+    public function update(Request $request)
     {
-        //
+        $currency = Currency::find($request -> id);
+        if($currency ) {
+            $validated = $request->validate([
+                'code' => ['required' , Rule::unique('currencies')->ignore($request -> id)],
+                'symbol' => ['required' , Rule::unique('currencies')->ignore($request -> id)],
+                'name' => 'required',
+            ]);
+            try {
+                $currency -> update([
+                    'code' => $request->code,
+                    'name' => $request->name,
+                    'symbol' => $request -> symbol
+                ]);
+                return redirect()->route('currency')->with('success', __('main.updated'));
+            } catch (QueryException $ex) {
+
+                return redirect()->route('currency')->with('error', $ex->getMessage());
+            }
+        }
     }
 
     /**
@@ -79,8 +122,13 @@ class CurrencyController extends Controller
      * @param  \App\Models\Currency  $currency
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Currency $currency)
+    public function destroy($id)
     {
-        //
+        $currency = Currency::find($id);
+        if($currency){
+            $currency -> delete();
+            return redirect()->route('currency')->with('success', __('main.deleted'));
+        }
+
     }
 }

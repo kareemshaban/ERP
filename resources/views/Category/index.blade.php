@@ -19,13 +19,13 @@
 </head>
 
 <body @if(Config::get('app.locale') == 'en') class="g-sidenav-show  bg-gray-100" @else  class="g-sidenav-show rtl bg-gray-100" @endif>
-@include('layouts.side' , ['slag' => 2 , 'subSlag' => 4])
+@include('layouts.side' , ['slag' => 2 , 'subSlag' => 3])
 
 
 <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
     @include('flash-message')
     <!-- Navbar -->
-    @include('layouts.nav' , ['page_title' => __('main.basic_date')  . ' / ' .  __('main.brands') ])
+    @include('layouts.nav' , ['page_title' => __('main.basic_date')  . ' / ' .  __('main.categories') ])
     <!-- End Navbar -->
     <div class="container-fluid py-4">
         <div class="row">
@@ -34,7 +34,7 @@
                     <div class="card-header pb-0">
                         <div class="row">
                             <div class="col-6 text-start">
-                                <h6>{{ __('main.brands')}}</h6>
+                                <h6>{{ __('main.categories')}}</h6>
                             </div>
                             <div class="col-6 text-end">
                                 <button type="button" class="btn btn-labeled btn-primary " id="createButton">
@@ -51,23 +51,25 @@
                                     <th class="text-uppercase text-secondary text-md-center font-weight-bolder opacity-7">#</th>
                                     <th class="text-uppercase text-secondary text-md-center font-weight-bolder opacity-7 ps-2">{{__('main.code')}}</th>
                                     <th class="text-center text-uppercase text-secondary text-md-center font-weight-bolder opacity-7">{{__('main.name')}}</th>
+                                    <th class="text-center text-uppercase text-secondary text-md-center font-weight-bolder opacity-7"> slug </th>
                                     <th class="text-end text-uppercase text-secondary text-md-center font-weight-bolder opacity-7">{{__('main.actions')}}</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($brands as $brand)
-                                <tr>
-                                    <td class="text-center">{{$brand -> id}}</td>
-                                    <td class="text-center">{{$brand -> code}}</td>
-                                    <td class="text-center">{{$brand -> name}}</td>
-                                    <td class="text-center">
-                                        <button type="button" class="btn btn-labeled btn-secondary " onclick="EditModal({{$brand -> id}})">
-                                            <span class="btn-label" style="margin-right: 10px;"><i class="fa fa-pen"></i></span>{{__('main.edit')}}</button>
+                                @foreach($categories as $category)
+                                    <tr>
+                                        <td class="text-center">{{$category -> id}}</td>
+                                        <td class="text-center">{{$category -> code}}</td>
+                                        <td class="text-center">{{$category -> name}}</td>
+                                        <td class="text-center">{{$category -> slug}} </td>
+                                        <td class="text-center">
+                                            <button type="button" class="btn btn-labeled btn-secondary " onclick="EditModal({{$category -> id}})">
+                                                <span class="btn-label" style="margin-right: 10px;"><i class="fa fa-pen"></i></span>{{__('main.edit')}}</button>
 
-                                        <button type="button" class="btn btn-labeled btn-danger deleteBtn "  id="{{$brand -> id}}">
-                                            <span class="btn-label" style="margin-right: 10px;"><i class="fa fa-trash"></i></span>{{__('main.delete')}}</button>
-                                    </td>
-                                </tr>
+                                            <button type="button" class="btn btn-labeled btn-danger deleteBtn "  id="{{$category -> id}}">
+                                                <span class="btn-label" style="margin-right: 10px;"><i class="fa fa-trash"></i></span>{{__('main.delete')}}</button>
+                                        </td>
+                                    </tr>
                                 @endforeach
                                 </tbody>
                             </table>
@@ -80,7 +82,7 @@
         @include('layouts.footer')
     </div>
 </main>
-    @include('layouts.fixed')
+@include('layouts.fixed')
 <!--   Core JS Files   -->
 
 
@@ -89,18 +91,18 @@
     <div class="modal-dialog modal-md" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <label class="modelTitle"> {{__('main.brands')}}</label>
+                <label class="modelTitle"> {{__('main.categories')}}</label>
                 <button type="button" class="close modal-close-btn"  data-bs-dismiss="modal"  aria-label="Close" >
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body" id="paymentBody">
-                <form   method="POST" action="{{ route('storeBrand') }}"
+                <form   method="POST" action="{{ route('storeCategory') }}"
                         enctype="multipart/form-data" >
                     @csrf
 
                     <div class="row">
-                        <div class="col-12">
+                        <div class="col-6">
                             <div class="form-group">
                                 <label>{{ __('main.code') }} <span style="color:red; font-size:20px; font-weight:bold;">*</span> </label>
                                 <input type="text"  id="code" name="code"
@@ -111,15 +113,56 @@
                                        placeholder="{{ __('main.code') }}"  hidden=""/>
                             </div>
                         </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>slug <span style="color:red; font-size:20px; font-weight:bold;">*</span> </label>
+                                <input type="text"  id="slug" name="slug"
+                                       class="form-control"
+                                       placeholder="slug"  />
+                            </div>
+                        </div>
                     </div>
                     <div class="row">
-                        <div class="col-12 " >
+                        <div class="col-6 " >
                             <div class="form-group">
                                 <label>{{ __('main.name') }} <span style="color:red; font-size:20px; font-weight:bold;">*</span> </label>
                                 <input type="text"  id="name" name="name"
                                        class="form-control"
                                        placeholder="{{ __('main.name') }}"  />
                             </div>
+                        </div>
+                        <div class="col-6 " >
+                            <div class="form-group">
+                                <label>{{ __('main.parent') }} <span style="color:red; font-size:20px; font-weight:bold;">*</span> </label>
+                                <select class="form-select mr-sm-2"
+                                        name="parent_id" id="parent_id">
+                                    <option selected value ="0">Choose...</option>
+                                    @foreach ($cats as $item)
+                                        <option value="{{$item -> id}}"> {{ $item -> name}}</option>
+
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 " >
+                            <div class="form-group">
+                                <label>{{ __('main.description') }} <span style="color:red; font-size:20px; font-weight:bold;">*</span> </label>
+                                <textarea type="text"  id="description" name="description" class="form-control" placeholder="{{ __('main.description') }}"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="custom-file">
+                                <input type="file" class="form-control custom-file-input" id="image_url"   name="image_url"  accept="image/png, image/jpeg" >
+                                <label class="custom-file-label" for="img" id="path">{{__('main.img_choose')}}   <span style="color:red;">*</span></label>
+                            </div>
+
+                        </div>
+                        <div class="col-6 text-right">
+                            <img src="../assets/img/photo.png" id="profile-img-tag" width="150px" height="150px" class="profile-img"/>
                         </div>
                     </div>
 
@@ -164,6 +207,23 @@
 </div>
 
 <script type="text/javascript">
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#profile-img-tag').attr('src', e.target.result);
+
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    $("#image_url").change(function(){
+        readURL(this);
+    });
+</script>
+
+<script type="text/javascript">
     let id = 0 ;
     $(document).ready(function()
     {
@@ -182,7 +242,13 @@
                     $('#createModal').modal("show");
                     $(".modal-body #name").val( "" );
                     $(".modal-body #code").val( "" );
+                    $(".modal-body #slug").val("");
+                    $(".modal-body #description").val("");
+                    $(".modal-body #parent_id").val(0);
                     $(".modal-body #id").val( 0 );
+                    $(".modal-body #image_url").val("");
+                    $(".modal-body #profile-img-tag").attr('src' , '../assets/img/photo.png' );
+
                 },
                 complete: function() {
                     $('#loader').hide();
@@ -196,7 +262,7 @@
             })
         });
         $(document).on('click', '.deleteBtn', function(event) {
-             id = event.currentTarget.id ;
+            id = event.currentTarget.id ;
             event.preventDefault();
             let href = $(this).attr('data-attr');
             $.ajax({
@@ -228,14 +294,14 @@
 
     });
     function confirmDelete(){
-        let url = "{{ route('deleteBrand', ':id') }}";
+        let url = "{{ route('deleteCategory', ':id') }}";
         url = url.replace(':id', id);
         document.location.href=url;
     }
     function EditModal(id){
         $.ajax({
             type:'get',
-            url:'getBrand' + '/' + id,
+            url:'getCategory' + '/' + id,
             dataType: 'json',
 
             success:function(response){
@@ -250,9 +316,15 @@
                         // return the result
                         success: function(result) {
                             $('#createModal').modal("show");
+                            var img =  '../images/Category/' + response.image_url ;
+                            $(".modal-body #profile-img-tag").attr('src' , img );
                             $(".modal-body #name").val( response.name );
                             $(".modal-body #code").val( response.code );
+                            $(".modal-body #slug").val(response.slug);
+                            $(".modal-body #description").val(response.description);
+                            $(".modal-body #parent_id").val(response.parent_id);
                             $(".modal-body #id").val( response.id );
+
 
                         },
                         complete: function() {

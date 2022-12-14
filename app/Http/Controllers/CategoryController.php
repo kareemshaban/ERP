@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Brand;
 use App\Models\Category;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
+use Illuminate\Database\QueryException;
+use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class CategoryController extends Controller
 {
@@ -15,7 +19,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        $categories = Category::all();
+        $cats = Category::where('parent_id' , '=' , 0 );
+        return view ('Category.index' , ['categories' => $categories , 'cats' => $cats]);
     }
 
     /**
@@ -34,9 +40,39 @@ class CategoryController extends Controller
      * @param  \App\Http\Requests\StoreCategoryRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreCategoryRequest $request)
+    public function store(Request $request)
     {
-        //
+       if($request -> id == 0){
+           if($request -> image_url){
+               $imageName = time().'.'.$request->image_url->extension();
+               $request->image_url->move(('images/Category'), $imageName);
+           } else {
+               $imageName = '' ;
+           }
+           $validated = $request->validate([
+               'code' => 'required|unique:categories',
+               'name' => 'required',
+           ]);
+           try {
+               Category::create([
+                   'name' => $request -> name ,
+                   'code' => $request -> code,
+                   'slug' => $request -> slug ? $request -> slug : '' ,
+                   'description' => $request -> description  ? $request -> description  : '',
+                   'image_url' => $imageName ,
+                   'parent_id' => $request -> parent_id
+               ]);
+               return redirect()->route('categories')->with('success' , __('main.created'));
+           } catch (QueryException $ex){
+               return redirect()->route('categories')->with('error' ,  $ex->getMessage());
+           }
+
+
+       } else {
+          return $this -> update($request);
+       }
+
+
     }
 
     /**
@@ -56,9 +92,11 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function edit(Category $category)
+    public function edit($id)
     {
-        //
+        $category = Category::find($id);
+        echo json_encode ($category);
+        exit;
     }
 
     /**
@@ -68,9 +106,36 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateCategoryRequest $request, Category $category)
+    public function update(Request $request)
     {
-        //
+        $category = Category::find($request -> id);
+        if($category){
+            if($request -> image_url){
+                $imageName = time().'.'.$request->image_url->extension();
+                $request->image_url->move(('images/Category'), $imageName);
+            } else {
+                $imageName = $category ->  image_url;
+            }
+            $validated = $request->validate([
+                'code' => ['required' , Rule::unique('categories')->ignore($request -> id)],
+                'name' => 'required',
+            ]);
+
+            try {
+                $category -> update([
+                    'name' => $request -> name ,
+                    'code' => $request -> code,
+                    'slug' => $request -> slug ? $request -> slug : '' ,
+                    'description' => $request -> description  ? $request -> description  : '',
+                    'image_url' => $imageName ,
+                    'parent_id' => $request -> parent_id
+                ]);
+                return redirect()->route('categories')->with('success' , __('main.updated'));
+            } catch (QueryException $ex){
+                return redirect()->route('categories')->with('error' ,  $ex->getMessage());
+            }
+        }
+
     }
 
     /**
@@ -79,8 +144,12 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy($id)
     {
-        //
+        $category = Category::find($id);
+        if($category){
+            $category -> delete();
+            return redirect()->route('categories')->with('success' , __('main.deleted'));
+        }
     }
 }

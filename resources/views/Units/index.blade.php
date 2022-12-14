@@ -19,13 +19,13 @@
 </head>
 
 <body @if(Config::get('app.locale') == 'en') class="g-sidenav-show  bg-gray-100" @else  class="g-sidenav-show rtl bg-gray-100" @endif>
-@include('layouts.side' , ['slag' => 2 , 'subSlag' => 4])
+@include('layouts.side' , ['slag' => 2 , 'subSlag' => 2])
 
 
 <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
     @include('flash-message')
     <!-- Navbar -->
-    @include('layouts.nav' , ['page_title' => __('main.basic_date')  . ' / ' .  __('main.brands') ])
+    @include('layouts.nav' , ['page_title' => __('main.basic_date')  . ' / ' .  __('main.units') ])
     <!-- End Navbar -->
     <div class="container-fluid py-4">
         <div class="row">
@@ -34,7 +34,7 @@
                     <div class="card-header pb-0">
                         <div class="row">
                             <div class="col-6 text-start">
-                                <h6>{{ __('main.brands')}}</h6>
+                                <h6>{{ __('main.units')}}</h6>
                             </div>
                             <div class="col-6 text-end">
                                 <button type="button" class="btn btn-labeled btn-primary " id="createButton">
@@ -55,16 +55,16 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($brands as $brand)
+                                @foreach($units as $unit)
                                 <tr>
-                                    <td class="text-center">{{$brand -> id}}</td>
-                                    <td class="text-center">{{$brand -> code}}</td>
-                                    <td class="text-center">{{$brand -> name}}</td>
+                                    <td class="text-center">{{$unit -> id}}</td>
+                                    <td class="text-center">{{$unit -> code}}</td>
+                                    <td class="text-center">{{$unit -> name}}</td>
                                     <td class="text-center">
-                                        <button type="button" class="btn btn-labeled btn-secondary " onclick="EditModal({{$brand -> id}})">
+                                        <button type="button" class="btn btn-labeled btn-secondary " onclick="EditModal({{$unit -> id}})">
                                             <span class="btn-label" style="margin-right: 10px;"><i class="fa fa-pen"></i></span>{{__('main.edit')}}</button>
 
-                                        <button type="button" class="btn btn-labeled btn-danger deleteBtn "  id="{{$brand -> id}}">
+                                        <button type="button" class="btn btn-labeled btn-danger deleteBtn "  id="{{$unit -> id}}">
                                             <span class="btn-label" style="margin-right: 10px;"><i class="fa fa-trash"></i></span>{{__('main.delete')}}</button>
                                     </td>
                                 </tr>
@@ -95,7 +95,7 @@
                 </button>
             </div>
             <div class="modal-body" id="paymentBody">
-                <form   method="POST" action="{{ route('storeBrand') }}"
+                <form   method="POST" action="{{ route('storeUnit') }}"
                         enctype="multipart/form-data" >
                     @csrf
 
@@ -228,14 +228,14 @@
 
     });
     function confirmDelete(){
-        let url = "{{ route('deleteBrand', ':id') }}";
+        let url = "{{ route('deleteUnit', ':id') }}";
         url = url.replace(':id', id);
         document.location.href=url;
     }
     function EditModal(id){
         $.ajax({
             type:'get',
-            url:'getBrand' + '/' + id,
+            url:'getUnit' + '/' + id,
             dataType: 'json',
 
             success:function(response){

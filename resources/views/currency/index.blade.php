@@ -19,13 +19,13 @@
 </head>
 
 <body @if(Config::get('app.locale') == 'en') class="g-sidenav-show  bg-gray-100" @else  class="g-sidenav-show rtl bg-gray-100" @endif>
-@include('layouts.side' , ['slag' => 2 , 'subSlag' => 4])
+@include('layouts.side' , ['slag' => 2 , 'subSlag' => 5])
 
 
 <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
     @include('flash-message')
     <!-- Navbar -->
-    @include('layouts.nav' , ['page_title' => __('main.basic_date')  . ' / ' .  __('main.brands') ])
+    @include('layouts.nav' , ['page_title' => __('main.basic_date')  . ' / ' .  __('main.currencies') ])
     <!-- End Navbar -->
     <div class="container-fluid py-4">
         <div class="row">
@@ -34,7 +34,7 @@
                     <div class="card-header pb-0">
                         <div class="row">
                             <div class="col-6 text-start">
-                                <h6>{{ __('main.brands')}}</h6>
+                                <h6>{{ __('main.currencies')}}</h6>
                             </div>
                             <div class="col-6 text-end">
                                 <button type="button" class="btn btn-labeled btn-primary " id="createButton">
@@ -51,20 +51,22 @@
                                     <th class="text-uppercase text-secondary text-md-center font-weight-bolder opacity-7">#</th>
                                     <th class="text-uppercase text-secondary text-md-center font-weight-bolder opacity-7 ps-2">{{__('main.code')}}</th>
                                     <th class="text-center text-uppercase text-secondary text-md-center font-weight-bolder opacity-7">{{__('main.name')}}</th>
+                                    <th class="text-center text-uppercase text-secondary text-md-center font-weight-bolder opacity-7">{{__('main.symbol')}}</th>
                                     <th class="text-end text-uppercase text-secondary text-md-center font-weight-bolder opacity-7">{{__('main.actions')}}</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($brands as $brand)
+                                @foreach($currencies as $currency)
                                 <tr>
-                                    <td class="text-center">{{$brand -> id}}</td>
-                                    <td class="text-center">{{$brand -> code}}</td>
-                                    <td class="text-center">{{$brand -> name}}</td>
+                                    <td class="text-center">{{$currency -> id}}</td>
+                                    <td class="text-center">{{$currency -> code}}</td>
+                                    <td class="text-center">{{$currency -> name}}</td>
+                                    <td class="text-center">{{$currency -> symbol}}</td>
                                     <td class="text-center">
-                                        <button type="button" class="btn btn-labeled btn-secondary " onclick="EditModal({{$brand -> id}})">
+                                        <button type="button" class="btn btn-labeled btn-secondary " onclick="EditModal({{$currency -> id}})">
                                             <span class="btn-label" style="margin-right: 10px;"><i class="fa fa-pen"></i></span>{{__('main.edit')}}</button>
 
-                                        <button type="button" class="btn btn-labeled btn-danger deleteBtn "  id="{{$brand -> id}}">
+                                        <button type="button" class="btn btn-labeled btn-danger deleteBtn "  id="{{$currency -> id}}">
                                             <span class="btn-label" style="margin-right: 10px;"><i class="fa fa-trash"></i></span>{{__('main.delete')}}</button>
                                     </td>
                                 </tr>
@@ -89,13 +91,13 @@
     <div class="modal-dialog modal-md" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <label class="modelTitle"> {{__('main.brands')}}</label>
+                <label class="modelTitle"> {{__('main.currencies')}}</label>
                 <button type="button" class="close modal-close-btn"  data-bs-dismiss="modal"  aria-label="Close" >
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body" id="paymentBody">
-                <form   method="POST" action="{{ route('storeBrand') }}"
+                <form   method="POST" action="{{ route('storeCurrency') }}"
                         enctype="multipart/form-data" >
                     @csrf
 
@@ -119,6 +121,16 @@
                                 <input type="text"  id="name" name="name"
                                        class="form-control"
                                        placeholder="{{ __('main.name') }}"  />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 " >
+                            <div class="form-group">
+                                <label>{{ __('main.symbol') }} <span style="color:red; font-size:20px; font-weight:bold;">*</span> </label>
+                                <input type="text"  id="symbol" name="symbol"
+                                       class="form-control"
+                                       placeholder="{{ __('main.symbol') }}"  />
                             </div>
                         </div>
                     </div>
@@ -182,6 +194,7 @@
                     $('#createModal').modal("show");
                     $(".modal-body #name").val( "" );
                     $(".modal-body #code").val( "" );
+                    $(".modal-body #symbol").val( "" );
                     $(".modal-body #id").val( 0 );
                 },
                 complete: function() {
@@ -228,14 +241,14 @@
 
     });
     function confirmDelete(){
-        let url = "{{ route('deleteBrand', ':id') }}";
+        let url = "{{ route('deleteCurrency', ':id') }}";
         url = url.replace(':id', id);
         document.location.href=url;
     }
     function EditModal(id){
         $.ajax({
             type:'get',
-            url:'getBrand' + '/' + id,
+            url:'getCurrency' + '/' + id,
             dataType: 'json',
 
             success:function(response){
@@ -252,6 +265,7 @@
                             $('#createModal').modal("show");
                             $(".modal-body #name").val( response.name );
                             $(".modal-body #code").val( response.code );
+                            $(".modal-body #symbol").val( response.symbol);
                             $(".modal-body #id").val( response.id );
 
                         },
