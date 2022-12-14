@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class ExpensesCategory extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'code',
+        'name',
+        'account_id'
+    ];
 }

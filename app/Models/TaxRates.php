@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class TaxRates extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'code',
+        'name',
+        'rate',
+        'type'
+    ];
 }

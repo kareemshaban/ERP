@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Brand;
 use App\Http\Requests\StoreBrandRequest;
 use App\Http\Requests\UpdateBrandRequest;
+use Illuminate\Http\Request;
+use Illuminate\Database\QueryException;
 
 class BrandController extends Controller
 {
@@ -15,7 +17,8 @@ class BrandController extends Controller
      */
     public function index()
     {
-        //
+        $brands = Brand::all();
+        return view('Brand.index' , ['brands' => $brands]);
     }
 
     /**
@@ -34,9 +37,23 @@ class BrandController extends Controller
      * @param  \App\Http\Requests\StoreBrandRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreBrandRequest $request)
+    public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'code' => 'required|unique:brands',
+            'name' => 'required',
+        ]);
+        try {
+            Brand::create([
+                'code' => $request->code,
+                'name' => $request->name,
+            ]);
+            return redirect()->route('brands')->with('success' , __('main.created'));
+        } catch(QueryException $ex){
+
+            return redirect()->route('brands')->with('error' ,  $ex->getMessage());
+        }
+
     }
 
     /**
@@ -79,8 +96,12 @@ class BrandController extends Controller
      * @param  \App\Models\Brand  $brand
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Brand $brand)
+    public function destroy($id)
     {
-        //
+        $brand = Brand::find($id);
+        if($brand){
+            $brand -> delete();
+        }
+        return redirect()->route('brands')->with('success' , __('main.deleted'));
     }
 }

@@ -15,11 +15,11 @@ class CreateCustomerGroupsTable extends Migration
     {
         Schema::create('customer_groups', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
             $table->string('name');
             $table->decimal('discount_percentage');
             $table->boolean('sell_with_cost');
             $table->boolean('enable_discount');
+            $table->timestamps();
 
         });
     }

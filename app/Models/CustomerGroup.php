@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class CustomerGroup extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'name',
+        'discount_percentage',
+        'sell_with_cost',
+        'enable_discount'
+
+    ];
 }
