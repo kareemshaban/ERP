@@ -27,6 +27,18 @@ return [
     'account' => 'Account',
     'description' => 'Description',
     'parent' => 'Main Category',
-    'img_choose' => 'Choose Image'
+    'img_choose' => 'Choose Image',
+    'phone' => 'Phone',
+    'email' => 'E-mail',
+    'address' => 'Address',
+    'tax_type' => 'Tax Type',
+    'tax_type1' => 'Percentage',
+    'tax_type2' => 'Fixed',
+    'tax_rate' => 'Tax Rate',
+    'discount_percentage' => 'Percentage Discount ',
+    'sell_with_cost' => 'Sell with cost Price ?',
+    'enable_discount' => 'Apply discount ',
+    'true_val' => 'Yes',
+    'false_val' => 'No'
 
 ];

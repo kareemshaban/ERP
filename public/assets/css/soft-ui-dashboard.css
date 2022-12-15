@@ -26732,5 +26732,15 @@ pre[class*="language-"] {
     font-weight: bold;
     color: #149ddd;
 }
+.checkRow {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
 
+}
+.checkRow input{
+    margin-left: 20px;
+    width: 20px;
+}
 /*# sourceMappingURL=dashboard-free.css.map */

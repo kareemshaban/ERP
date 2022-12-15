@@ -51,14 +51,14 @@
                     <span class="nav-link-text ms-1">{{__('main.basic_date')}}</span>
                 </a>
                 <ul class="dropdown-menu text-small subM" aria-labelledby="dropdown">
-                    <li><a class="dropdown-item" href="#">{{__('main.warehouses')}}</a></li>
+                    <li><a @if($subSlag == 1) class="dropdown-item active-drop" @else class="dropdown-item" @endif href="{{route('warehouses')}}">{{__('main.warehouses')}}</a></li>
                     <li><a @if($subSlag == 2) class="dropdown-item active-drop" @else class="dropdown-item" @endif href="{{route('units')}}">{{__('main.units')}}</a></li>
                     <li><a @if($subSlag == 3) class="dropdown-item active-drop" @else class="dropdown-item" @endif href="{{route('categories')}}">{{__('main.categories')}}</a></li>
                     <li><a @if($subSlag == 4) class="dropdown-item active-drop" @else class="dropdown-item" @endif href="{{route('brands')}}">{{__('main.brands')}}</a></li>
                     <li><a @if($subSlag == 5) class="dropdown-item active-drop" @else class="dropdown-item" @endif href="{{route('currency')}}">{{__('main.currencies')}}</a></li>
-                    <li><a @if($subSlag == 6) class="dropdown-item active-drop" @else class="dropdown-item" @endif href="{{route('expenses')}}" class="dropdown-item" href="#">{{__('main.expenses_type')}}</a></li>
-                    <li><a class="dropdown-item" href="#">{{__('main.tax')}}</a></li>
-                    <li><a class="dropdown-item" href="#">{{__('main.c_groups')}}</a></li>
+                    <li><a @if($subSlag == 6) class="dropdown-item active-drop" @else class="dropdown-item" @endif href="{{route('expenses')}}">{{__('main.expenses_type')}}</a></li>
+                    <li><a @if($subSlag == 7) class="dropdown-item active-drop" @else class="dropdown-item" @endif href="{{route('taxRates')}}">{{__('main.tax')}}</a></li>
+                    <li><a @if($subSlag == 8) class="dropdown-item active-drop" @else class="dropdown-item" @endif href="{{route('clientGroups')}}">{{__('main.c_groups')}}</a></li>
 
 
                 </ul>

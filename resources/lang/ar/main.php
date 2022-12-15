@@ -28,6 +28,18 @@ return [
     'account' => 'الحساب',
     'description' => 'الوصف',
     'parent' => 'الفئة الرئيسية',
-    'img_choose' => 'إختيار صورة'
+    'img_choose' => 'إختيار صورة',
+    'phone' => 'رقم الهاتف',
+    'email' => 'البريد الإلكتروني',
+    'address' => 'العنوان',
+    'tax_type' => 'نوع الضريبة',
+    'tax_type1' => 'نسبة مئوية',
+    'tax_type2' => 'ثابت',
+     'tax_rate' => 'معدل الضريبة',
+    'discount_percentage' => 'نسبة الخصم',
+    'sell_with_cost' => 'البيع بسعر التكلفة ؟!',
+    'enable_discount' => 'تطبيق الخصم',
+    'true_val' => 'نعم',
+    'false_val' => 'لا'
 
 ];

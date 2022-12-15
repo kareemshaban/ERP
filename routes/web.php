@@ -54,6 +54,20 @@ Route::get('/deleteExpense/{id}', [App\Http\Controllers\ExpensesCategoryControll
 Route::get('/getExpense/{id}', [App\Http\Controllers\ExpensesCategoryController::class, 'edit'])->name('getExpense');
 
 
+Route::get('/warehouses', [App\Http\Controllers\WarehouseController::class, 'index'])->name('warehouses');
+Route::post('storeWarehouse', [App\Http\Controllers\WarehouseController::class, 'store'])->name('storeWarehouse');
+Route::get('/deleteWarehouse/{id}', [App\Http\Controllers\WarehouseController::class, 'destroy'])->name('deleteWarehouse');
+Route::get('/getWarehouse/{id}', [App\Http\Controllers\WarehouseController::class, 'edit'])->name('getWarehouse');
+
+Route::get('/taxRates', [App\Http\Controllers\TaxRatesController::class, 'index'])->name('taxRates');
+Route::post('storeTaxRate', [App\Http\Controllers\TaxRatesController::class, 'store'])->name('storeTaxRate');
+Route::get('/deleteTaxRate/{id}', [App\Http\Controllers\TaxRatesController::class, 'destroy'])->name('deleteTaxRate');
+Route::get('/getTaxRate/{id}', [App\Http\Controllers\TaxRatesController::class, 'edit'])->name('getTaxRate');
+
+Route::get('/clientGroups', [App\Http\Controllers\CustomerGroupController::class, 'index'])->name('clientGroups');
+Route::post('storeClientGroup', [App\Http\Controllers\CustomerGroupController::class, 'store'])->name('storeClientGroup');
+Route::get('/deleteClientGroup/{id}', [App\Http\Controllers\CustomerGroupController::class, 'destroy'])->name('deleteClientGroup');
+Route::get('/getClientGroup/{id}', [App\Http\Controllers\CustomerGroupController::class, 'edit'])->name('getClientGroup');
 
 });
 

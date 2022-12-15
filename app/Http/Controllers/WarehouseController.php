@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Brand;
 use App\Models\Warehouse;
 use App\Http\Requests\StoreWarehouseRequest;
 use App\Http\Requests\UpdateWarehouseRequest;
+use Illuminate\Database\QueryException;
+use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class WarehouseController extends Controller
 {
@@ -15,7 +19,8 @@ class WarehouseController extends Controller
      */
     public function index()
     {
-        //
+        $warehouses = Warehouse::all();
+        return view('warehouse.index' , ['warehouses' => $warehouses]);
     }
 
     /**
@@ -34,9 +39,29 @@ class WarehouseController extends Controller
      * @param  \App\Http\Requests\StoreWarehouseRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreWarehouseRequest $request)
+    public function store(Request $request)
     {
-        //
+        if($request -> id == 0){
+            $validated = $request->validate([
+                'code' => 'required|unique:warehouses',
+                'name' => 'required',
+            ]);
+            try {
+                Warehouse::create([
+                    'code' => $request->code,
+                    'name' => $request->name,
+                    'phone' => $request->phone ? $request->phone : ' ' ,
+                    'email' => $request->email ? $request->email : ' ',
+                    'address' => $request->address ? $request->address : ' ',
+                ]);
+                return redirect()->route('warehouses')->with('success' , __('main.created'));
+            } catch(QueryException $ex){
+
+                return redirect()->route('warehouses')->with('error' ,  $ex->getMessage());
+            }
+        } else {
+            return  $this -> update($request);
+        }
     }
 
     /**
@@ -56,9 +81,11 @@ class WarehouseController extends Controller
      * @param  \App\Models\Warehouse  $warehouse
      * @return \Illuminate\Http\Response
      */
-    public function edit(Warehouse $warehouse)
+    public function edit($id)
     {
-        //
+        $warehouse = Warehouse::find($id );
+        echo json_encode ($warehouse);
+        exit;
     }
 
     /**
@@ -68,9 +95,28 @@ class WarehouseController extends Controller
      * @param  \App\Models\Warehouse  $warehouse
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateWarehouseRequest $request, Warehouse $warehouse)
+    public function update(Request $request)
     {
-        //
+        $warehouse = Warehouse::find($request -> id);
+        if($warehouse){
+            $validated = $request->validate([
+                'code' => ['required' , Rule::unique('warehouses')->ignore($request -> id)],
+                'name' => 'required',
+            ]);
+            try {
+            $warehouse -> update([
+                'code' => $request->code,
+                'name' => $request->name,
+                'phone' => $request->phone ? $request->phone : ' ' ,
+                'email' => $request->email ? $request->email : ' ',
+                'address' => $request->address ? $request->address : ' ',
+            ]);
+                return redirect()->route('warehouses')->with('success' , __('main.updated'));
+            } catch(QueryException $ex){
+
+                return redirect()->route('warehouses')->with('error' ,  $ex->getMessage());
+            }
+        }
     }
 
     /**
@@ -79,8 +125,12 @@ class WarehouseController extends Controller
      * @param  \App\Models\Warehouse  $warehouse
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Warehouse $warehouse)
+    public function destroy($id)
     {
-        //
+        $warehouse = Warehouse::find($id );
+        if($warehouse){
+            $warehouse -> delete();
+            return redirect()->route('warehouses')->with('success' , __('main.deleted'));
+        }
     }
 }
