@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Company;
 use App\Http\Requests\StoreCompanyRequest;
 use App\Http\Requests\UpdateCompanyRequest;
+use App\Models\CustomerGroup;
+use Illuminate\Database\QueryException;
+use Illuminate\Http\Request;
 
 class CompanyController extends Controller
 {
@@ -13,9 +16,13 @@ class CompanyController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($type)
     {
-        //
+        $companies = Company::with('group') -> get();
+        $groups = CustomerGroup::all();
+        $accounts = [] ;
+        return view('company.index' , ['type' => $type , 'companies' =>
+            $companies , 'groups' => $groups , 'accounts' => $accounts] );
     }
 
     /**
@@ -34,9 +41,49 @@ class CompanyController extends Controller
      * @param  \App\Http\Requests\StoreCompanyRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreCompanyRequest $request)
+    public function store(Request $request)
     {
-        //
+
+        if ($request -> id == 0){
+            $validated = $request->validate([
+                'company' => 'required',
+                'name' => 'required',
+                'opening_balance' => 'required',
+                'type' => 'required'
+            ]);
+            try {
+                Company::create([
+                    'group_id' => $request -> type,
+                    'group_name' => '',
+                    'customer_group_id' => $request -> customer_group_id ? $request -> customer_group_id : 0 ,
+                    'customer_group_name' => '',
+                    'name' => $request->name,
+                    'company' => $request->company,
+                    'vat_no' => $request->vat_no ? $request->vat_no : '',
+                    'address' => $request-> address ? $request-> address: '',
+                    'city' => '' ,
+                    'state' => '',
+                    'postal_code' => '',
+                    'country' => '',
+                    'email' => $request -> email ? $request -> email : '',
+                    'phone' => $request -> phone ? $request -> phone : '',
+                    'invoice_footer' => '',
+                    'logo' => '',
+                    'award_points' => 0 ,
+                    'deposit_amount' => 0 ,
+                    'opening_balance' =>$request -> opening_balance? $request -> opening_balance: 0 ,
+                    'credit_amount' =>$request -> has('credit_amount')? $request -> credit_amount: 0 ,
+                    'stop_sale' =>$request -> has('stop_sale')? 1: 0 ,
+
+                ]);
+                return redirect()->route('clients' , $request -> type)->with('success' , __('main.created'));
+            } catch(QueryException $ex){
+
+                return redirect()->route('clients' , $request -> type)->with('error' ,  $ex->getMessage());
+            }
+        } else {
+         return   $this -> update($request);
+        }
     }
 
     /**
@@ -56,9 +103,11 @@ class CompanyController extends Controller
      * @param  \App\Models\Company  $company
      * @return \Illuminate\Http\Response
      */
-    public function edit(Company $company)
+    public function edit($id)
     {
-        //
+        $company = Company::find($id);
+        echo json_encode ($company);
+        exit;
     }
 
     /**
@@ -68,9 +117,47 @@ class CompanyController extends Controller
      * @param  \App\Models\Company  $company
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateCompanyRequest $request, Company $company)
+    public function update(Request  $request)
     {
-        //
+        $company = Company::find($request -> id);
+        if($company){
+            $validated = $request->validate([
+                'company' => 'required',
+                'name' => 'required',
+                'opening_balance' => 'required',
+                'type' => 'required'
+            ]);
+            try {
+                $company -> update([
+                    'group_id' => $request -> type,
+                    'group_name' => '',
+                    'customer_group_id' => $request -> customer_group_id ? $request -> customer_group_id : $company -> customer_group_id,
+                    'customer_group_name' => '',
+                    'name' => $request->name,
+                    'company' => $request->company,
+                    'vat_no' => $request->vat_no ? $company->vat_no : '',
+                    'address' => $request-> address ? $company-> address: '',
+                    'city' => '' ,
+                    'state' => '',
+                    'postal_code' => '',
+                    'country' => '',
+                    'email' => $request -> email ? $request -> email : '',
+                    'phone' => $request -> phone ? $request -> phone : '',
+                    'invoice_footer' => '',
+                    'logo' => '',
+                    'award_points' => 0 ,
+                    'deposit_amount' => 0 ,
+                    'opening_balance' =>$request -> opening_balance? $request -> opening_balance: $company ->  opening_balance,
+                    'credit_amount' =>$request -> has('credit_amount')? $request -> credit_amount: $company -> credit_amount ,
+                    'stop_sale' =>$request -> has('stop_sale')? 1: $company -> stop_sale ,
+
+                ]);
+                return redirect()->route('clients' , $request -> type)->with('success' , __('main.updated'));
+            } catch(QueryException $ex){
+
+                return redirect()->route('clients' , $request -> type)->with('error' ,  $ex->getMessage());
+            }
+        }
     }
 
     /**
@@ -79,8 +166,12 @@ class CompanyController extends Controller
      * @param  \App\Models\Company  $company
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Company $company)
+    public function destroy( $id)
     {
-        //
+        $company = Company::find($id);
+        if($company){
+            $company -> delete();
+            return redirect()->route('clients' , $request -> type)->with('success' , __('main.deleted'));
+        }
     }
 }

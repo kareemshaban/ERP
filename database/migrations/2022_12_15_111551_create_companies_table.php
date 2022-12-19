@@ -30,8 +30,8 @@ class CreateCompaniesTable extends Migration
             $table->string('country');
             $table->string('email');
             $table->string('phone');
-            $table->text('invoice_footer')->default('');
-            $table->text('logo')->default('');
+            $table->text('invoice_footer');
+            $table->text('logo');
             $table->double('award_points')->default(0);
             $table->double('deposit_amount')->default(0); //customer or supplier current balance
             $table->double('opening_balance')->default(0);

@@ -71,5 +71,15 @@ Route::post('storeClientGroup', [App\Http\Controllers\CustomerGroupController::c
 Route::get('/deleteClientGroup/{id}', [App\Http\Controllers\CustomerGroupController::class, 'destroy'])->name('deleteClientGroup');
 Route::get('/getClientGroup/{id}', [App\Http\Controllers\CustomerGroupController::class, 'edit'])->name('getClientGroup');
 
+Route::get('/clients/{type}', [App\Http\Controllers\CompanyController::class, 'index'])->name('clients');
+Route::post('storeCompany', [App\Http\Controllers\CompanyController::class, 'store'])->name('storeCompany');
+Route::get('/deleteCompany/{id}', [App\Http\Controllers\CompanyController::class, 'destroy'])->name('deleteCompany');
+Route::get('/getCompany/{id}', [App\Http\Controllers\CompanyController::class, 'edit'])->name('getCompany');
+
+
+
+
+
+
 });
 

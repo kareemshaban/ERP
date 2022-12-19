@@ -29,7 +29,7 @@
                             <a class="dropdown-item border-radius-md" el="alternate" hreflang="ar" href="{{ LaravelLocalization::getLocalizedURL('ar', null, [], true) }}">
                                 <div class="d-flex py-1">
                                     <div class="my-auto">
-                                        <img src="../assets/img/arabic.png" class="avatar avatar-sm  me-3 ">
+                                        <img src="../../assets/img/arabic.png" class="avatar avatar-sm  me-3 ">
                                     </div>
                                     <div class="d-flex flex-column justify-content-center">
                                         <h6 class="text-sm font-weight-normal mb-1">
@@ -43,7 +43,7 @@
                             <a class="dropdown-item border-radius-md" el="alternate" hreflang="ثلا" href="{{ LaravelLocalization::getLocalizedURL('en', null, [], true) }}">
                                 <div class="d-flex py-1">
                                     <div class="my-auto">
-                                        <img src="../assets/img/english.png" class="avatar avatar-sm  me-3 ">
+                                        <img src="../../assets/img/english.png" class="avatar avatar-sm  me-3 ">
                                     </div>
                                     <div class="d-flex flex-column justify-content-center">
                                         <h6 class="text-sm font-weight-normal mb-1">
@@ -56,7 +56,25 @@
 
                     </ul>
                 </li>
+
+                <li class="nav-item px-3 d-flex align-items-center">
+                    <a href="{{route('index')}}" class="nav-link text-body p-0">
+                        <i class="fa fa-home fixed-plugin-button-nav cursor-pointer"></i>
+                    </a>
+                </li>
+
+                <li class="nav-item px-3 d-flex align-items-center">
+                    <a href="{{route('logout')}}"  class="nav-link text-body p-0"
+                        onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();" data-toggle="tooltip" title="" data-original-title="Logout">
+                        <i class="fa fa-power-off fixed-plugin-button-nav cursor-pointer"></i>
+                    </a>
+                </li>
             </ul>
         </div>
     </div>
 </nav>
+
+<form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+    @csrf
+</form>

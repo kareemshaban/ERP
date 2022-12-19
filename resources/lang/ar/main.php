@@ -40,6 +40,15 @@ return [
     'sell_with_cost' => 'البيع بسعر التكلفة ؟!',
     'enable_discount' => 'تطبيق الخصم',
     'true_val' => 'نعم',
-    'false_val' => 'لا'
+    'false_val' => 'لا',
+    'clients' => 'العملاء',
+    'supplier' => 'الموردين',
+    'company' => 'الشركة',
+    'vat_no' => 'الرقم الضريبي',
+    'balance' => 'الرصيد',
+    'opening_balance' => 'الرصيد الإفتتاحي',
+    'credit_limit' => 'الحد الائتماني',
+    'stop_sale' => ' ايقاف البيع في حالة وجود مبالغ مستحقة '
+
 
 ];

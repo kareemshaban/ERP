@@ -39,6 +39,15 @@ return [
     'sell_with_cost' => 'Sell with cost Price ?',
     'enable_discount' => 'Apply discount ',
     'true_val' => 'Yes',
-    'false_val' => 'No'
+    'false_val' => 'No',
+    'clients' => 'Clients',
+    'supplier' => 'Supplier',
+    'biller' => 'Biller',
+    'company' => 'Company',
+    'vat_no' => 'Vat Number',
+    'balance' => 'Balance',
+    'opening_balance' => 'Opening Balance',
+    'credit_limit' => 'credit limit',
+    'stop_sale' => ' Stop selling if there are due amounts'
 
 ];

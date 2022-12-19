@@ -15,4 +15,8 @@ class CustomerGroup extends Model
         'enable_discount'
 
     ];
+    public function clients()
+    {
+        return $this->hasMany(Company::class , 'customer_group_id');
+    }
 }
