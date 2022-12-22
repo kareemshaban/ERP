@@ -77,8 +77,24 @@ Route::get('/deleteCompany/{id}', [App\Http\Controllers\CompanyController::class
 Route::get('/getCompany/{id}', [App\Http\Controllers\CompanyController::class, 'edit'])->name('getCompany');
 
 
+Route::get('/system_settings', [App\Http\Controllers\SystemSettingsController::class, 'index'])->name('system_settings');
+Route::post('storeSettings', [App\Http\Controllers\SystemSettingsController::class, 'store'])->name('storeSettings');
+Route::post('updateSettings', [App\Http\Controllers\SystemSettingsController::class, 'update'])->name('updateSettings');
+
+Route::get('/pos_settings', [App\Http\Controllers\PosSettingsController::class, 'index'])->name('pos_settings');
+Route::post('storePosSettings', [App\Http\Controllers\PosSettingsController::class, 'store'])->name('storePosSettings');
+Route::post('updatePosSettings', [App\Http\Controllers\PosSettingsController::class, 'update'])->name('updatePosSettings');
 
 
+Route::get('/cashiers', [App\Http\Controllers\CashierController::class, 'index'])->name('cashiers');
+Route::post('storeCashier', [App\Http\Controllers\CashierController::class, 'store'])->name('storeCashier');
+Route::get('/deleteCashier/{id}', [App\Http\Controllers\CashierController::class, 'destroy'])->name('deleteCashier');
+Route::get('/getCashier/{id}', [App\Http\Controllers\CashierController::class, 'edit'])->name('getCashier');
+
+Route::get('/users', [App\Http\Controllers\UserController::class, 'index'])->name('users');
+Route::post('storeUser', [App\Http\Controllers\UserController::class, 'store'])->name('storeUser');
+Route::get('/deleteUser/{id}', [App\Http\Controllers\UserController::class, 'destroy'])->name('deleteUser');
+Route::get('/getUser/{id}', [App\Http\Controllers\UserController::class, 'edit'])->name('getUser');
 
 
 });
