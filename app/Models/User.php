@@ -19,8 +19,15 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'last_name',
+        'gender',
+        'company',
+        'phone',
         'email',
         'password',
+        'status',
+        'group',
+        'original_password'
     ];
 
     /**
@@ -29,7 +36,6 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $hidden = [
-        'password',
         'remember_token',
     ];
 
@@ -41,4 +47,9 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function groups()
+    {
+        return $this->belongsTo(UserGroup::class , 'group');
+    }
 }

@@ -48,14 +48,6 @@ return [
     'balance' => 'Balance',
     'opening_balance' => 'Opening Balance',
     'credit_limit' => 'credit limit',
-    'stop_sale' => ' Stop selling if there are due amounts',
-    'products_list' =>'Products List',
-    'cost' =>'Cost',
-    'price' =>'Price',
-    'quantity' => 'Quantity',
-    'unit' =>'Unit',
-    'alert_quantity' => 'Alert Quantity',
-    'main_category' => 'Main Category',
-    'brand' => 'Brand'
+    'stop_sale' => ' Stop selling if there are due amounts'
 
 ];
