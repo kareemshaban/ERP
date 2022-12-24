@@ -78,6 +78,12 @@ Route::get('/getCompany/{id}', [App\Http\Controllers\CompanyController::class, '
 
 
 
+Route::get('/products', [App\Http\Controllers\ProductController::class, 'index'])->name('products');
+Route::get('/products/create', [App\Http\Controllers\ProductController::class, 'create'])->name('createProduct');
+Route::post('products/create', [App\Http\Controllers\ProductController::class, 'store'])->name('storeProduct');
+Route::get('/products/edit/{id}', [App\Http\Controllers\ProductController::class, 'edit'])->name('editProduct');
+Route::post('/products/update/{id}', [App\Http\Controllers\ProductController::class, 'update'])->name('updateProduct');
+Route::get('/products/delete/{id}', [App\Http\Controllers\ProductController::class, 'destroy'])->name('deleteProduct');
 
 
 
