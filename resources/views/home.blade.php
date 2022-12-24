@@ -723,7 +723,7 @@
 
     var gradientStroke1 = ctx2.createLinearGradient(0, 230, 0, 50);
 
-    gradientStroke1.addColorStop(1, 'rgba(203,12,159,0.2)');
+    gradientStroke1.addColorStop(1, 'rgba(52, 71, 103, 0.7)');
     gradientStroke1.addColorStop(0.2, 'rgba(72,72,176,0.0)');
     gradientStroke1.addColorStop(0, 'rgba(203,12,159,0)'); //purple colors
 
@@ -742,7 +742,7 @@
                 tension: 0.4,
                 borderWidth: 0,
                 pointRadius: 0,
-                borderColor: "#cb0c9f",
+                borderColor: "#428BCA",
                 borderWidth: 3,
                 backgroundColor: gradientStroke1,
                 fill: true,
@@ -788,7 +788,7 @@
                     ticks: {
                         display: true,
                         padding: 10,
-                        color: '#b2b9bf',
+                        color: '#428BCA',
                         font: {
                             size: 11,
                             family: "Open Sans",
@@ -807,7 +807,7 @@
                     },
                     ticks: {
                         display: true,
-                        color: '#b2b9bf',
+                        color: '#428BCA',
                         padding: 20,
                         font: {
                             size: 11,

@@ -8,7 +8,7 @@
   --bs-blue: #63B3ED;
   --bs-indigo: #596CFF;
   --bs-purple: #6f42c1;
-  --bs-pink: #d63384;
+  --bs-pink: #428BCA;
   --bs-red: #F56565;
   --bs-orange: #fd7e14;
   --bs-yellow: #FBD38D;
@@ -69,8 +69,8 @@
   --bs-border-radius-2xl: 1.5rem;
   --bs-border-radius-pill: 50rem;
   --bs-link-color: #428BCA ;
-  --bs-link-hover-color: #830866;
-  --bs-code-color: #d63384;
+  --bs-link-hover-color: #428BCA;
+  --bs-code-color: #428BCA;
   --bs-highlight-bg: #fcf8e3;
 }
 
@@ -316,7 +316,7 @@ pre code {
 
 code {
   font-size: 0.875em;
-  color: var(--bs-code-color);
+  color: #428BCA;
   word-wrap: break-word;
 }
 
@@ -2919,9 +2919,9 @@ textarea.form-control-lg {
 }
 
 .form-select:focus {
-  border-color: #e293d3;
+  border-color: #428BCA;
   outline: 0;
-  box-shadow: 0 0 0 2px #e9aede;
+  box-shadow: 0 0 0 2px #428BCA;
 }
 
 .form-select[multiple],
@@ -3119,11 +3119,11 @@ textarea.form-control-lg {
 }
 
 .form-range:focus::-webkit-slider-thumb {
-  box-shadow: 0 0 0 1px #fff, 0 0 0 2px #e9aede;
+  box-shadow: 0 0 0 1px #fff, 0 0 0 2px #428BCA;
 }
 
 .form-range:focus::-moz-range-thumb {
-  box-shadow: 0 0 0 1px #fff, 0 0 0 2px #e9aede;
+  box-shadow: 0 0 0 1px #fff, 0 0 0 2px #428BCA;
 }
 
 .form-range::-moz-focus-outer {
@@ -3148,7 +3148,7 @@ textarea.form-control-lg {
 }
 
 .form-range::-webkit-slider-thumb:active {
-  background-color: #f891e1;
+  background-color: #428BCA;
 }
 
 .form-range::-webkit-slider-runnable-track {
@@ -3178,7 +3178,7 @@ textarea.form-control-lg {
 }
 
 .form-range::-moz-range-thumb:active {
-  background-color: #f891e1;
+  background-color: #428BCA;
 }
 
 .form-range::-moz-range-track {
@@ -3643,7 +3643,7 @@ textarea.form-control.is-invalid {
 .btn:hover {
   color: var(--bs-btn-hover-color);
   background-color: var(--bs-btn-hover-bg);
-  border-color: var(--bs-btn-hover-border-color);
+  border-color: #428BCA;
 }
 
 .btn-check+.btn:hover {
@@ -3655,13 +3655,13 @@ textarea.form-control.is-invalid {
 .btn:focus-visible {
   color: var(--bs-btn-hover-color);
   background-color: var(--bs-btn-hover-bg);
-  border-color: var(--bs-btn-hover-border-color);
+  border-color: #428BCA;
   outline: 0;
   box-shadow: var(--bs-btn-focus-box-shadow);
 }
 
 .btn-check:focus-visible+.btn {
-  border-color: var(--bs-btn-hover-border-color);
+  border-color: #428BCA;
   outline: 0;
   box-shadow: var(--bs-btn-focus-box-shadow);
 }
@@ -3699,12 +3699,12 @@ fieldset:disabled .btn {
   --bs-btn-bg: #428BCA ;
   --bs-btn-border-color: #428BCA ;
   --bs-btn-hover-color: #fff;
-  --bs-btn-hover-bg: #ad0a87;
-  --bs-btn-hover-border-color: #a20a7f;
+  --bs-btn-hover-bg: #428BCA;
+  --bs-btn-hover-border-color: #428BCA;
   --bs-btn-focus-shadow-rgb: 211, 48, 173;
   --bs-btn-active-color: #fff;
-  --bs-btn-active-bg: #a20a7f;
-  --bs-btn-active-border-color: #980977;
+  --bs-btn-active-bg: #428BCA;
+  --bs-btn-active-border-color: #428BCA;
   --bs-btn-active-shadow: none;
   --bs-btn-disabled-color: #fff;
   --bs-btn-disabled-bg: #428BCA ;
@@ -4005,9 +4005,9 @@ fieldset:disabled .btn {
   --bs-btn-color: #428BCA ;
   --bs-btn-bg: transparent;
   --bs-btn-border-color: transparent;
-  --bs-btn-hover-color: #830866;
+  --bs-btn-hover-color: #428BCA;
   --bs-btn-hover-border-color: transparent;
-  --bs-btn-active-color: #830866;
+  --bs-btn-active-color: #428BCA;
   --bs-btn-active-border-color: transparent;
   --bs-btn-disabled-color: #6c757d;
   --bs-btn-disabled-border-color: transparent;
@@ -4562,8 +4562,7 @@ fieldset:disabled .btn {
 .nav {
   --bs-nav-link-padding-x: 1rem;
   --bs-nav-link-padding-y: 0.5rem;
-  --bs-nav-link-font-weight: ;
-  --bs-nav-link-color: var(--bs-link-color);
+  --bs-nav-link-color: #428BCA;
   --bs-nav-link-hover-color: var(--bs-link-hover-color);
   --bs-nav-link-disabled-color: #6c757d;
   display: flex;
@@ -5401,7 +5400,7 @@ fieldset:disabled .btn {
   --bs-accordion-btn-icon-transform: rotate(180deg);
   --bs-accordion-btn-icon-transition: transform 0.2s ease-in-out;
   --bs-accordion-btn-active-icon: none;
-  --bs-accordion-btn-focus-border-color: #e293d3;
+  --bs-accordion-btn-focus-border-color: #428BCA;
   --bs-accordion-btn-focus-box-shadow: none;
   --bs-accordion-body-padding-x: 1rem;
   --bs-accordion-body-padding-y: 1rem;
@@ -5582,12 +5581,12 @@ fieldset:disabled .btn {
   --bs-pagination-border-width: 1px;
   --bs-pagination-border-color: #dee2e6;
   --bs-pagination-border-radius: 0.5rem;
-  --bs-pagination-hover-color: #830866;
+  --bs-pagination-hover-color: #428BCA;
   --bs-pagination-hover-bg: #e9ecef;
   --bs-pagination-hover-border-color: #dee2e6;
-  --bs-pagination-focus-color: #830866;
+  --bs-pagination-focus-color: #428BCA;
   --bs-pagination-focus-bg: #e9ecef;
-  --bs-pagination-focus-box-shadow: 0 0 0 0.2rem rgba(203, 12, 159, 0.25);
+  --bs-pagination-focus-box-shadow: 0 0 0 0.2rem #428BCA;
   --bs-pagination-active-color: #fff;
   --bs-pagination-active-bg: #428BCA ;
   --bs-pagination-active-border-color: #428BCA ;
@@ -5604,7 +5603,7 @@ fieldset:disabled .btn {
   display: block;
   padding: var(--bs-pagination-padding-y) var(--bs-pagination-padding-x);
   font-size: var(--bs-pagination-font-size);
-  color: var(--bs-pagination-color);
+  color: #428BCA;
   background-color: var(--bs-pagination-bg);
   border: var(--bs-pagination-border-width) solid var(--bs-pagination-border-color);
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
@@ -5618,14 +5617,14 @@ fieldset:disabled .btn {
 
 .page-link:hover {
   z-index: 2;
-  color: var(--bs-pagination-hover-color);
+  color: #428BCA;
   background-color: var(--bs-pagination-hover-bg);
   border-color: var(--bs-pagination-hover-border-color);
 }
 
 .page-link:focus {
   z-index: 3;
-  color: var(--bs-pagination-focus-color);
+  color: #428BCA;
   background-color: var(--bs-pagination-focus-bg);
   outline: 0;
   box-shadow: var(--bs-pagination-focus-box-shadow);
@@ -5635,7 +5634,7 @@ fieldset:disabled .btn {
 .active>.page-link {
   z-index: 3;
   color: var(--bs-pagination-active-color);
-  background-color: var(--bs-pagination-active-bg);
+  background-color: #428BCA;
   border-color: var(--bs-pagination-active-border-color);
 }
 
@@ -5742,13 +5741,13 @@ fieldset:disabled .btn {
 }
 
 .alert-primary {
-  --bs-alert-color: #7a075f;
+  --bs-alert-color: #428BCA;
   --bs-alert-bg: #f5ceec;
   --bs-alert-border-color: #efb6e2;
 }
 
 .alert-primary .alert-link {
-  color: #62064c;
+  color: #428BCA;
 }
 
 .alert-secondary {
@@ -5862,7 +5861,7 @@ fieldset:disabled .btn {
   color: var(--bs-progress-bar-color);
   text-align: center;
   white-space: nowrap;
-  background-color: var(--bs-progress-bar-bg);
+  background-color: #428BCA;
   transition: var(--bs-progress-bar-transition);
 }
 
@@ -6174,20 +6173,20 @@ fieldset:disabled .btn {
 }
 
 .list-group-item-primary {
-  color: #7a075f;
+  color: #428BCA;
   background-color: #f5ceec;
 }
 
 .list-group-item-primary.list-group-item-action:hover,
 .list-group-item-primary.list-group-item-action:focus {
-  color: #7a075f;
+  color: #428BCA;
   background-color: #ddb9d4;
 }
 
 .list-group-item-primary.list-group-item-action.active {
   color: #fff;
-  background-color: #7a075f;
-  border-color: #7a075f;
+  background-color: #428BCA;
+  border-color: #428BCA;
 }
 
 .list-group-item-secondary {
@@ -6346,7 +6345,7 @@ fieldset:disabled .btn {
 
 .btn-close:focus {
   outline: 0;
-  box-shadow: 0 0 0 0.2rem rgba(203, 12, 159, 0.25);
+  box-shadow: 0 0 0 0.2rem #428BCA;
   opacity: 1;
 }
 
@@ -8055,7 +8054,7 @@ fieldset:disabled .btn {
 
 .link-primary:hover,
 .link-primary:focus {
-  color: #a20a7f !important;
+  color: #428BCA !important;
 }
 
 .link-secondary {
@@ -20164,7 +20163,7 @@ fieldset:disabled .btn {
 
 */
 .alert-primary {
-  background-image: linear-gradient(310deg, #7928CA 0%, #d6006c 100%);
+  background-image: linear-gradient(310deg, #2152ff 0%, #02c6f3 100%);
 }
 
 .alert-secondary {
@@ -21009,7 +21008,7 @@ fieldset:disabled .btn {
 }
 
 .card.card-background.card-background-mask-primary:after {
-  background-image: linear-gradient(310deg, #7928CA 0%, #FF0080 100%);
+    background-image: linear-gradient(310deg, #2152ff 0%, #02c6f3 100%);
   opacity: .85;
 }
 
@@ -21728,7 +21727,7 @@ label,
 }
 
 .bg-gradient-primary {
-  background-image: linear-gradient(310deg, #7928CA 0%, #FF0080 100%);
+    background-image: linear-gradient(310deg, #2152ff 0%, #02c6f3 100%);
 }
 
 .bg-gradient-secondary {
