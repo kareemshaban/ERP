@@ -184,7 +184,22 @@ return [
     'seller_buyer' =>'حيار البائع والمستلم',
 
     'shortcut_setting' => 'إعدادات الإحتصارات',
-    'header_print1' => 'طباعة صورة الترويسة العلوية'
+    'header_print1' => 'طباعة صورة الترويسة العلوية',
+    'user_groups' => 'مجموعة المستخدمين',
+    'last_name' => 'اللقب',
+    'gender' =>'النوع' ,
+    'gender1'=>'ذكر',
+    'gender2' => 'أنثي',
+    'status' => 'الحالة',
+    'status1' => 'نشط',
+    'status2' =>'معطل',
+    'conf_password' => 'تأكيد كلمة المرور',
+    'password' => 'كلمة المرور',
+    'reset_pass' => 'تغيير كلمة المرور',
+    'password_changes' => 'تم تغيير كلمة المرور',
+    'passwords_not_match' => 'كلمة المرور غير متطابقة',
+    'wrong_password' => 'كلمة المرور غير صحيحة',
+    'old_password' => 'كلمة السر القديمة',
 
 
 

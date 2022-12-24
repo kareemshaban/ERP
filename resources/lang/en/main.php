@@ -183,7 +183,25 @@ return [
     'seller_buyer' =>'Seller , Buyer Option',
 
     'shortcut_setting' => 'Shortcut Settings',
-    'header_print1' => 'Print Header Image'
+    'header_print1' => 'Print Header Image',
+    'user_groups' => 'User Group',
+
+    'last_name' => 'Last Name',
+    'gender' =>'Gender' ,
+    'gender1'=>'Male',
+    'gender2' => 'Female',
+    'status' => 'Status',
+    'status1' => 'Active',
+    'status2' =>'Disable',
+    'conf_password' => 'Confirm Password',
+    'password' => 'Password',
+    'reset_pass' =>'Change Password',
+
+    'password_changes' => 'Password has been updated successfully',
+    'passwords_not_match' => 'Password does not match',
+    'wrong_password' => 'Wrong Password',
+    'old_password' => 'Old Password'
+
 
 
 

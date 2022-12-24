@@ -95,7 +95,12 @@ Route::get('/users', [App\Http\Controllers\UserController::class, 'index'])->nam
 Route::post('storeUser', [App\Http\Controllers\UserController::class, 'store'])->name('storeUser');
 Route::get('/deleteUser/{id}', [App\Http\Controllers\UserController::class, 'destroy'])->name('deleteUser');
 Route::get('/getUser/{id}', [App\Http\Controllers\UserController::class, 'edit'])->name('getUser');
+Route::post('reset_password', [App\Http\Controllers\UserController::class, 'reset_password'])->name('reset_password');
 
+Route::get('/user_groups', [App\Http\Controllers\UserGroupController::class, 'index'])->name('user_groups');
+Route::post('storeUserGroup', [App\Http\Controllers\UserGroupController::class, 'store'])->name('storeUserGroup');
+Route::get('/deleteUserGroup/{id}', [App\Http\Controllers\UserGroupController::class, 'destroy'])->name('deleteUserGroup');
+Route::get('/getUserGroup/{id}', [App\Http\Controllers\UserGroupController::class, 'edit'])->name('getUserGroup');
 
 });
 

@@ -88,6 +88,8 @@
                 <ul class="dropdown-menu text-small subM" aria-labelledby="dropdown">
                     <li><a @if($subSlag == 11) class="dropdown-item active-drop" @else class="dropdown-item" @endif href="{{route('users')}}">{{__('main.users')}}</a></li>
                 <li><a @if($subSlag == 12) class="dropdown-item active-drop" @else class="dropdown-item" @endif href="{{route('cashiers')}}">{{__('main.cashiers')}}</a></li>
+                    <li><a @if($subSlag == 13) class="dropdown-item active-drop" @else class="dropdown-item" @endif href="{{route('user_groups')}}">{{__('main.user_groups')}}</a></li>
+
 
                 </ul>
             </li>

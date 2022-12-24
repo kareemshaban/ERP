@@ -25,7 +25,7 @@
 <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
     @include('flash-message')
     <!-- Navbar -->
-    @include('layouts.nav' , ['page_title' => __('main.cashiers') ])
+    @include('layouts.nav' , ['page_title' => __('main.users') ])
     <!-- End Navbar -->
     <div class="container-fluid py-4">
         <div class="row">
@@ -34,7 +34,7 @@
                     <div class="card-header pb-0">
                         <div class="row">
                             <div class="col-6 text-start">
-                                <h6>{{ __('main.cashiers')}}</h6>
+                                <h6>{{ __('main.users')}}</h6>
                             </div>
                             <div class="col-6 text-end">
                                 <button type="button" class="btn btn-labeled btn-primary " id="createButton">
@@ -49,29 +49,33 @@
                                 <thead>
                                 <tr>
                                     <th class="text-uppercase text-secondary text-md-center font-weight-bolder opacity-7">#</th>
-                                    <th class="text-uppercase text-secondary text-md-center font-weight-bolder opacity-7 ps-2">{{__('main.company')}}</th>
-                                    <th class="text-center text-uppercase text-secondary text-md-center font-weight-bolder opacity-7">{{__('main.name')}}</th>
-                                    <th class="text-center text-uppercase text-secondary text-md-center font-weight-bolder opacity-7">{{__('main.phone')}}</th>
+                                    <th class="text-uppercase text-secondary text-md-center font-weight-bolder opacity-7 ps-2">{{__('main.name')}}</th>
                                     <th class="text-center text-uppercase text-secondary text-md-center font-weight-bolder opacity-7">{{__('main.email')}}</th>
+                                    <th class="text-center text-uppercase text-secondary text-md-center font-weight-bolder opacity-7">{{__('main.phone')}}</th>
+                                    <th class="text-center text-uppercase text-secondary text-md-center font-weight-bolder opacity-7">{{__('main.user_groups')}}</th>
                                     <th class="text-end text-uppercase text-secondary text-md-center font-weight-bolder opacity-7">{{__('main.actions')}}</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($cashiers as $cashier)
+                                @foreach($users as $user)
 
                                 <tr>
-                                    <td class="text-center">{{$cashier -> id}}</td>
-                                    <td class="text-center">{{$cashier -> company}}</td>
-                                    <td class="text-center">{{$cashier -> name}}</td>
-                                    <td class="text-center">{{$cashier -> phone}}</td>
-                                    <td class="text-center">{{$cashier -> email}}</td>
+                                    <td class="text-center">{{$user -> id}}</td>
+                                    <td class="text-center">{{$user -> name}}   {{$user -> last_name}} </td>
+                                    <td class="text-center">{{$user -> email}}</td>
+                                    <td class="text-center">{{$user -> phone}}</td>
+                                    <td class="text-center">  {{$user -> groups ? $user -> groups -> name  : ''}}</td>
 
                                     <td class="text-center">
-                                        <button type="button" class="btn btn-labeled btn-secondary " value="{{$cashier -> id}}" id="editBtn">
+                                        <button type="button" class="btn btn-labeled btn-secondary " value="{{$user -> id}}" onclick="EditModal({{$user -> id}})">
                                             <span class="btn-label" style="margin-right: 10px;"><i class="fa fa-pen"></i></span>{{__('main.edit')}}</button>
 
-                                        <button type="button" class="btn btn-labeled btn-danger deleteBtn "  id="{{$cashier -> id}}">
+                                        <button type="button" class="btn btn-labeled btn-danger deleteBtn "  id="{{$user -> id}}">
                                             <span class="btn-label" style="margin-right: 10px;"><i class="fa fa-trash"></i></span>{{__('main.delete')}}</button>
+                                        <br>
+                                        <button type="button" class="btn btn-labeled btn-warning resetButton "  value="{{$user -> id}}">
+                                            <span class="btn-label" style="margin-right: 10px;"><i class="fa fa-redo"></i></span>{{__('main.reset_pass')}}</button>
+
                                     </td>
                                 </tr>
 
@@ -96,23 +100,23 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <label class="modelTitle"> {{ __('main.cashiers')}}</label>
+                <label class="modelTitle"> {{ __('main.users')}}</label>
                 <button type="button" class="close modal-close-btn"  data-bs-dismiss="modal"  aria-label="Close" >
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body" id="paymentBody">
-                <form   method="POST" action="{{ route('storeCashier') }}"
+                <form   method="POST" action="{{ route('storeUser') }}"
                         enctype="multipart/form-data" >
                     @csrf
 
                     <div class="row">
                         <div class="col-6">
                             <div class="form-group">
-                                <label>{{ __('main.company') }} <span style="color:red; font-size:20px; font-weight:bold;">*</span> </label>
-                                <input type="text"  id="company" name="company"
+                                <label>{{ __('main.name') }} <span style="color:red; font-size:20px; font-weight:bold;">*</span> </label>
+                                <input type="text"  id="name" name="name"
                                        class="form-control"
-                                       placeholder="{{ __('main.company') }}"  />
+                                       placeholder="{{ __('main.name') }}"  />
                                 <input type="text"  id="id" name="id"
                                        class="form-control"
                                        placeholder="{{ __('main.code') }}"  hidden=""/>
@@ -120,10 +124,10 @@
                         </div>
                         <div class="col-6 " >
                             <div class="form-group">
-                                <label>{{ __('main.name') }} <span style="color:red; font-size:20px; font-weight:bold;">*</span> </label>
-                                <input type="text"  id="name" name="name"
+                                <label>{{ __('main.last_name') }} <span style="color:red; font-size:20px; font-weight:bold;">*</span> </label>
+                                <input type="text"  id="last_name" name="last_name"
                                        class="form-control"
-                                       placeholder="{{ __('main.name') }}"  />
+                                       placeholder="{{ __('main.last_name') }}"  />
                             </div>
                         </div>
                     </div>
@@ -131,12 +135,25 @@
                     <div class="row">
                         <div class="col-6 " >
                             <div class="form-group">
-                                <label>{{ __('main.phone') }} <span style="color:red; font-size:20px; font-weight:bold;">*</span> </label>
-                                <input type="text"  id="phone" name="phone"
-                                       class="form-control"
-                                       placeholder="{{ __('main.phone') }}"  />
+                                <label>{{ __('main.gender') }} <span style="color:red; font-size:20px; font-weight:bold;">*</span> </label>
+                                <select class="form-select mr-sm-2"
+                                        name="gender" id="gender">
+                                    <option selected value ="">Choose...</option>
+                                    <option value="1"> {{__('main.gender1')}}</option>
+                                    <option value="2"> {{__('main.gender2')}}</option>
+                                </select>
                             </div>
                         </div>
+                        <div class="col-6 " >
+                            <div class="form-group">
+                                <label>{{ __('main.company') }} <span style="color:red; font-size:20px; font-weight:bold;">*</span> </label>
+                                <input type="text"  id="company" name="company"
+                                       class="form-control"
+                                       placeholder="{{ __('main.company') }}"  />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
                         <div class="col-6 " >
                             <div class="form-group">
                                 <label>{{ __('main.email') }} <span style="color:red; font-size:20px; font-weight:bold;">*</span> </label>
@@ -145,22 +162,12 @@
                                        placeholder="{{ __('main.email') }}"  />
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
                         <div class="col-6 " >
                             <div class="form-group">
-                                <label>{{ __('main.commercial_register') }} <span style="color:red; font-size:20px; font-weight:bold;">*</span> </label>
-                                <input type="text"  id="commercial_register" name="commercial_register"
+                                <label>{{ __('main.phone') }} <span style="color:red; font-size:20px; font-weight:bold;">*</span> </label>
+                                <input type="text"  id="phone" name="phone"
                                        class="form-control"
-                                       placeholder="{{ __('main.commercial_register') }}"  />
-                            </div>
-                        </div>
-                        <div class="col-6 " >
-                            <div class="form-group">
-                                <label>{{ __('main.tax_number') }} <span style="color:red; font-size:20px; font-weight:bold;">*</span> </label>
-                                <input type="text"  id="tax_number" name="tax_number"
-                                       class="form-control"
-                                       placeholder="{{ __('main.tax_number') }}"  />
+                                       placeholder="{{ __('main.phone') }}"  />
                             </div>
                         </div>
                     </div>
@@ -168,34 +175,112 @@
                     <div class="row">
                         <div class="col-6 " >
                             <div class="form-group">
-                                <label>{{ __('main.bill_holder1') }} <span style="color:red; font-size:20px; font-weight:bold;">*</span> </label>
-                                <input type="text"  id="bill_holder1" name="bill_holder1"
+                                <label>{{ __('main.password') }} <span style="color:red; font-size:20px; font-weight:bold;">*</span> </label>
+                                <input type="text"  id="password" name="password"
                                        class="form-control"
-                                       placeholder="{{ __('main.bill_holder1') }}"  />
+                                       placeholder="{{ __('main.password') }}"  />
                             </div>
                         </div>
                         <div class="col-6 " >
                             <div class="form-group">
-                                <label>{{ __('main.bill_holder2') }} <span style="color:red; font-size:20px; font-weight:bold;">*</span> </label>
-                                <input type="text"  id="bill_holder2" name="bill_holder2"
+                                <label>{{ __('main.conf_password') }} <span style="color:red; font-size:20px; font-weight:bold;">*</span> </label>
+                                <input type="text"  id="conf_password" name="conf_password"
                                        class="form-control"
-                                       placeholder="{{ __('main.bill_holder2') }}"  />
+                                       placeholder="{{ __('main.conf_password') }}"  />
                             </div>
                         </div>
                     </div>
 
                     <div class="row">
-                        <div class="col-12 " >
+                        <div class="col-6 " >
                             <div class="form-group">
-                                <label>{{ __('main.address') }} <span style="color:red; font-size:20px; font-weight:bold;">*</span> </label>
-                                <textarea type="text"  id="address" name="address" class="form-control" placeholder="{{ __('main.address') }}"></textarea>
+                                <label>{{ __('main.user_groups') }} <span style="color:red; font-size:20px; font-weight:bold;">*</span> </label>
+                                <select class="form-select mr-sm-2"
+                                        name="group" id="group">
+                                    <option selected value ="">Choose...</option>
+                                    @foreach($groups as $group)
+                                    <option value="{{$group -> id}}"> {{$group -> name}}</option>
+                                    @endforeach
+
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-6 " >
+                            <div class="form-group">
+                                <label>{{ __('main.status') }} <span style="color:red; font-size:20px; font-weight:bold;">*</span> </label>
+                                <select class="form-select mr-sm-2"
+                                        name="status" id="status">
+                                    <option selected value ="">Choose...</option>
+                                    <option value="1"> {{__('main.status1')}}</option>
+                                    <option value="2"> {{__('main.status2')}}</option>
+                                </select>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-6" style="display: block; margin: 20px auto; text-align: center;">
+                            <button type="submit" class="btn btn-labeled btn-primary"  >
+                                {{__('main.save_btn')}}</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="resetModal" tabindex="-1" role="dialog" aria-labelledby="resetModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <label class="modelTitle"> {{ __('main.reset_pass')}}</label>
+                <button type="button" class="close modal-close-btn"  data-bs-dismiss="modal"  aria-label="Close" >
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="paymentBody">
+                <form   method="POST" action="{{ route('reset_password') }}"
+                        enctype="multipart/form-data" >
+                    @csrf
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label>{{ __('main.old_password') }} <span style="color:red; font-size:20px; font-weight:bold;">*</span> </label>
+                                <input type="text"  id="original_password" name="original_password"
+                                       class="form-control"
+                                       placeholder="{{ __('main.old_password') }}"  />
+                                <input type="text"  id="id" name="id"
+                                       class="form-control"
+                                       placeholder="{{ __('main.code') }}"  hidden=""/>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-6 " >
+                            <div class="form-group">
+                                <label>{{ __('main.password') }} <span style="color:red; font-size:20px; font-weight:bold;">*</span> </label>
+                                <input type="text"  id="password" name="password"
+                                       class="form-control"
+                                       placeholder="{{ __('main.password') }}"  />
+                            </div>
+                        </div>
+                        <div class="col-6 " >
+                            <div class="form-group">
+                                <label>{{ __('main.conf_password') }} <span style="color:red; font-size:20px; font-weight:bold;">*</span> </label>
+                                <input type="text"  id="confirm_password" name="confirm_password"
+                                       class="form-control"
+                                       placeholder="{{ __('main.conf_password') }}"  />
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-6" style="display: block; margin: 20px auto; text-align: center;">
                             <button type="submit" class="btn btn-labeled btn-primary"  >
-                                {{__('main.save_btn')}}</button>
+                                {{__('main.reset_pass')}}</button>
                         </div>
                     </div>
                 </form>
@@ -248,17 +333,26 @@
                 // return the result
                 success: function(result) {
                     $('#createModal').modal("show");
-                    $(".modal-body #company").val( "" );
                     $(".modal-body #name").val( "" );
+                    $(".modal-body #last_name").val( "" );
+                    $(".modal-body #gender").val( "" );
+                    $(".modal-body #company").val( "" );
                     $(".modal-body #phone").val( "" );
-                    $(".modal-body #email").val( "" );
-                    $(".modal-body #address").val( "" );
                     $(".modal-body #id").val( 0 );
-                    $(".modal-body #commercial_register").val( "" );
-                    $(".modal-body #tax_number").val( "" );
-                    $(".modal-body #bill_holder1").val( "" );
-                    $(".modal-body #bill_holder2").val( "" );
+                    $(".modal-body #email").val( "" );
+                    $(".modal-body #password").val( "" );
+                    $(".modal-body #status").val( "" );
+                    $(".modal-body #group").val( "" );
+                    $(".modal-body #conf_password").val( "" );
 
+
+                    $(".modal-body #email").prop('readonly' , false);
+                    $(".modal-body #password").prop('readonly' , false);
+                    $(".modal-body #status").prop('readonly' , false);
+                    $(".modal-body #group").prop('readonly' , false);
+                    $(".modal-body #conf_password").prop('readonly' , false);
+                    $(".modal-body #password").prop('type' , 'text');
+                    $(".modal-body #conf_password").prop('type' , 'text');
                 },
                 complete: function() {
                     $('#loader').hide();
@@ -296,16 +390,43 @@
             })
         });
 
+        $(document).on('click', '.resetButton', function(event) {
+            id = event.currentTarget.value ;
+            console.log(id);
+            event.preventDefault();
+            let href = $(this).attr('data-attr');
+            $.ajax({
+                url: href,
+                beforeSend: function() {
+                    $('#loader').show();
+                },
+                // return the result
+                success: function(result) {
+                    $('#resetModal').modal("show");
+
+                    $(".modal-body #original_password").val( "" );
+                    $(".modal-body #password").val( "" );
+                    $(".modal-body #confirm_password").val( "" );
+                    $(".modal-body #id").val( id );
+                },
+                complete: function() {
+                    $('#loader').hide();
+                },
+                error: function(jqXHR, testStatus, error) {
+                    console.log(error);
+                    alert("Page " + href + " cannot open. Error:" + error);
+                    $('#loader').hide();
+                },
+                timeout: 8000
+            })
+        });
+
         $(document).on('click' , '.cancel-modal' , function (event) {
-            $('#deleteModal').modal("hide");
+            $('#resetModal').modal("hide");
             id = 0 ;
         });
 
-        $(document).on('click', '#editBtn', function(event) {
-            const val = document.getElementById('editBtn').value ;
 
-            EditModal(val);
-        });
 
     });
     function confirmDelete(){
@@ -317,7 +438,7 @@
         console.log(id);
         $.ajax({
             type:'get',
-            url:'/getCashier' + '/' + id,
+            url:'/getUser' + '/' + id,
             dataType: 'json',
 
             success:function(response){
@@ -332,16 +453,25 @@
                         // return the result
                         success: function(result) {
                             $('#createModal').modal("show");
-                            $(".modal-body #company").val( response.company );
-                            $(".modal-body #name").val( response.name );
-                            $(".modal-body #phone").val(  response.phone );
-                            $(".modal-body #email").val(  response.email );
-                            $(".modal-body #commercial_register").val(  response.commercial_register );
-                            $(".modal-body #tax_number").val(  response.tax_number );
-                            $(".modal-body #bill_holder1").val(  response.bill_holder1 );
-                            $(".modal-body #bill_holder2").val(  response.bill_holder2 );
-                            $(".modal-body #address").val(  response.address );
-                            $(".modal-body #id").val(  response.id );
+                            $(".modal-body #name").val( response.name  );
+                            $(".modal-body #last_name").val( response.last_name  );
+                            $(".modal-body #gender").val( response.gender  );
+                            $(".modal-body #company").val( response.company  );
+                            $(".modal-body #phone").val( response.phone  );
+                            $(".modal-body #id").val( response.id  );
+                            $(".modal-body #email").val( response.email  );
+                            $(".modal-body #password").val( response.password  );
+                            $(".modal-body #status").val( response.status  );
+                            $(".modal-body #group").val( response.group  );
+                            $(".modal-body #conf_password").val( response.password  );
+
+                            $(".modal-body #email").prop('readonly' , true);
+                            $(".modal-body #password").prop('readonly' , true);
+                            $(".modal-body #status").prop('readonly' , true);
+                            $(".modal-body #group").prop('readonly' , true);
+                            $(".modal-body #conf_password").prop('readonly' , true);
+                            $(".modal-body #password").prop('type' , 'password');
+                            $(".modal-body #conf_password").prop('type' , 'password');
                         },
                         complete: function() {
                             $('#loader').hide();
