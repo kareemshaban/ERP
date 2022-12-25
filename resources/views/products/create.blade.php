@@ -11,15 +11,15 @@
     </title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
-    <link href="../assets/css/nucleo-icons.css" rel="stylesheet" />
-    <link href="../assets/css/nucleo-svg.css" rel="stylesheet" />
+    <link href="../../assets/css/nucleo-icons.css" rel="stylesheet" />
+    <link href="../../assets/css/nucleo-svg.css" rel="stylesheet" />
     <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
-    <link href="../assets/css/nucleo-svg.css" rel="stylesheet" />
-    <link id="pagestyle" href="../assets/css/soft-ui-dashboard.css?v=1.0.7" rel="stylesheet" />
+    <link href="../../assets/css/nucleo-svg.css" rel="stylesheet" />
+    <link id="pagestyle" href="../../assets/css/soft-ui-dashboard.css?v=1.0.7" rel="stylesheet" />
 </head>
 
 <body @if(Config::get('app.locale') == 'en') class="g-sidenav-show  bg-gray-100" @else  class="g-sidenav-show rtl bg-gray-100" @endif>
-@include('layouts.side' , ['slag' => 2 , 'subSlag' => 2])
+@include('layouts.side' , ['slag' => 5 , 'subSlag' => 2])
 
 
 <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
@@ -27,33 +27,25 @@
     <!-- Navbar -->
     @include('layouts.nav' , ['page_title' => __('main.products_list'). ' / '. __('main.add_product')])
     <!-- End Navbar -->
-    <div class="container-fluid py-4">
-        <div class="row">
-            <div class="col-12">
-                <div class="card mb-4">
-                    <div class="card-header pb-0">
-                        <div class="row">
-                            <div class="col-6 text-start">
-                                <h6>{{ __('main.add_product')}}</h6>
-                            </div>
-                        </div>
+        <div class="modal-body" id="paymentBody">
+            <form   method="POST" action="{{ route('storeProduct') }}">
+                @csrf
 
-                    </div>
-                    <div class="card-body px-0 pt-0 pb-2">
+                <div class="row">
+                    <div class="col-md-6 col-sm-6">
                         <div class="row">
                             <div class="col-12">
                                 <div class="form-group">
-                                    <label>{{ __('main.code') }} <span style="color:red; font-size:20px; font-weight:bold;">*</span> </label>
-                                    <input type="text"  id="code" name="code"
-                                           class="form-control"
-                                           placeholder="{{ __('main.code') }}"  />
-
-                                    <input type="text"  id="id" name="id"
-                                           class="form-control"
-                                           placeholder="{{ __('main.code') }}"  hidden=""/>
+                                    <label>{{ __('main.Product_Type') }} <span style="color:red; font-size:20px; font-weight:bold;">*</span> </label>
+                                    <select class="form-control" id="type" name="type">
+                                        <option value="1">{{__('main.General')}}</option>
+                                        <option value="2">{{__('main.Collection')}}</option>
+                                        <option value="3">{{__('main.Service')}}</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
+
                         <div class="row">
                             <div class="col-12 " >
                                 <div class="form-group">
@@ -64,13 +56,198 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label>{{ __('main.code') }} <span style="color:red; font-size:20px; font-weight:bold;">*</span> </label>
+                                    <input type="text"  id="code" name="code"
+                                           class="form-control"
+                                           placeholder="{{ __('main.code') }}"  />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label>{{ __('main.Slug') }} <span style="color:red; font-size:20px; font-weight:bold;">*</span> </label>
+                                    <input type="text"  id="slug" name="slug"
+                                           class="form-control"
+                                           placeholder="{{ __('main.Slug') }}"  />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label>{{ __('main.Brand') }} <span style="color:red; font-size:20px; font-weight:bold;">*</span> </label>
+                                    <select class="form-control" name="brand">
+                                        @foreach($brands as $brand)
+                                            <option value="{{$brand->id}}">{{$brand->name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label>{{ __('main.Cost') }} <span style="color:red; font-size:20px; font-weight:bold;">*</span> </label>
+                                    <input type="number"  id="cost" name="cost"
+                                           class="form-control" step="0.01"
+                                           placeholder="{{ __('main.Cost') }}"  />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label>{{ __('main.Sale Price') }} <span style="color:red; font-size:20px; font-weight:bold;">*</span> </label>
+                                    <input type="number"  id="price" name="price"
+                                           class="form-control" step="0.01"
+                                           placeholder="{{ __('main.Sale Price') }}"  />
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label>{{ __('main.Max Order') }} <span style="color:red; font-size:20px; font-weight:bold;">*</span> </label>
+                                    <input type="number"  id="max_order" name="max_order"
+                                           class="form-control" step="0.01"
+                                           placeholder="{{ __('main.Max Order') }}"  />
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-6 col-sm-6">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label>{{ __('main.Product Tax') }} <span style="color:red; font-size:20px; font-weight:bold;">*</span> </label>
+                                    <select class="form-control" name="tax_rate">
+                                        @foreach($taxRages as $brand)
+                                            <option value="{{$brand->id}}">{{$brand->name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label>{{ __('main.Product Tax Type') }} <span style="color:red; font-size:20px; font-weight:bold;">*</span> </label>
+                                    <select class="form-control" name="tax_method">
+                                        @foreach($taxTypes as $brand)
+                                            <option value="{{$brand['id']}}">{{$brand['name']}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label>{{ __('main.categories') }} <span style="color:red; font-size:20px; font-weight:bold;">*</span> </label>
+                                    <select class="form-control" name="category_id">
+                                        @foreach($categories as $brand)
+                                            <option value="{{$brand->id}}">{{$brand->name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label>{{ __('main.units') }} <span style="color:red; font-size:20px; font-weight:bold;">*</span> </label>
+                                    <select class="form-control" name="unit">
+                                        @foreach($units as $brand)
+                                            <option value="{{$brand->id}}">{{$brand->name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label>{{ __('main.Lista') }} <span style="color:red; font-size:20px; font-weight:bold;">*</span> </label>
+                                    <input type="number"  id="lista" name="lista"
+                                           class="form-control" step="0.01"
+                                           placeholder="{{ __('main.Lista') }}"  />
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label>{{ __('main.Track Quantity') }} <span style="color:red; font-size:20px; font-weight:bold;">*</span> </label>
+                                    <select id="track_quantity" name="track_quantity"
+                                           class="form-control" >
+                                        <option value="1">{{__('main.Enable')}}</option>
+                                        <option value="0">{{__('main.Disable')}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label>{{ __('main.Alert Quantity') }} <span style="color:red; font-size:20px; font-weight:bold;">*</span> </label>
+                                    <input type="number"  id="alert_quantity" name="alert_quantity"
+                                           class="form-control" step="0.01"
+                                           placeholder="{{ __('main.Alert Quantity') }}"  />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <input type="hidden" value="0" name="featured">
+                                    <input type="hidden" value="0" name="city_tax">
+                                    <input type="hidden" value="0" name="quantity">
+                                    <label>{{ __('main.State') }} <span style="color:red; font-size:20px; font-weight:bold;">*</span> </label>
+                                    <select id="active" name="active"
+                                            class="form-control" >
+                                        <option value="1">{{__('main.Enable')}}</option>
+                                        <option value="0">{{__('main.Disable')}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
-            </div>
-        </div>
 
-        @include('layouts.footer')
-    </div>
+
+
+                <div class="row">
+                    <div class="col-6" style="display: block; margin: 20px auto; text-align: center;">
+                        <button type="submit" class="btn btn-labeled btn-primary"  >
+                            {{__('main.save_btn')}}</button>
+                    </div>
+                </div>
+            </form>
+        </div>
 </main>
     @include('layouts.fixed')
 <!--   Core JS Files   -->

@@ -14,6 +14,7 @@ use App\Http\Requests\UpdateProductRequest;
 use App\Models\TaxRates;
 use App\Models\Unit;
 use App\Models\Warehouse;
+use App\Models\WarehouseProducts;
 
 class SystemController extends Controller
 {
@@ -89,8 +90,13 @@ class SystemController extends Controller
 
     public function getAllTaxTypes(){
         return [
-            "1" => "Included",
-            "2" => "Excluded"
+            [
+                'id' => '1',
+                'name' => 'Included'
+            ],[
+                'id'=> '2',
+                'name' =>'Excluded'
+            ]
         ];
     }
 
@@ -118,5 +124,61 @@ class SystemController extends Controller
         return Warehouse::find($id);
     }
 
+
+    public function syncQnt($items=null,$oldItems=null,$isMinus = true){
+
+        $multy = $isMinus ? -1:1;
+
+        if($items){
+            foreach ($items as $item){
+                $item->quantity = $item->quantity * $multy;
+
+                $productId = $item->product_id;
+                $warehouseId = $item->warehouse_id;
+
+                $product = Product::find($productId);
+                $product->update([
+                    'quantity' => $product->quantity + $item->quantity
+                ]);
+
+                $warehouseProduct = WarehouseProducts::query()
+                    ->where('product_id',$productId)
+                    ->where('warehouse_id',$warehouseId)
+                    ->get()->first();
+
+
+                $warehouseProduct->update([
+                   'quantity' => $warehouseProduct->quantity + $item->quantity
+                ]);
+
+            }
+        }
+
+        if($oldItems){
+            foreach ($oldItems as $item){
+                $item->quantity = $item->quantity * $multy;
+
+                $productId = $item->product_id;
+                $warehouseId = $item->warehouse_id;
+
+                $product = Product::find($productId);
+                $product->update([
+                    'quantity' => $product->quantity - $item->quantity
+                ]);
+
+                $warehouseProduct = WarehouseProducts::query()
+                    ->where('product_id',$productId)
+                    ->where('warehouse_id',$warehouseId)
+                    ->get()->first();
+
+
+                $warehouseProduct->update([
+                    'quantity' => $warehouseProduct->quantity - $item->quantity
+                ]);
+
+            }
+        }
+
+    }
 
 }

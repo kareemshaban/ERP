@@ -19,7 +19,7 @@
 </head>
 
 <body @if(Config::get('app.locale') == 'en') class="g-sidenav-show  bg-gray-100" @else  class="g-sidenav-show rtl bg-gray-100" @endif>
-@include('layouts.side' , ['slag' => 2 , 'subSlag' => 2])
+@include('layouts.side' , ['slag' => 5 , 'subSlag' => 1])
 
 
 <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
@@ -65,21 +65,21 @@
                                 <tbody>
                                 @foreach($products as $unit)
                                 <tr>
-                                    <td class="text-center">{{$unit['id']}}</td>
-                                    <td class="text-center">{{$unit['code']}}</td>
-                                    <td class="text-center">{{$unit['name']}}</td>
-                                    <td class="text-center">{{$unit['brand_name']}}</td>
-                                    <td class="text-center">{{$unit['categoryName']}}</td>
-                                    <td class="text-center">{{$unit['price']}}</td>
-                                    <td class="text-center">{{$unit['cost']}}</td>
-                                    <td class="text-center">{{$unit['quantity']}}</td>
-                                    <td class="text-center">{{$unit['unit_name']}}</td>
-                                    <td class="text-center">{{$unit['alert_quantity']}}</td>
+                                    <td class="text-center">{{$unit->id}}</td>
+                                    <td class="text-center">{{$unit->code}}</td>
+                                    <td class="text-center">{{$unit->name}}</td>
+                                    <td class="text-center">{{$unit->brandName}}</td>
+                                    <td class="text-center">{{$unit->categoryName}}</td>
+                                    <td class="text-center">{{$unit->price}}</td>
+                                    <td class="text-center">{{$unit->cost}}</td>
+                                    <td class="text-center">{{$unit->quantity}}</td>
+                                    <td class="text-center">{{$unit->unitName}}</td>
+                                    <td class="text-center">{{$unit->alert_quantity}}</td>
                                     <td class="text-center">
-                                        <button type="button" class="btn btn-labeled btn-secondary " onclick="EditModal({{$unit['id']}})">
+                                        <button type="button" class="btn btn-labeled btn-secondary " onclick="EditModal({{$unit->id}})">
                                             <span class="btn-label" style="margin-right: 10px;"><i class="fa fa-pen"></i></span>{{__('main.edit')}}</button>
 
-                                        <button type="button" class="btn btn-labeled btn-danger deleteBtn "  id="{{$unit['id']}}">
+                                        <button type="button" class="btn btn-labeled btn-danger deleteBtn "  id="{{$unit->id}}">
                                             <span class="btn-label" style="margin-right: 10px;"><i class="fa fa-trash"></i></span>{{__('main.delete')}}</button>
                                     </td>
                                 </tr>

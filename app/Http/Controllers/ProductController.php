@@ -38,11 +38,12 @@ class ProductController extends Controller
         $systemController = new SystemController();
 
         $brands = $systemController->getAllBrands();
+        $units = $systemController->getAllUnits();
         $categories = $systemController->getAllMainCategories();
         $taxRages = $systemController->getAllTaxRates();
         $taxTypes = $systemController->getAllTaxTypes();
 
-        return view('products.create',compact('brands','categories','taxRages','taxTypes'));
+        return view('products.create',compact('brands','categories','taxRages','taxTypes','units'));
     }
 
     /**
@@ -56,13 +57,22 @@ class ProductController extends Controller
         $product = Product::create($request->all());
 
         $unitsTable = $request->product_units;
-        foreach ($unitsTable as $row){
+        if($unitsTable){
+            foreach ($unitsTable as $row){
+                ProductUnit::create([
+                    'product_id' => $product->id,
+                    'unit_id' => $row['unit'],
+                    'price' => $row['price']
+                ]);
+            }
+        }else{
             ProductUnit::create([
-               'product_id' => $product->id,
-               'unit_id' => $row['unit'],
-               'price' => $row['price']
+                'product_id' => $product->id,
+                'unit_id' => $product->unit,
+                'price' => $product->price
             ]);
         }
+
 
         $systemController = new SystemController();
         $warehouses = $systemController->getAllWarehouses();
