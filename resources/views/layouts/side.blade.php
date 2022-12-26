@@ -167,7 +167,7 @@
                 </ul>
             </li>
             <li class="nav-item">
-                <a @if($slag == 7) class="nav-link  active" @else class="nav-link" @endif href="{{route('products')}}" @if(Config::get('app.locale') == 'ar') style="direction: rtl" @endif>
+                <a @if($slag == 7) class="nav-link  active" @else class="nav-link" @endif  href="javascript:;" class="nav-link dropdown-toggle  text-truncate" id="dropdown" data-bs-toggle="dropdown" aria-expanded="false" @if(Config::get('app.locale') == 'ar') style="direction: rtl" @endif>
                     <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
                         <svg width="12px" height="12px" viewBox="0 0 46 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                             <title>customer-support</title>
@@ -187,10 +187,12 @@
                     <span class="nav-link-text ms-1">{{__('main.products_list')}}</span>
                 </a >
 
-
                 <ul class="dropdown-menu text-small subM" aria-labelledby="dropdown">
-                    <li><a @if($subSlag == 2) class="dropdown-item active-drop" @else class="dropdown-item" @endif href="{{route('createProduct')}}">{{__('main.Add Product')}}</a></li>
+                    <li><a @if($subSlag == 14) class="dropdown-item active-drop" @else class="dropdown-item" @endif href="{{route('products')}}">{{__('main.products_list')}}</a></li>
+                    <li><a @if($subSlag == 15) class="dropdown-item active-drop" @else class="dropdown-item" @endif href="{{route('createProduct')}}">{{__('main.add_product')}}</a></li>
+
                 </ul>
+
             </li>
         </ul>
     </div>

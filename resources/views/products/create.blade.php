@@ -19,7 +19,7 @@
 </head>
 
 <body @if(Config::get('app.locale') == 'en') class="g-sidenav-show  bg-gray-100" @else  class="g-sidenav-show rtl bg-gray-100" @endif>
-@include('layouts.side' , ['slag' => 7 , 'subSlag' => 2])
+@include('layouts.side' , ['slag' => 7 , 'subSlag' => 15])
 
 
 <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
@@ -31,7 +31,7 @@
             <form   method="POST" action="{{ route('storeProduct') }}">
                 @csrf
 
-                <div class="row">
+                <div class="row" style="padding: 20px">
                     <div class="col-md-6 col-sm-6">
                         <div class="row">
                             <div class="col-12">
@@ -259,10 +259,10 @@
 </script>
 
 
-<script src="../assets/js/core/popper.min.js"></script>
-<script src="../assets/js/core/bootstrap.min.js"></script>
-<script src="../assets/js/plugins/perfect-scrollbar.min.js"></script>
-<script src="../assets/js/plugins/smooth-scrollbar.min.js"></script>
+<script src="../../assets/js/core/popper.min.js"></script>
+<script src="../../assets/js/core/bootstrap.min.js"></script>
+<script src="../../assets/js/plugins/perfect-scrollbar.min.js"></script>
+<script src="../../assets/js/plugins/smooth-scrollbar.min.js"></script>
 <script>
     var win = navigator.platform.indexOf('Win') > -1;
     if (win && document.querySelector('#sidenav-scrollbar')) {
@@ -275,7 +275,7 @@
 <!-- Github buttons -->
 <script async defer src="https://buttons.github.io/buttons.js"></script>
 <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
-<script src="../assets/js/soft-ui-dashboard.min.js?v=1.0.7"></script>
+<script src="../../assets/js/soft-ui-dashboard.min.js?v=1.0.7"></script>
 </body>
 
 </html>
