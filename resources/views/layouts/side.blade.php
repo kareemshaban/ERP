@@ -190,7 +190,8 @@
                 <ul class="dropdown-menu text-small subM" aria-labelledby="dropdown">
                     <li><a @if($subSlag == 14) class="dropdown-item active-drop" @else class="dropdown-item" @endif href="{{route('products')}}">{{__('main.products_list')}}</a></li>
                     <li><a @if($subSlag == 15) class="dropdown-item active-drop" @else class="dropdown-item" @endif href="{{route('createProduct')}}">{{__('main.add_product')}}</a></li>
-
+                    <li><a @if($subSlag == 16) class="dropdown-item active-drop" @else class="dropdown-item" @endif href="{{route('update_qnt')}}">{{__('main.update_qnt')}}</a></li>
+                    <li><a @if($subSlag == 17) class="dropdown-item active-drop" @else class="dropdown-item" @endif href="{{route('add_update_qnt')}}">{{__('main.add_update_qnt')}}</a></li>
                 </ul>
 
             </li>

@@ -102,14 +102,22 @@ Route::get('/deleteUserGroup/{id}', [App\Http\Controllers\UserGroupController::c
 Route::get('/getUserGroup/{id}', [App\Http\Controllers\UserGroupController::class, 'edit'])->name('getUserGroup');
 
 
+Route::get('/products', [App\Http\Controllers\ProductController::class, 'index'])->name('products');
+Route::get('/products/create', [App\Http\Controllers\ProductController::class, 'create'])->name('createProduct');
+Route::post('products/create', [App\Http\Controllers\ProductController::class, 'store'])->name('storeProduct');
+Route::get('/products/edit/{id}', [App\Http\Controllers\ProductController::class, 'edit'])->name('editProduct');
+Route::post('/products/update/{id}', [App\Http\Controllers\ProductController::class, 'update'])->name('updateProduct');
+Route::get('/products/delete/{id}', [App\Http\Controllers\ProductController::class, 'destroy'])->name('deleteProduct');
+Route::get('/getProduct/{code}', [App\Http\Controllers\ProductController::class, 'getProduct'])->name('getProduct');
 
-    Route::get('/products', [App\Http\Controllers\ProductController::class, 'index'])->name('products');
-    Route::get('/products/create', [App\Http\Controllers\ProductController::class, 'create'])->name('createProduct');
-    Route::post('products/create', [App\Http\Controllers\ProductController::class, 'store'])->name('storeProduct');
-    Route::get('/products/edit/{id}', [App\Http\Controllers\ProductController::class, 'edit'])->name('editProduct');
-    Route::post('/products/update/{id}', [App\Http\Controllers\ProductController::class, 'update'])->name('updateProduct');
-    Route::get('/products/delete/{id}', [App\Http\Controllers\ProductController::class, 'destroy'])->name('deleteProduct');
 
+Route::get('/update_qnt', [App\Http\Controllers\UpdateQuntityController::class, 'index'])->name('update_qnt');
+Route::get('/add_update_qnt', [App\Http\Controllers\UpdateQuntityController::class, 'create'])->name('add_update_qnt');
+Route::post('/store_update_qnt', [App\Http\Controllers\UpdateQuntityController::class, 'store'])->name('store_update_qnt');
+Route::get('/deleteUpdate_qnt/{id}', [App\Http\Controllers\UpdateQuntityController::class, 'destroy'])->name('deleteUpdate_qnt');
+Route::get('/edit_Update_qnt/{id}', [App\Http\Controllers\UpdateQuntityController::class, 'edit'])->name('edit_Update_qnt');
+Route::post('/update_update_qnt/{id}', [App\Http\Controllers\UpdateQuntityController::class, 'update'])->name('update_update_qnt');
+Route::get('/getUpdateQntBillNo', [App\Http\Controllers\UpdateQuntityController::class, 'getUpdateQntBillNo'])->name('getUpdateQntBillNo');
 
 
 });

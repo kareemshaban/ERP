@@ -132,4 +132,10 @@ class ProductController extends Controller
     {
         //
     }
+    public function getProduct($code)
+    {
+        $product = Product::where('code' , '=' , $code) -> get();
+        echo json_encode ($product);
+        exit;
+    }
 }

@@ -222,7 +222,23 @@ return [
     'Track_Quantity' => 'Track Quantity',
     'Sale_Price' => 'Sale Price',
     'Alert_Quantity' => 'Alert Quantity',
-     'Max_Order' => 'Max Order '
+     'Max_Order' => 'Max Order ',
+    'update_qnt' => 'Update Quantity List',
+    'add_update_qnt' => 'Update Quantity',
+    'bill_date' => 'Process Date',
+    'bill_number' => 'Process Number',
+    'warehouse' => 'Warehouse',
+    'user_enter' => 'Date Entry',
+    'notes' => 'Notes',
+    'add_item_hint' => 'Please Add Item To System List',
+    'notfound' => 'Sorry, this product is not registered in your system',
+    'ok_btn' => 'Ok, I see',
+    'items' => 'Items',
+    'item_name_code' => 'Item Name (code)',
+    'type' => 'Type',
+    'add' => 'Add',
+    'sub' => 'Sub',
+    'nodetails' => 'Sorry This Process Can not be completed without products'
 
 
 

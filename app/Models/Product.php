@@ -29,6 +29,7 @@ class Product extends Model
         'featured',
         'active',
         'city_tax',
-        'max_order'
+        'max_order',
+        'warehouse_id'
     ];
 }
