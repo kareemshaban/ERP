@@ -207,6 +207,23 @@ return [
     'unit' =>'الوحدة',
     'alert_quantity' => 'تنبيهات بكميات المخزون',
     'main_category' => 'الفئة الرئيسية',
-    'brand' => 'الماركة'
+    'brand' => 'الماركة',
+    'add_product' => 'إضافة صنف',
+    'Product_Type' => 'نوع الصنف',
+     'General' => 'عام',
+    'Collection'=>'صنف مجمع' ,
+    'Service' => 'خدمة',
+    'Product_Tax' => 'ضريبة الصنف',
+    'Product_Tax_Type' => 'نوع ضريبة الصنف',
+    'Slug' => 'Slug ',
+    'Cost' => 'التكلفة',
+    'Lista' => 'مبلغ اللسته',
+    'Track_Quantity' => 'تتبع الكميات',
+    'Sale_Price' => 'سعر البيع',
+    'Alert_Quantity' => 'تنبيهات بكمية المخزون',
+    'Max_Order' => 'أقصي كمية طلب'
+
+
+
 
 ];

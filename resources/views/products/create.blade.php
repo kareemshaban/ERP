@@ -19,7 +19,7 @@
 </head>
 
 <body @if(Config::get('app.locale') == 'en') class="g-sidenav-show  bg-gray-100" @else  class="g-sidenav-show rtl bg-gray-100" @endif>
-@include('layouts.side' , ['slag' => 5 , 'subSlag' => 2])
+@include('layouts.side' , ['slag' => 7 , 'subSlag' => 2])
 
 
 <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
@@ -82,7 +82,7 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="form-group">
-                                    <label>{{ __('main.Brand') }} <span style="color:red; font-size:20px; font-weight:bold;">*</span> </label>
+                                    <label>{{ __('main.brand') }} <span style="color:red; font-size:20px; font-weight:bold;">*</span> </label>
                                     <select class="form-control" name="brand">
                                         @foreach($brands as $brand)
                                             <option value="{{$brand->id}}">{{$brand->name}}</option>
@@ -106,10 +106,10 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="form-group">
-                                    <label>{{ __('main.Sale Price') }} <span style="color:red; font-size:20px; font-weight:bold;">*</span> </label>
+                                    <label>{{ __('main.Sale_Price') }} <span style="color:red; font-size:20px; font-weight:bold;">*</span> </label>
                                     <input type="number"  id="price" name="price"
                                            class="form-control" step="0.01"
-                                           placeholder="{{ __('main.Sale Price') }}"  />
+                                           placeholder="{{ __('main.Sale_Price') }}"  />
                                 </div>
                             </div>
                         </div>
@@ -120,10 +120,10 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="form-group">
-                                    <label>{{ __('main.Max Order') }} <span style="color:red; font-size:20px; font-weight:bold;">*</span> </label>
+                                    <label>{{ __('main.Max_Order') }} <span style="color:red; font-size:20px; font-weight:bold;">*</span> </label>
                                     <input type="number"  id="max_order" name="max_order"
                                            class="form-control" step="0.01"
-                                           placeholder="{{ __('main.Max Order') }}"  />
+                                           placeholder="{{ __('main.Max_Order') }}"  />
                                 </div>
                             </div>
                         </div>
@@ -134,7 +134,7 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="form-group">
-                                    <label>{{ __('main.Product Tax') }} <span style="color:red; font-size:20px; font-weight:bold;">*</span> </label>
+                                    <label>{{ __('main.Product_Tax') }} <span style="color:red; font-size:20px; font-weight:bold;">*</span> </label>
                                     <select class="form-control" name="tax_rate">
                                         @foreach($taxRages as $brand)
                                             <option value="{{$brand->id}}">{{$brand->name}}</option>
@@ -147,7 +147,7 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="form-group">
-                                    <label>{{ __('main.Product Tax Type') }} <span style="color:red; font-size:20px; font-weight:bold;">*</span> </label>
+                                    <label>{{ __('main.Product_Tax_Type') }} <span style="color:red; font-size:20px; font-weight:bold;">*</span> </label>
                                     <select class="form-control" name="tax_method">
                                         @foreach($taxTypes as $brand)
                                             <option value="{{$brand['id']}}">{{$brand['name']}}</option>
@@ -197,11 +197,11 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="form-group">
-                                    <label>{{ __('main.Track Quantity') }} <span style="color:red; font-size:20px; font-weight:bold;">*</span> </label>
+                                    <label>{{ __('main.Track_Quantity') }} <span style="color:red; font-size:20px; font-weight:bold;">*</span> </label>
                                     <select id="track_quantity" name="track_quantity"
                                            class="form-control" >
-                                        <option value="1">{{__('main.Enable')}}</option>
-                                        <option value="0">{{__('main.Disable')}}</option>
+                                        <option value="1">{{__('main.status1')}}</option>
+                                        <option value="0">{{__('main.status2')}}</option>
                                     </select>
                                 </div>
                             </div>
@@ -211,10 +211,10 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="form-group">
-                                    <label>{{ __('main.Alert Quantity') }} <span style="color:red; font-size:20px; font-weight:bold;">*</span> </label>
+                                    <label>{{ __('main.Alert_Quantity') }} <span style="color:red; font-size:20px; font-weight:bold;">*</span> </label>
                                     <input type="number"  id="alert_quantity" name="alert_quantity"
                                            class="form-control" step="0.01"
-                                           placeholder="{{ __('main.Alert Quantity') }}"  />
+                                           placeholder="{{ __('main.Alert_Quantity') }}"  />
                                 </div>
                             </div>
                         </div>
@@ -225,11 +225,11 @@
                                     <input type="hidden" value="0" name="featured">
                                     <input type="hidden" value="0" name="city_tax">
                                     <input type="hidden" value="0" name="quantity">
-                                    <label>{{ __('main.State') }} <span style="color:red; font-size:20px; font-weight:bold;">*</span> </label>
+                                    <label>{{ __('main.status') }} <span style="color:red; font-size:20px; font-weight:bold;">*</span> </label>
                                     <select id="active" name="active"
                                             class="form-control" >
-                                        <option value="1">{{__('main.Enable')}}</option>
-                                        <option value="0">{{__('main.Disable')}}</option>
+                                        <option value="1">{{__('main.status1')}}</option>
+                                        <option value="0">{{__('main.status2')}}</option>
                                     </select>
                                 </div>
                             </div>

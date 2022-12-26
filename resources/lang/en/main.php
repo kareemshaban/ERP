@@ -208,7 +208,21 @@ return [
     'unit' =>'Unit',
     'alert_quantity' => 'Alert Quantity',
     'main_category' => 'Main Category',
-    'brand' => 'Brand'
+    'brand' => 'Brand',
+    'add_product' =>'Add Product',
+    'Product_Type' => 'Product Type',
+    'General' => 'General',
+    'Collection'=>'Collection' ,
+    'Service' => 'Service',
+    'Product_Tax' => 'Product Tax',
+     'Product_Tax_Type' => 'Product Tax Type',
+    'Slug' => 'Slug',
+    'Lista' => 'Lista Amount',
+    'Cost' => 'Cost',
+    'Track_Quantity' => 'Track Quantity',
+    'Sale_Price' => 'Sale Price',
+    'Alert_Quantity' => 'Alert Quantity',
+     'Max_Order' => 'Max Order '
 
 
 
