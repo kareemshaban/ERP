@@ -68,11 +68,16 @@
                                         <td class="text-center">{{$process->user -> name}}  {{$process->user -> last_name}}</td>
                                         <td class="text-center">{{$process->notes}}</td>
                                         <td class="text-center">
-                                            <button type="button" class="btn btn-labeled btn-secondary " >
-                                                <span class="btn-label" style="margin-right: 10px;"><i class="fa fa-pen"></i></span>{{__('main.edit')}}</button>
+                                            <a href="{{route('edit_Update_qnt' , $process -> id)}}">
+                                                <button type="button" class="btn btn-labeled btn-secondary " >
+                                                    <span class="btn-label" style="margin-right: 10px;"><i class="fa fa-pen"></i></span>{{__('main.edit')}}</button>
+                                            </a>
 
-                                            <button type="button" class="btn btn-labeled btn-danger deleteBtn "  >
-                                                <span class="btn-label" style="margin-right: 10px;"><i class="fa fa-trash"></i></span>{{__('main.delete')}}</button>
+
+                                               <button type="button" class="btn btn-labeled btn-danger deleteBtn " value="{{$process -> id}}">
+                                                   <span class="btn-label" style="margin-right: 10px;"><i class="fa fa-trash"></i></span>{{__('main.delete')}}</button>
+
+
                                         </td>
                                     </tr>
                                 @endforeach
@@ -126,7 +131,7 @@
     $(document).ready(function() {
         id = 0;
         $(document).on('click', '.deleteBtn', function(event) {
-            id = event.currentTarget.id ;
+            id = event.currentTarget.value ;
             event.preventDefault();
             let href = $(this).attr('data-attr');
             $.ajax({
@@ -156,7 +161,7 @@
     });
 
     function confirmDelete(){
-        let url = "{{ route('deleteUnit', ':id') }}";
+        let url = "{{ route('deleteUpdate_qnt', ':id') }}";
         url = url.replace(':id', id);
         document.location.href=url;
     }

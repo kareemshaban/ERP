@@ -11,6 +11,7 @@ use Carbon\Carbon;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class UpdateQuntityController extends SystemController
 {
@@ -140,9 +141,19 @@ class UpdateQuntityController extends SystemController
      * @param  \App\Models\UpdateQuntity  $updateQuntity
      * @return \Illuminate\Http\Response
      */
-    public function edit(UpdateQuntity $updateQuntity)
+    public function edit($id)
     {
-        //
+        $updateQuntity  = UpdateQuntity::with('user' , 'warehouse' , 'details') -> find($id);
+
+        if($updateQuntity){
+            $products = DB::table('update_quntity_details')
+                ->leftJoin('products','update_quntity_details.item_id','=','products.id')
+                ->where('update_quntity_details.update_qnt_id' , '=' , $id)->get();
+
+            $warehouses = Warehouse::all();
+            return view('UpdateQuantity.edit' , ['warehouses' => $warehouses , 'updateQuntity' => $updateQuntity ,
+                'products' => $products]);
+        }
     }
 
     /**
@@ -152,9 +163,58 @@ class UpdateQuntityController extends SystemController
      * @param  \App\Models\UpdateQuntity  $updateQuntity
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, UpdateQuntity $updateQuntity)
+    public function update(Request $request,  $id)
     {
-        //
+
+        $updateQuntity  = UpdateQuntity::with('user' , 'warehouse' , 'details') -> find($id);
+        if($updateQuntity) {
+             //update header
+            $updateQuntity -> update([
+                'bill_date' => Carbon::parse($request->bill_date),
+                'warehouse_id' => $request->warehouse_id,
+                'user_id' => Auth::user()->id,
+                'notes' => $request->notes ? $request->notes : ''
+            ]);
+            //get oldItems and delete all old details
+            $details = $updateQuntity->details;
+            $oldItems = array();
+            for ($i = 0; $i < count($details); $i++) {
+                $item = new Product();
+                $item->product_id = $details[$i]->item_id;
+                $item->quantity = $details[$i]->qnt;
+                $item->warehouse_id = $updateQuntity->warehouse_id;
+                $oldItems[] = $item;
+                $details[$i]->delete();
+            }
+            //store new details
+
+            $items = array() ;
+            for($i = 0 ; $i < count($request -> item_id) ; $i++ ){
+
+                try {
+                    UpdateQuntityDetails::create([
+                        'identifier' => $updateQuntity -> identifier,
+                        'update_qnt_id' => $id,
+                        'item_id' => $request->item_id[$i],
+                        'type' => $request->type[$i],
+                        'qnt' => $request->qnt[$i],
+                        'notes' => $request->notes ? $request->notes : ''
+                    ]);
+                    $item = new Product();
+                    $item -> product_id = $request->item_id[$i] ;
+                    $item -> quantity = $request->qnt[$i] ;
+                    $item -> warehouse_id = $request->warehouse_id ;
+                    $items[] = $item ;
+                }  catch(QueryException $ex){
+
+
+                }
+
+            }
+
+            $this -> syncQnt($items , $oldItems , false);
+            return  redirect()->route('update_qnt')->with('success' ,  __('main.updated'));
+        }
     }
 
     /**
@@ -163,9 +223,25 @@ class UpdateQuntityController extends SystemController
      * @param  \App\Models\UpdateQuntity  $updateQuntity
      * @return \Illuminate\Http\Response
      */
-    public function destroy(UpdateQuntity $updateQuntity)
+    public function destroy($id)
     {
-        //
+        $updateQuntity  = UpdateQuntity::with('user' , 'warehouse' , 'details') -> find($id);
+
+        if($updateQuntity){
+            $details = $updateQuntity -> details ;
+            $items = array() ;
+            for($i = 0 ; $i < count($details) ; $i++ ){
+                    $item = new Product();
+                    $item -> product_id = $details[$i]->item_id;
+                    $item -> quantity = $details[$i]->qnt ;
+                    $item -> warehouse_id = $updateQuntity -> warehouse_id ;
+                    $items[] = $item ;
+                    $details[$i] -> delete();
+            }
+            $updateQuntity -> delete();
+            $this -> syncQnt(null , $items , false);
+            return  redirect()->route('update_qnt')->with('success' ,  __('main.deleted'));
+        }
     }
 
     function unique_code($limit)

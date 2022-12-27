@@ -32,4 +32,5 @@ class Product extends Model
         'max_order',
         'warehouse_id'
     ];
+
 }

@@ -28,6 +28,6 @@ class UpdateQuntity extends Model
     }
     public function details()
     {
-        return $this->hasMany(UpdateQuntityDetails::class , 'identifier');
+        return $this->hasMany(UpdateQuntityDetails::class , 'identifier' , 'identifier');
     }
 }

@@ -68,7 +68,7 @@
                                         <label>{{ __('main.warehouse') }} <span style="color:red; font-size:20px; font-weight:bold;">*</span> </label>
                                         <select class="form-select mr-sm-2"
                                                 name="warehouse_id" id="warehouse_id">
-                                            <option  value="0">Choose...</option>
+                                            <option  value="0" selected>Choose...</option>
                                             @foreach ($warehouses as $item)
                                                 <option value="{{$item -> id}}"> {{ $item -> name}}</option>
 
@@ -197,6 +197,13 @@ margin: 30px auto;" value="{{__('main.save_btn')}}"></input>
             $('#deleteModal').modal("hide");
             id = 0 ;
         });
+
+        $(document).on('click' , '.deleteBtn' , function (event) {
+            var row = $(this).parent().parent().index();
+            console.log(row);
+            var table = document.getElementById('tbody');
+            table.deleteRow(row);
+        });
     });
 
 
@@ -291,7 +298,7 @@ margin: 30px auto;" value="{{__('main.save_btn')}}"></input>
                            </select> </td>`;
           cell4.innerHTML = `<td><input class="form-control" type="number" name="qnt[]" value="1" /> </td>`;
           cell5.innerHTML = `<td><input class="form-control" type="text" name="notes[]" /> </td>`;
-          cell6.innerHTML = `<td>      <button type="button" class="btn btn-labeled btn-danger deleteBtn " >
+          cell6.innerHTML = `<td>      <button type="button" class="btn btn-labeled btn-danger deleteBtn " value=" '+item.id+' ">
                                             <span class="btn-label" style="margin-right: 10px;"><i class="fa fa-trash"></i></span>{{__('main.delete')}}</button> </td>`;
       } else {
           var tds = repeate.getElementsByTagName('td');

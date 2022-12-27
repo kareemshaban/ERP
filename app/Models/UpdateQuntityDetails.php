@@ -17,4 +17,6 @@ class UpdateQuntityDetails extends Model
             'qnt',
         'notes',
     ];
+
+
 }
