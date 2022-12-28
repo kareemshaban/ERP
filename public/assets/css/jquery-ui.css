@@ -1,0 +1,35 @@
+ul.suggestions{
+    width:100%; /* its width according to input width */
+    border:1px solid #ccc;
+    height:auto;
+    display:none;
+    padding:0px;
+    margin:0px;
+}
+/* if you want style so that's why i use "li a" also */
+ul.suggestions li,
+ul.suggestions li a{
+    background-color:#fff;
+    color:#000;
+    font-size:12px; /* according to your requirement */
+    font-family:arial;
+    font-weight:normal;
+    padding:0 10px;
+    margin:0px;
+    line-height:30px; /* according to your requirement */
+    display:block;
+    cursor: pointer;
+}
+ul.suggestions li:hover,
+ul.suggestions li a:hover{
+    background-color:#ccc;
+    color:#000;
+    text-decoration:normal;
+}
+ul.suggestions li:hover .suggested_input{
+    background-color:#FAFFBD;
+    border:1px solid #3C8DBC;
+}
+.suggested_input:hover .suggestions{
+    display:block;
+}

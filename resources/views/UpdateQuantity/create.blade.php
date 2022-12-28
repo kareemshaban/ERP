@@ -13,6 +13,7 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
     <link href="../assets/css/nucleo-icons.css" rel="stylesheet" />
     <link href="../assets/css/nucleo-svg.css" rel="stylesheet" />
+    <link href="../assets/css/jquery-ui.css" rel="stylesheet" />
     <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
     <link href="../assets/css/nucleo-svg.css" rel="stylesheet" />
     <link id="pagestyle" href="../assets/css/soft-ui-dashboard.css?v=1.0.7" rel="stylesheet" />
@@ -88,8 +89,13 @@
                                                         <i class="fa fa-2x fa-barcode addIcon"></i></div>
                                                     <input style="border-radius: 0 !important;padding-left: 10px;padding-right: 10px;"
                                                            type="text" name="add_item" value="" class="form-control input-lg ui-autocomplete-input" id="add_item" placeholder="{{__('main.add_item_hint')}}" autocomplete="off">
+
                                                 </div>
+
                                             </div>
+                                            <ul class="suggestions" id="products_suggestions" style="display: block">
+
+                                            </ul>
                                             <div class="clearfix"></div>
                                         </div>
                                     </div>
@@ -181,18 +187,26 @@ margin: 30px auto;" value="{{__('main.save_btn')}}"></input>
 </div>
 <script type="text/javascript">
 
+    var suggestionItems = {};
 
     $(document).ready(function() {
         getBillNo();
-        document.getElementById('bill_date').valueAsDate = new Date();
-        $('#add_item').keypress(function(event){
-            var keycode = (event.keyCode ? event.keyCode : event.which);
-            if(keycode == '13'){
-                event.preventDefault();
-                const code = event.target.value ;
-                searchProduct(code);
-            }
+        //document.getElementById('bill_date').valueAsDate = new Date();
+        $('input[name=add_item]').change(function() {
+            console.log($('#add_item').val());
         });
+        $('#add_item').on('input',function(e){
+            searchProduct($('#add_item').val());
+        });
+        // $('#add_item').keypress(function(event){
+        //     var keycode = (event.keyCode ? event.keyCode : event.which);
+        //     console.log($('#add_item').val());
+        //     if(keycode == '13'){
+        //         event.preventDefault();
+        //         const code = event.target.value ;
+        //         searchProduct(code);
+        //     }
+        // });
         $(document).on('click' , '.cancel-modal' , function (event) {
             $('#deleteModal').modal("hide");
             id = 0 ;
@@ -204,6 +218,15 @@ margin: 30px auto;" value="{{__('main.save_btn')}}"></input>
             var table = document.getElementById('tbody');
             table.deleteRow(row);
         });
+
+        $(document).on('click', '.select_product', function () {
+            var row = $(this).closest('li');
+            var item_id = row.attr('data-item-id');
+            addItemToTable(suggestionItems[item_id]);
+            document.getElementById('products_suggestions').innerHTML = '';
+            suggestionItems = {};
+        });
+
     });
 
 
@@ -232,24 +255,41 @@ margin: 30px auto;" value="{{__('main.save_btn')}}"></input>
           dataType: 'json',
 
           success:function(response){
-              document.getElementById('add_item').value = '' ;
+
+              document.getElementById('products_suggestions').innerHTML = '';
               if(response){
-                  if(response.length > 0){
+                  if(response.length == 1){
                       //addItemToTable
-                      console.log(response);
                       addItemToTable(response[0]);
+                  }else if(response.length > 1){
+                      showSuggestions(response);
                   } else {
                       //showNotFoundAlert
                       openDialog();
+                      document.getElementById('add_item').value = '' ;
                   }
               } else {
                   //showNotFoundAlert
                   openDialog();
+                  document.getElementById('add_item').value = '' ;
               }
           }
       });
   }
-  function openDialog(){
+
+  function showSuggestions(response) {
+
+        $data = '';
+        $.each(response,function (i,item) {
+            suggestionItems[item.id] = item;
+            $data +='<li class="select_product" data-item-id="'+item.id+'">'+item.name+'</li>';
+        });
+      document.getElementById('products_suggestions').innerHTML = $data;
+  }
+
+
+
+    function openDialog(){
       let href = $(this).attr('data-attr');
       $.ajax({
           url: href,
@@ -300,7 +340,8 @@ margin: 30px auto;" value="{{__('main.save_btn')}}"></input>
           cell5.innerHTML = `<td><input class="form-control" type="text" name="notes[]" /> </td>`;
           cell6.innerHTML = `<td>      <button type="button" class="btn btn-labeled btn-danger deleteBtn " value=" '+item.id+' ">
                                             <span class="btn-label" style="margin-right: 10px;"><i class="fa fa-trash"></i></span>{{__('main.delete')}}</button> </td>`;
-      } else {
+      }
+      else {
           var tds = repeate.getElementsByTagName('td');
           var qntTd = tds[4];
           var qntInp = qntTd.getElementsByTagName("input")[0];
@@ -309,6 +350,7 @@ margin: 30px auto;" value="{{__('main.save_btn')}}"></input>
           qntInp.value = qnt ;
           //increaseQnt
       }
+      document.getElementById('add_item').value = '' ;
   }
   function increaseQnt(){
 

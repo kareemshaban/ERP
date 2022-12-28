@@ -134,8 +134,26 @@ class ProductController extends Controller
     }
     public function getProduct($code)
     {
-        $product = Product::where('code' , '=' , $code) -> get();
-        echo json_encode ($product);
-        exit;
+        $single = $this->getSingleProduct($code);
+
+        if($single){
+            echo json_encode ($single);
+            exit;
+        }else{
+            $product = Product::where('code' , 'like' , '%'.$code.'%')
+                ->orWhere('name','like' , '%'.$code.'%')
+                ->limit(5)
+                -> get();
+            echo json_encode ($product);
+            exit;
+        }
+
     }
+
+    private function getSingleProduct($code){
+        return Product::where('code' , '=' , $code)
+            ->orWhere('name','=' , $code)
+            -> get()->first();
+    }
+
 }
