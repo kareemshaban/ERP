@@ -39,7 +39,7 @@ class SystemController extends Controller
     }
 
     public function getAllClients(){
-        return Company::where('group_id',2)->get();
+        return Company::where('group_id',3)->get();
     }
 
     public function getClientById($id){
@@ -48,7 +48,7 @@ class SystemController extends Controller
 
 
     public function getAllVendors(){
-        return Company::where('group_id',3)->get();
+        return Company::where('group_id',4)->get();
     }
 
     public function getVendorById($id){
@@ -124,6 +124,9 @@ class SystemController extends Controller
         return Warehouse::find($id);
     }
 
+    public function getProductById($id){
+        return Product::find($id);
+    }
 
     public function syncQnt($items=null,$oldItems=null,$isMinus = true){
 
@@ -156,6 +159,7 @@ class SystemController extends Controller
 
         if($oldItems){
             foreach ($oldItems as $item){
+
                 $item->quantity = $item->quantity * $multy;
 
                 $productId = $item->product_id;

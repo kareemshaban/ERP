@@ -25,6 +25,7 @@ class CreateSalesTable extends Migration
             $table->double('discount');
             $table->double('tax');
             $table->double('net');
+            $table->double('paid');
             $table->string('sale_status');
             $table->string('payment_status');
             $table->integer('created_by');
