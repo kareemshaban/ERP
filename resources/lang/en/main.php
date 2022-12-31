@@ -238,7 +238,19 @@ return [
     'type' => 'Type',
     'add' => 'Add',
     'sub' => 'Sub',
-    'nodetails' => 'Sorry This Process Can not be completed without products'
+    'nodetails' => 'Sorry This Process Can not be completed without products',
+    'sales_bill' => 'Sales Bill',
+    'add_sale' => 'Create Sales Bill',
+    'price_without_tax' => 'Price Without Tax',
+    'price_with_tax' => 'Price With Tax',
+    'total_without_tax' => 'Total With Tax',
+    'net' => 'Net',
+    'customer' => 'Customer',
+    'total' => 'Total',
+    'discount' => 'Discount',
+    'paid' => 'Paid',
+    'remain' => 'Remain',
+    'sales_invoices' => 'Sales Bill List'
 
 
 

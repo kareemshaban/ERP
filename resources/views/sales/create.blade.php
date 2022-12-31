@@ -207,6 +207,7 @@ margin: 30px auto;" value="{{__('main.save_btn')}}"></input>
     var count = 1;
 
     $(document).ready(function() {
+        document.getElementById('bill_date').valueAsDate = new Date();
         getBillNo();
         //document.getElementById('bill_date').valueAsDate = new Date();
         $('input[name=add_item]').change(function() {
@@ -240,6 +241,7 @@ margin: 30px auto;" value="{{__('main.save_btn')}}"></input>
 
 
   function getBillNo(){
+
       let bill_number = document.getElementById('bill_number');
       $.ajax({
           type:'get',

@@ -91,10 +91,9 @@ class SalesController extends Controller
             $profit +=($request->price_without_tax[$index] - $productDetails->cost) * $request->qnt[$index];
         }
 
-
         $sale = Sales::create([
             'date' => $request->bill_date,
-            'invoice_no' => $this->getNo(),
+            'invoice_no' => $request-> bill_number,
             'customer_id' => $request->customer_id,
             'biller_id' => Auth::id(),
             'warehouse_id' => $request->warehouse_id,
@@ -183,6 +182,8 @@ class SalesController extends Controller
         } else {
             $prefix = "";
         }
-        return $prefix . str_pad($id + 1, 6 , '0' , STR_PAD_LEFT);
+        $no = json_encode($prefix . str_pad($id + 1, 6 , '0' , STR_PAD_LEFT)) ;
+         echo $no ;
+         exit;
     }
 }

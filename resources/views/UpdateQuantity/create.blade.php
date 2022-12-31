@@ -191,7 +191,7 @@ margin: 30px auto;" value="{{__('main.save_btn')}}"></input>
 
     $(document).ready(function() {
         getBillNo();
-        //document.getElementById('bill_date').valueAsDate = new Date();
+        document.getElementById('bill_date').valueAsDate = new Date();
         $('input[name=add_item]').change(function() {
             console.log($('#add_item').val());
         });
