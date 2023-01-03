@@ -27,6 +27,7 @@ class SystemController extends Controller
     }
 
     public function getAllMainCategories(){
+
         return Category::where('parent_id',0)->get();
     }
 

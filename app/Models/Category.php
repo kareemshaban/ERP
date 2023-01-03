@@ -14,7 +14,8 @@ class Category extends Model
         'slug',
         'description',
         'image_url',
-        'parent_id'
+        'parent_id',
+        'isGold'
 
     ];
 }

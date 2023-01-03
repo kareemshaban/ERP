@@ -20,7 +20,7 @@ class CategoryController extends Controller
     public function index()
     {
         $categories = Category::all();
-        $cats = Category::where('parent_id' , '=' , 0 );
+        $cats = Category::where('parent_id' , '=' , 0 ) -> get();
         return view ('Category.index' , ['categories' => $categories , 'cats' => $cats]);
     }
 
@@ -60,7 +60,8 @@ class CategoryController extends Controller
                    'slug' => $request -> slug ? $request -> slug : '' ,
                    'description' => $request -> description  ? $request -> description  : '',
                    'image_url' => $imageName ,
-                   'parent_id' => $request -> parent_id
+                   'parent_id' => $request -> parent_id,
+                   'isGold' => $request->has('isGold')  ? 1 : 0,
                ]);
                return redirect()->route('categories')->with('success' , __('main.created'));
            } catch (QueryException $ex){
@@ -128,7 +129,8 @@ class CategoryController extends Controller
                     'slug' => $request -> slug ? $request -> slug : '' ,
                     'description' => $request -> description  ? $request -> description  : '',
                     'image_url' => $imageName ,
-                    'parent_id' => $request -> parent_id
+                    'parent_id' => $request -> parent_id,
+                    'isGold' => $request->has('isGold')  ? 1 : 0,
                 ]);
                 return redirect()->route('categories')->with('success' , __('main.updated'));
             } catch (QueryException $ex){

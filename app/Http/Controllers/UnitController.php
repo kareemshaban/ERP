@@ -17,10 +17,13 @@ class UnitController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($type)
     {
         $units = Unit::all();
+        if($type == 0)
         return view ('Units.index' , ['units' => $units] );
+        else
+            return view ('Units.index2' , ['units' => $units] );
     }
 
     /**
@@ -50,11 +53,13 @@ class UnitController extends Controller
                 Unit::create([
                     'code' => $request->code,
                     'name' => $request->name,
+                    'isGold' => $request -> isGold,
+                    'transformFactor' => $request -> transformFactor
                 ]);
-                return redirect()->route('units')->with('success' , __('main.created'));
+                return redirect()->route('units' , $request -> isGold)->with('success' , __('main.created'));
             } catch(QueryException $ex){
 
-                return redirect()->route('units')->with('error' ,  $ex->getMessage());
+                return redirect()->route('units' , $request -> isGold)->with('error' ,  $ex->getMessage());
             }
         } else {
             return  $this -> update($request);
@@ -104,11 +109,13 @@ class UnitController extends Controller
                 $unit -> update([
                     'code' => $request->code,
                     'name' => $request->name,
+                    'isGold' => $request -> isGold,
+                    'transformFactor' => $request -> transformFactor
                 ]);
-                return redirect()->route('units')->with('success', __('main.updated'));
+                return redirect()->route('units' , $request -> isGold)->with('success', __('main.updated'));
             } catch (QueryException $ex) {
 
-                return redirect()->route('units')->with('error', $ex->getMessage());
+                return redirect()->route('units' , $request -> isGold)->with('error', $ex->getMessage());
             }
         }
     }
@@ -124,7 +131,7 @@ class UnitController extends Controller
         $unit = Unit::find($id);
         if($unit){
             $unit -> delete();
-            return redirect()->route('units')->with('success', __('main.deleted'));
+            return redirect()->route('units' , $unit -> isGold)->with('success', __('main.deleted'));
         }
     }
 }

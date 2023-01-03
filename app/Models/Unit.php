@@ -11,6 +11,8 @@ class Unit extends Model
 
     protected $fillable = [
         'code',
-        'name'
+        'name',
+        'isGold',
+        'transformFactor'
     ];
 }

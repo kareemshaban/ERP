@@ -161,8 +161,10 @@
                                 <div class="form-group">
                                     <label>{{ __('main.categories') }} <span style="color:red; font-size:20px; font-weight:bold;">*</span> </label>
                                     <select class="form-control" name="category_id">
-                                        @foreach($categories as $brand)
-                                            <option value="{{$brand->id}}">{{$brand->name}}</option>
+                                        @foreach($categories as $cat)
+                                            @if($cat -> isGold == 0)
+                                            <option value="{{$cat->id}}">{{$cat->name}}</option>
+                                            @endif
                                         @endforeach
                                     </select>
                                 </div>
@@ -174,8 +176,10 @@
                                 <div class="form-group">
                                     <label>{{ __('main.units') }} <span style="color:red; font-size:20px; font-weight:bold;">*</span> </label>
                                     <select class="form-control" name="unit">
-                                        @foreach($units as $brand)
-                                            <option value="{{$brand->id}}">{{$brand->name}}</option>
+                                        @foreach($units as $unit)
+                                            @if($unit -> isGold == 0)
+                                            <option value="{{$unit->id}}">{{$unit->name}}</option>
+                                            @endif
                                         @endforeach
                                     </select>
                                 </div>

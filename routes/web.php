@@ -35,7 +35,7 @@ Route::post('storeBrand', [App\Http\Controllers\BrandController::class, 'store']
 Route::get('/deleteBrand/{id}', [App\Http\Controllers\BrandController::class, 'destroy'])->name('deleteBrand');
 Route::get('/getBrand/{id}', [App\Http\Controllers\BrandController::class, 'edit'])->name('getBrand');
 
-Route::get('/units', [App\Http\Controllers\UnitController::class, 'index'])->name('units');
+Route::get('/units/{type}', [App\Http\Controllers\UnitController::class, 'index'])->name('units');
 Route::post('storeUnit', [App\Http\Controllers\UnitController::class, 'store'])->name('storeUnit');
 Route::get('/deleteUnit/{id}', [App\Http\Controllers\UnitController::class, 'destroy'])->name('deleteUnit');
 Route::get('/getUnit/{id}', [App\Http\Controllers\UnitController::class, 'edit'])->name('getUnit');

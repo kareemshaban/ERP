@@ -2,7 +2,7 @@
         @else class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-end me-3 rotate-caret" @endif id="sidenav-main">
     <div class="sidenav-header">
         <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
-        <a class="navbar-brand m-0" href=" https://demos.creative-tim.com/soft-ui-dashboard/pages/dashboard.html " target="_blank">
+        <a class="navbar-brand m-0" href="{{route('home')}}" >
             <img src="../../assets/img/logo-ct-dark.png" class="navbar-brand-img h-100" alt="main_logo">
             <span class="ms-1 font-weight-bold">ERP CPANEL</span>
         </a>
@@ -52,13 +52,15 @@
                 </a>
                 <ul class="dropdown-menu text-small subM" aria-labelledby="dropdown">
                     <li><a @if($subSlag == 1) class="dropdown-item active-drop" @else class="dropdown-item" @endif href="{{route('warehouses')}}">{{__('main.warehouses')}}</a></li>
-                    <li><a @if($subSlag == 2) class="dropdown-item active-drop" @else class="dropdown-item" @endif href="{{route('units')}}">{{__('main.units')}}</a></li>
+                    <li><a @if($subSlag == 2) class="dropdown-item active-drop" @else class="dropdown-item" @endif href="{{route('units' , 0)}}">{{__('main.units')}}</a></li>
                     <li><a @if($subSlag == 3) class="dropdown-item active-drop" @else class="dropdown-item" @endif href="{{route('categories')}}">{{__('main.categories')}}</a></li>
                     <li><a @if($subSlag == 4) class="dropdown-item active-drop" @else class="dropdown-item" @endif href="{{route('brands')}}">{{__('main.brands')}}</a></li>
                     <li><a @if($subSlag == 5) class="dropdown-item active-drop" @else class="dropdown-item" @endif href="{{route('currency')}}">{{__('main.currencies')}}</a></li>
                     <li><a @if($subSlag == 6) class="dropdown-item active-drop" @else class="dropdown-item" @endif href="{{route('expenses')}}">{{__('main.expenses_type')}}</a></li>
                     <li><a @if($subSlag == 7) class="dropdown-item active-drop" @else class="dropdown-item" @endif href="{{route('taxRates')}}">{{__('main.tax')}}</a></li>
                     <li><a @if($subSlag == 8) class="dropdown-item active-drop" @else class="dropdown-item" @endif href="{{route('clientGroups')}}">{{__('main.c_groups')}}</a></li>
+                    <li><a @if($subSlag == 20) class="dropdown-item active-drop" @else class="dropdown-item" @endif href="{{route('units' , 1)}}">{{__('main.stamp')}}</a></li>
+
                 </ul>
             </li>
 
@@ -190,6 +192,8 @@
                 <ul class="dropdown-menu text-small subM" aria-labelledby="dropdown">
                     <li><a @if($subSlag == 14) class="dropdown-item active-drop" @else class="dropdown-item" @endif href="{{route('products')}}">{{__('main.products_list')}}</a></li>
                     <li><a @if($subSlag == 15) class="dropdown-item active-drop" @else class="dropdown-item" @endif href="{{route('createProduct')}}">{{__('main.add_product')}}</a></li>
+                    <li><a @if($subSlag == 21) class="dropdown-item active-drop" @else class="dropdown-item" @endif href="{{route('products')}}">{{__('main.gold')}}</a></li>
+                    <li><a @if($subSlag == 22) class="dropdown-item active-drop" @else class="dropdown-item" @endif href="{{route('createProduct')}}">{{__('main.add_gold')}}</a></li>
                     <li><a @if($subSlag == 16) class="dropdown-item active-drop" @else class="dropdown-item" @endif href="{{route('update_qnt')}}">{{__('main.update_qnt')}}</a></li>
                     <li><a @if($subSlag == 17) class="dropdown-item active-drop" @else class="dropdown-item" @endif href="{{route('add_update_qnt')}}">{{__('main.add_update_qnt')}}</a></li>
                 </ul>

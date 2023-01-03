@@ -21,6 +21,7 @@ class CreateCategoriesTable extends Migration
             $table->text('description');
             $table->string('image_url');
             $table->integer('parent_id');
+            $table->integer('isGold');
             $table->timestamps();
         });
     }

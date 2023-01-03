@@ -17,6 +17,10 @@ class CreateUnitsTable extends Migration
             $table->id();
             $table->string('code');
             $table->string('name');
+            $table->integer('isGold');
+            $table->decimal('transformFactor') -> nullable();
+
+
             $table->timestamps();
         });
     }

@@ -19,13 +19,13 @@
 </head>
 
 <body @if(Config::get('app.locale') == 'en') class="g-sidenav-show  bg-gray-100" @else  class="g-sidenav-show rtl bg-gray-100" @endif>
-@include('layouts.side' , ['slag' => 2 , 'subSlag' => 2])
+@include('layouts.side' , ['slag' => 2 , 'subSlag' => 20])
 
 
 <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
     @include('flash-message')
     <!-- Navbar -->
-    @include('layouts.nav' , ['page_title' => __('main.basic_date')  . ' / ' .  __('main.units') ])
+    @include('layouts.nav' , ['page_title' => __('main.basic_date')  . ' / ' .  __('main.stamp') ])
     <!-- End Navbar -->
     <div class="container-fluid py-4">
         <div class="row">
@@ -34,7 +34,7 @@
                     <div class="card-header pb-0">
                         <div class="row">
                             <div class="col-6 text-start">
-                                <h6>{{ __('main.units')}}</h6>
+                                <h6>{{ __('main.stamp')}}</h6>
                             </div>
                             <div class="col-6 text-end">
                                 <button type="button" class="btn btn-labeled btn-primary " id="createButton">
@@ -51,16 +51,20 @@
                                     <th class="text-uppercase text-secondary text-md-center font-weight-bolder opacity-7">#</th>
                                     <th class="text-uppercase text-secondary text-md-center font-weight-bolder opacity-7 ps-2">{{__('main.code')}}</th>
                                     <th class="text-center text-uppercase text-secondary text-md-center font-weight-bolder opacity-7">{{__('main.name')}}</th>
+                                    <th class="text-center text-uppercase text-secondary text-md-center font-weight-bolder opacity-7">{{__('main.21_transform')}}</th>
+
+
                                     <th class="text-end text-uppercase text-secondary text-md-center font-weight-bolder opacity-7">{{__('main.actions')}}</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 @foreach($units as $unit)
-                                    @if($unit -> isGold == 0)
+                                    @if($unit -> isGold == 1)
                                 <tr>
                                     <td class="text-center">{{$unit -> id}}</td>
                                     <td class="text-center">{{$unit -> code}}</td>
                                     <td class="text-center">{{$unit -> name}}</td>
+                                    <td class="text-center">{{$unit -> transformFactor}}</td>
                                     <td class="text-center">
                                         <button type="button" class="btn btn-labeled btn-secondary " onclick="EditModal({{$unit -> id}})">
                                             <span class="btn-label" style="margin-right: 10px;"><i class="fa fa-pen"></i></span>{{__('main.edit')}}</button>
@@ -91,7 +95,7 @@
     <div class="modal-dialog modal-md" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <label class="modelTitle"> {{__('main.brands')}}</label>
+                <label class="modelTitle"> {{__('main.stamp')}}</label>
                 <button type="button" class="close modal-close-btn"  data-bs-dismiss="modal"  aria-label="Close" >
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -122,15 +126,23 @@
                                        class="form-control"
                                        placeholder="{{ __('main.name') }}"  />
                                 <input type="text"  id="isGold" name="isGold"
-                                       class="form-control" hidden value="0"
+                                       class="form-control" hidden value="1"
                                        placeholder="{{ __('main.name') }}"  />
-                                <input type="text"  id="transformFactor" name="transformFactor"
-                                       class="form-control" hidden value="0"
-                                       placeholder="{{ __('main.name') }}"  />
-
                             </div>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-12 " >
+                            <div class="form-group">
+                                <label>{{ __('main.21_transform') }} <span style="color:red; font-size:20px; font-weight:bold;">*</span> </label>
+                                <input type="number" step="any" id="transformFactor" name="transformFactor"
+                                       class="form-control"
+                                       placeholder="{{ __('main.21_transform') }}"  />
+                            </div>
+                        </div>
+                    </div>
+
+
 
                     <div class="row">
                         <div class="col-6" style="display: block; margin: 20px auto; text-align: center;">
@@ -191,6 +203,8 @@
                     $('#createModal').modal("show");
                     $(".modal-body #name").val( "" );
                     $(".modal-body #code").val( "" );
+                    $(".modal-body #transformFactor").val( "" );
+
                     $(".modal-body #id").val( 0 );
                 },
                 complete: function() {
@@ -262,6 +276,7 @@
                             $(".modal-body #name").val( response.name );
                             $(".modal-body #code").val( response.code );
                             $(".modal-body #id").val( response.id );
+                            $(".modal-body #transformFactor").val( response.transformFactor  );
 
                         },
                         complete: function() {

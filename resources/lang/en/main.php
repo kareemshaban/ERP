@@ -250,7 +250,11 @@ return [
     'discount' => 'Discount',
     'paid' => 'Paid',
     'remain' => 'Remain',
-    'sales_invoices' => 'Sales Bill List'
+    'sales_invoices' => 'Sales Bill List',
+    'stamp' => 'Gold Karat',
+    '21_transform' => '21 Transfer Factor',
+    'gold' => 'Jewellery List',
+    'add_gold' => 'Add Jewellery '
 
 
 
