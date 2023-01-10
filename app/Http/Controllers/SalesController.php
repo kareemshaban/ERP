@@ -117,6 +117,8 @@ class SalesController extends Controller
         }
 
         $siteController->syncQnt($qntProducts,null);
+        $clientController = new ClientMoneyController();
+        $clientController->syncMoney($request->customer_id,0,$net);
 
         return redirect()->route('sales');
     }
