@@ -30,6 +30,7 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+
 Route::get('/brands', [App\Http\Controllers\BrandController::class, 'index'])->name('brands');
 Route::post('storeBrand', [App\Http\Controllers\BrandController::class, 'store'])->name('storeBrand');
 Route::get('/deleteBrand/{id}', [App\Http\Controllers\BrandController::class, 'destroy'])->name('deleteBrand');
@@ -121,10 +122,18 @@ Route::get('/getUpdateQntBillNo', [App\Http\Controllers\UpdateQuntityController:
 
 
     Route::get('/sales', [App\Http\Controllers\SalesController::class, 'index'])->name('sales');
-    Route::get('/add_sale', [App\Http\Controllers\SalesController::class, 'create'])->name('add_sale');
-    Route::post('/add_sale', [App\Http\Controllers\SalesController::class, 'store'])->name('store_sale');
-    Route::get('/get_sales_number', [App\Http\Controllers\SalesController::class, 'getNo'])->name('get_sale_no');
+    Route::get('/sales/add', [App\Http\Controllers\SalesController::class, 'create'])->name('add_sale');
+    Route::post('/sales/add', [App\Http\Controllers\SalesController::class, 'store'])->name('store_sale');
 
+    Route::get('/sales/return/{id}', [App\Http\Controllers\SalesController::class, 'returnSale'])->name('add_return');
+    Route::post('/sales/return/{id}', [App\Http\Controllers\SalesController::class, 'storeReturn'])->name('store_return');
+
+    Route::get('/get_sales_number', [App\Http\Controllers\SalesController::class, 'getNo'])->name('get_sale_no');
+    Route::get('/get_sales_return_number', [App\Http\Controllers\SalesController::class, 'getReturnNo'])->name('get_sale_return_no');
+    Route::get('/sales/payments/{id}',[\App\Http\Controllers\PaymentController::class,'getSalesPayments'])->name('sales_payments');
+    Route::get('/sales/payments/add/{id}',[\App\Http\Controllers\PaymentController::class,'addSalePayment'])->name('add_sales_payments');
+    Route::post('/sales/payments/add/{id}',[\App\Http\Controllers\PaymentController::class,'storeSalePayment'])->name('store_sales_payments');
+    Route::get('/sales/payments/delete/{id}',[\App\Http\Controllers\PaymentController::class,'deleteSalePayment'])->name('delete_sales_payments');
 
 
 });

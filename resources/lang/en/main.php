@@ -254,7 +254,14 @@ return [
     'stamp' => 'Gold Karat',
     '21_transform' => '21 Transfer Factor',
     'gold' => 'Jewellery List',
-    'add_gold' => 'Add Jewellery '
+    'add_gold' => 'Add Jewellery ',
+    'InvoiceType' => 'Invoice Type',
+    'sale' => 'Sale Invoice',
+    'return_sale' => 'Return Sale',
+    'view_payments' => 'View Payments',
+    'add_payment' => 'Add Payment',
+    'add_return_sale' => 'Add Return',
+
 
 
 

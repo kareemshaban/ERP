@@ -4,19 +4,19 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="apple-touch-icon" sizes="76x76" href="../../assets/img/apple-icon.png">
-    <link rel="icon" type="image/png" href="../../assets/img/favicon.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="../../../assets/img/apple-icon.png">
+    <link rel="icon" type="image/png" href="../../../assets/img/favicon.png">
     <title>
         ERP System Dashboard
     </title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
-    <link href="../../assets/css/nucleo-icons.css" rel="stylesheet" />
-    <link href="../../assets/css/nucleo-svg.css" rel="stylesheet" />
-    <link href="../../assets/css/jquery-ui.css" rel="stylesheet" />
+    <link href="../../../assets/css/nucleo-icons.css" rel="stylesheet" />
+    <link href="../../../assets/css/nucleo-svg.css" rel="stylesheet" />
+    <link href="..././../assets/css/jquery-ui.css" rel="stylesheet" />
     <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
-    <link href="../../assets/css/nucleo-svg.css" rel="stylesheet" />
-    <link id="pagestyle" href="../../assets/css/soft-ui-dashboard.css?v=1.0.7" rel="stylesheet" />
+    <link href="../../../assets/css/nucleo-svg.css" rel="stylesheet" />
+    <link id="pagestyle" href="../../../assets/css/soft-ui-dashboard.css?v=1.0.7" rel="stylesheet" />
 </head>
 
 <body @if(Config::get('app.locale') == 'en') class="g-sidenav-show  bg-gray-100" @else  class="g-sidenav-show rtl bg-gray-100" @endif>
@@ -26,7 +26,7 @@
 <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
     @include('flash-message')
     <!-- Navbar -->
-    @include('layouts.nav' , ['page_title' => __('main.add_sale') ])
+    @include('layouts.nav' , ['page_title' => __('main.add_return_sale') ])
     <!-- End Navbar -->
     <div class="container-fluid py-4">
         <div class="row">
@@ -35,13 +35,13 @@
                     <div class="card-header pb-0">
                         <div class="row">
                             <div class="col-6 text-start">
-                                <h6>{{ __('main.add_sale')}}</h6>
+                                <h6>{{ __('main.add_return_sale')}}</h6>
                             </div>
                         </div>
 
                     </div>
                     <div class="card-body px-0 pt-0 pb-2">
-                        <form   method="POST" action="{{ route('store_sale') }}"
+                        <form   method="POST" action="{{ route('store_return',$id) }}"
                                 enctype="multipart/form-data" >
                             @csrf
 
@@ -67,11 +67,11 @@
                                 <div class="col-4 " >
                                     <div class="form-group">
                                         <label>{{ __('main.warehouse') }} <span style="color:red; font-size:20px; font-weight:bold;">*</span> </label>
-                                        <select class="form-select mr-sm-2"
+                                        <select class="form-select mr-sm-2" readonly="readonly"
                                                 name="warehouse_id" id="warehouse_id">
                                             <option  value="0" selected>Choose...</option>
                                             @foreach ($warehouses as $item)
-                                                <option value="{{$item -> id}}"> {{ $item -> name}}</option>
+                                                <option @if($item->id == $sale->warehouse_id) selected @endif value="{{$item -> id}}"> {{ $item -> name}}</option>
 
                                             @endforeach
                                         </select>
@@ -81,11 +81,11 @@
                                 <div class="col-4 " >
                                     <div class="form-group">
                                         <label>{{ __('main.clients') }} <span style="color:red; font-size:20px; font-weight:bold;">*</span> </label>
-                                        <select class="form-select mr-sm-2"
+                                        <select class="form-select mr-sm-2"  readonly="readonly"
                                                 name="customer_id" id="customer_id">
                                             <option  value="0" selected>Choose...</option>
                                             @foreach ($customers as $item)
-                                                <option value="{{$item -> id}}"> {{ $item -> name}}</option>
+                                                <option @if($item->id == $sale->customer_id) selected @endif value="{{$item -> id}}"> {{ $item -> name}}</option>
 
                                             @endforeach
                                         </select>
@@ -93,30 +93,6 @@
                                 </div>
                             </div>
 
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="col-md-12" id="sticker">
-                                        <div class="well well-sm">
-                                            <div class="form-group" style="margin-bottom:0;">
-                                                <div class="input-group wide-tip">
-                                                    <div class="input-group-addon" style="padding-left: 10px; padding-right: 10px;">
-                                                        <i class="fa fa-2x fa-barcode addIcon"></i></div>
-                                                    <input style="border-radius: 0 !important;padding-left: 10px;padding-right: 10px;"
-                                                           type="text" name="add_item" value="" class="form-control input-lg ui-autocomplete-input" id="add_item" placeholder="{{__('main.add_item_hint')}}" autocomplete="off">
-
-                                                </div>
-
-                                            </div>
-                                            <ul class="suggestions" id="products_suggestions" style="display: block">
-
-                                            </ul>
-                                            <div class="clearfix"></div>
-                                        </div>
-                                    </div>
-
-
-                                </div>
-                            </div>
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="control-group table-group">
@@ -130,15 +106,16 @@
                                                     <th class="col-md-2">{{__('main.price_without_tax')}}</th>
                                                     <th class="col-md-2">{{__('main.price_with_tax')}}</th>
                                                     <th class="col-md-1">{{__('main.quantity')}} </th>
+                                                    <th class="col-md-1">{{__('main.return_quantity')}} </th>
                                                     <th class="col-md-2">{{__('main.total_without_tax')}}</th>
                                                     <th class="col-md-2">{{__('main.tax')}}</th>
                                                     <th class="col-md-2">{{__('main.net')}}</th>
-                                                    <th style="max-width: 30px !important; text-align: center;">
-                                                        <i class="fa fa-trash-o" style="opacity:0.5; filter:alpha(opacity=50);"></i>
-                                                    </th>
+
                                                 </tr>
                                                 </thead>
-                                                <tbody id="tbody"></tbody>
+                                                <tbody id="tbody">
+
+                                                </tbody>
                                                 <tfoot></tfoot>
                                             </table>
                                         </div>
@@ -176,30 +153,7 @@ margin: 30px auto;" value="{{__('main.save_btn')}}"></input>
 
 
 
-<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="smallModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-sm" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                Alert!
-                <button type="button" class="close"  data-bs-dismiss="modal"  aria-label="Close" style="color: red; font-size: 20px; font-weight: bold; background: white;
-                height: 35px; width: 35px;">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body" id="smallBody">
-                <img src="../assets/img/warning.png" class="alertImage">
-                <label class="alertTitle">{{__('main.notfound')}}</label>
-                <br> <label  class="alertSubTitle" id="modal_table_bill"></label>
-                <div class="row text-center">
-                    <div class="col-6 text-center" style="display: block;margin: auto">
-                        <button type="button" class="btn btn-labeled btn-primary cancel-modal"  >
-                            <span class="btn-label" style="margin-right: 10px;"><i class="fa fa-check"></i></span>{{__('main.ok_btn')}}</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+
 <script type="text/javascript">
 
     var suggestionItems = {};
@@ -207,6 +161,15 @@ margin: 30px auto;" value="{{__('main.save_btn')}}"></input>
     var count = 1;
 
     $(document).ready(function() {
+        var string = "{{$saleItems}}";
+
+        var allsItems = JSON.parse(string.replace(/&quot;/g,'"'));
+        $.each(allsItems,function (i,item) {
+            sItems[item.product_id] = item;
+        });
+
+        loadItems();
+
         var now = new Date();
         now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
 
@@ -253,7 +216,7 @@ margin: 30px auto;" value="{{__('main.save_btn')}}"></input>
       let bill_number = document.getElementById('bill_number');
       $.ajax({
           type:'get',
-          url:'{{route('get_sale_no')}}',
+          url:'{{route('get_sale_return_no')}}',
           dataType: 'json',
 
           success:function(response){
@@ -389,9 +352,14 @@ margin: 30px auto;" value="{{__('main.save_btn')}}"></input>
         var newQty = parseFloat($(this).val()),
             item_id = row.attr('data-item-id');
 
-        console.log(newQty);
-        console.log(item_id);
-        sItems[item_id].qnt= newQty;
+        if(newQty > sItems[item_id].quantity){
+            $(this).val(old_row_qty);
+            alert('wrong value');
+            return;
+        }
+
+
+        sItems[item_id].rqnt= newQty;
         loadItems();
 
     });
@@ -409,21 +377,29 @@ margin: 30px auto;" value="{{__('main.save_btn')}}"></input>
 
       $('#sTable tbody').empty();
       $.each(sItems,function (i,item) {
-          console.log(item);
 
-          var newTr = $('<tr data-item-id="'+item.id+'">');
-          var tr_html ='<td><input type="hidden" name="product_id[]" value="'+item.id+'"> <span>'+item.name + '---' + (item.code)+'</span> </td>';
-          tr_html +=   '<td><input type="text" class="form-control iPrice" name="price_without_tax[]" value="'+item.price_withoute_tax.toFixed(2)+'"></td>';
-          tr_html +=   '<td><input type="text" class="form-control iPriceWTax" name="price_with_tax[]" value="'+item.price_with_tax.toFixed(2)+'"></td>';
-          tr_html +=   '<td><input type="text" class="form-control iQuantity" name="qnt[]" value="'+item.qnt.toFixed(2)+'"></td>';
-          tr_html +=   '<td><input type="text" readonly="readonly" class="form-control" name="total[]" value="'+(item.price_withoute_tax*item.qnt).toFixed(2)+'"></td>';
-          tr_html +=   '<td><input type="text" readonly="readonly" class="form-control" name="tax[]" value="'+(item.item_tax*item.qnt).toFixed(2)+'"></td>';
-          tr_html +=   '<td><input type="text" readonly="readonly" class="form-control" name="net[]" value="'+(item.price_with_tax*item.qnt).toFixed(2)+'"></td>';
-          tr_html += `<td>      <button type="button" class="btn btn-labeled btn-danger deleteBtn " value=" '+item.id+' ">
-                                            <span class="btn-label" style="margin-right: 10px;"><i class="fa fa-trash"></i></span></button> </td>`;
+          if(item.quantity > 0) {
 
-           newTr.html(tr_html);
-           newTr.appendTo('#sTable');
+              if (!item.rqnt) {
+                  item.rqnt = 0;
+              }
+
+              console.log(item);
+
+              var newTr = $('<tr data-item-id="' + item.product_id + '">');
+              var tr_html = '<td><input type="hidden" name="product_id[]" value="' + item.product_id + '"> <span>' + item.product_name + '---' + (item.product_code) + '</span> </td>';
+              tr_html += '<td><input type="text" class="form-control" readonly name="price_without_tax[]" value="' + parseFloat(item.price_without_tax).toFixed(2) + '"></td>';
+              tr_html += '<td><input type="text" class="form-control" readonly name="price_with_tax[]" value="' + parseFloat(item.price_with_tax).toFixed(2) + '"></td>';
+              tr_html += '<td><input type="text" class="form-control" name="all_qnt[]" value="' + parseFloat(item.quantity).toFixed(2) + '"></td>';
+              tr_html += '<td><input type="text" class="form-control iQuantity" name="qnt[]" value="' + item.rqnt.toFixed(2) + '"></td>';
+              tr_html += '<td><input type="text" readonly="readonly" class="form-control" name="total[]" value="' + (parseFloat(item.price_without_tax) * parseFloat(item.rqnt)).toFixed(2) + '"></td>';
+              tr_html += '<td><input type="text" readonly="readonly" class="form-control" name="tax[]" value="' + (parseFloat(item.tax) * parseFloat(item.rqnt)).toFixed(2) + '"></td>';
+              tr_html += '<td><input type="text" readonly="readonly" class="form-control" name="net[]" value="' + (parseFloat(item.price_with_tax) * parseFloat(item.rqnt)).toFixed(2) + '"></td>';
+
+
+              newTr.html(tr_html);
+              newTr.appendTo('#sTable');
+          }
       });
 
   }

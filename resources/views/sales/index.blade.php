@@ -60,7 +60,7 @@
                                     <th class="text-center text-uppercase text-secondary text-md-center font-weight-bolder opacity-7">{{__('main.net')}}</th>
                                     <th class="text-center text-uppercase text-secondary text-md-center font-weight-bolder opacity-7">{{__('main.paid')}}</th>
                                     <th class="text-center text-uppercase text-secondary text-md-center font-weight-bolder opacity-7">{{__('main.remain')}}</th>
-
+                                    <th class="text-center text-uppercase text-secondary text-md-center font-weight-bolder opacity-7">{{__('main.InvoiceType')}}</th>
                                     <th class="text-end text-uppercase text-secondary text-md-center font-weight-bolder opacity-7">{{__('main.actions')}}</th>
                                 </tr>
                                 </thead>
@@ -79,6 +79,63 @@
                                         <td class="text-center">{{$process->paid}}</td>
                                         <td class="text-center">{{$process->net - $process->paid}}</td>
                                         <td class="text-center">
+                                            @if($process->net > 0)
+                                                <span class="badge bg-success">{{__('main.sale')}}</span>
+                                            @else
+                                                <span class="badge bg-danger">{{__('main.return_sale')}}</span>
+                                            @endif
+                                        </td>
+                                        <td class="text-center">
+                                            <a href="javascript:;" class="nav-link text-body p-0" id="dropdownMenuButton"
+                                               data-bs-toggle="dropdown" aria-expanded="false">
+                                                <span class="badge bg-primary cursor-pointer">
+                                                    <i class="fa fa-caret-down" style="padding-left: 10px;padding-right: 10px"></i>{{__('main.actions')}}</span>
+                                            </a>
+                                            <ul class="dropdown-menu  dropdown-menu-end  px-2 py-3 me-sm-n4" aria-labelledby="dropdownMenuButton">
+                                                <li class="mb-2">
+                                                    <a class="dropdown-item border-radius-md"
+                                                       href="javascript:;" onclick="showPayments({{$process->id}})">
+                                                        <div class="d-flex py-1">
+                                                            <div class="d-flex flex-column justify-content-center">
+                                                                <h6 class="text-sm font-weight-normal mb-1">
+                                                                    <span class="font-weight-bold">{{__('main.view_payments')}}</span>
+                                                                </h6>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                </li>
+
+                                                <li class="mb-2">
+                                                    @if(abs($process->net) - abs($process->paid) > 0)
+                                                    <a class="dropdown-item border-radius-md"
+                                                       href="javascript:;" onclick="addPayments({{$process->id}})">
+                                                        <div class="d-flex py-1">
+                                                            <div class="d-flex flex-column justify-content-center">
+                                                                <h6 class="text-sm font-weight-normal mb-1">
+                                                                    <span class="font-weight-bold">{{__('main.add_payment')}}</span>
+                                                                </h6>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                        @else
+
+                                                    @endif
+                                                </li>
+
+                                                <li class="mb-2">
+                                                    <a class="dropdown-item border-radius-md"
+                                                       href="{{route('add_return',$process->id)}}">
+                                                        <div class="d-flex py-1">
+                                                            <div class="d-flex flex-column justify-content-center">
+                                                                <h6 class="text-sm font-weight-normal mb-1">
+                                                                    <span class="font-weight-bold">{{__('main.add_return_sale')}}</span>
+                                                                </h6>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                </li>
+
+                                            </ul>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -98,34 +155,10 @@
 
 
 
+<div class="show_modal">
 
-<!--   Delte Modal   -->
-<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="smallModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-sm" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close"  data-bs-dismiss="modal"  aria-label="Close" style="color: red; font-size: 20px; font-weight: bold;">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body" id="smallBody">
-                <img src="../assets/img/warning.png" class="alertImage">
-                <label class="alertTitle">{{__('main.delete_alert')}}</label>
-                <br> <label  class="alertSubTitle" id="modal_table_bill"></label>
-                <div class="row">
-                    <div class="col-6 text-center">
-                        <button type="button" class="btn btn-labeled btn-primary" onclick="confirmDelete()">
-                            <span class="btn-label" style="margin-right: 10px;"><i class="fa fa-check"></i></span>{{__('main.confirm_btn')}}</button>
-                    </div>
-                    <div class="col-6 text-center">
-                        <button type="button" class="btn btn-labeled btn-secondary cancel-modal"  >
-                            <span class="btn-label" style="margin-right: 10px;"><i class="fa fa-close"></i></span>{{__('main.cancel_btn')}}</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 </div>
+
 
 <script type="text/javascript">
     let id = 0 ;
@@ -165,6 +198,26 @@
         let url = "{{ route('deleteUpdate_qnt', ':id') }}";
         url = url.replace(':id', id);
         document.location.href=url;
+    }
+
+    function showPayments(id) {
+        var route = '{{route('sales_payments',":id")}}';
+        route = route.replace(":id",id);
+
+        $.get( route, function( data ) {
+            $( ".show_modal" ).html( data );
+            $('#paymentsModal').modal('show');
+        });
+    }
+
+    function addPayments(id) {
+        var route = '{{route('add_sales_payments',":id")}}';
+        route = route.replace(":id",id);
+
+        $.get( route, function( data ) {
+            $( ".show_modal" ).html( data );
+            $('#paymentsModal').modal('show');
+        });
     }
 
 </script>
