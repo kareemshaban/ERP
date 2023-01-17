@@ -154,21 +154,61 @@ class PurchaseController extends Controller
      */
     public function edit($id)
     {
-        $datas = DB::table('purchases')
-            ->join('warehouses','purchases.warehouse_id','=','warehouses.id')
-            ->join('companies','purchases.customer_id','=','companies.id')
-            ->select('purchases.*','warehouses.name as warehouse_name','companies.name as customer_name' )
-            ->where('purchases.id' , '=' , $id) -> get();
-        if(count($datas)){
-            $data = $datas[0];
-            $details = DB::table('purchase_details')
-                -> join('products' , 'purchase_details.product_id' , '=' , 'products.id')
-                -> select('purchase_details.*' , 'products.code' , 'products.name')
-                ->where('purchase_details.purchase_id' , '=' , $id)-> get();
-            // return  $details ;
-
-            return view('purchases.edit',compact('data' , 'details'));
+        $purchase = Purchase::find($id);
+        if($purchase->net < 0){
+            return redirect()->back();
         }
+
+
+        $siteContrller = new SystemController();
+        $warehouses = $siteContrller->getAllWarehouses();
+        $customers = $siteContrller->getAllVendors();
+
+        $purchaseItems = DB::table('purchase_details')
+            ->join('products','products.id','=','purchase_details.product_id')
+            ->select('purchase_details.*','products.name as product_name')
+            ->where('purchase_id',$id)->get();
+
+
+        $zeroItems = 0;
+        foreach ($purchaseItems as $purchaseItem){
+            $returnedQnt = $this->getAllProductReturnForSameInvoice($id,$purchaseItem->product_id);
+            $purchaseItem->quantity = $purchaseItem->quantity + $returnedQnt;
+
+            if($purchaseItem->quantity == 0){
+                $zeroItems +=1;
+            }
+        }
+
+
+        if($zeroItems == count($purchaseItems)){
+            return redirect()->back();
+        }
+
+
+        //$purchaseItems = $purchaseItems->toJson();
+
+
+       // return  $purchaseItems ;
+        return view('purchases.edit',compact('warehouses','customers','purchaseItems','id','purchase'));
+
+    }
+
+    private function getAllProductReturnForSameInvoice($invoiceId,$productId){
+        $totalQnt = 0;
+
+        $allOtherPurchaseItems = DB::table('purchase_details')
+            ->join('purchases','purchases.id','=','purchase_details.purchase_id')
+            ->select('purchase_details.*')
+            ->where('purchases.returned_bill_id',$invoiceId)
+            ->where('purchase_details.product_id',$productId)->get();
+
+        foreach ($allOtherPurchaseItems as $item){
+
+            $totalQnt += $item->quantity;
+        }
+
+        return $totalQnt;
     }
 
     /**
@@ -178,12 +218,15 @@ class PurchaseController extends Controller
      * @param  \App\Models\Purchase  $purchase
      * @return \Illuminate\Http\Response
      */
-    public function update(Request  $request)
+    public function update(Request  $request , $billid)
     {
         $siteController = new SystemController();
         $total = 0;
         $tax = 0;
+        $discount = 0;
         $net = 0;
+        $lista = 0;
+        $profit = 0;
 
         $products = array();
         $qntProducts = array();
@@ -193,20 +236,19 @@ class PurchaseController extends Controller
                 'purchase_id' => 0,
                 'product_code' => $productDetails->code,
                 'product_id' => $id,
-                'quantity' => -1 * $request->qnt[$index],
-                'cost_without_tax' => -1 * $request->price_without_tax[$index],
-                'cost_with_tax' => -1 * $request->price_with_tax[$index],
+                'quantity' => $request->qnt[$index] * -1,
+                'cost_without_tax' => $request->price_without_tax[$index] * -1,
+                'cost_with_tax' => $request->price_with_tax[$index] * -1,
                 'warehouse_id' => $request->warehouse_id,
                 'unit_id' => $productDetails->unit,
-                'tax' => -1 * $request->tax[$index],
-                'total' => -1 * $request->total[$index],
-                'net' => -1 * $request->net[$index],
-                'returned_qnt' => $request -> returned_qnt[$index]
+                'tax' => $request->tax[$index] * -1,
+                'total' => $request->total[$index] * -1,
+                'net' => $request->net[$index] * -1,
             ];
 
             $item = new Product();
             $item -> product_id = $id;
-            $item -> quantity = -1 * $request->qnt[$index] ;
+            $item -> quantity = $request->qnt[$index]  * -1;
             $item -> warehouse_id = $request->warehouse_id ;
             $qntProducts[] = $item ;
 
@@ -214,21 +256,20 @@ class PurchaseController extends Controller
             $total +=$request->total[$index];
             $tax +=$request->tax[$index];
             $net +=$request->net[$index];
-
         }
 
-        //  return $products ;
-        $purchase = Purchase::create([
+        $sale = Purchase::create([
+            'returned_bill_id' => $billid,
             'date' => $request->bill_date,
             'invoice_no' => $request-> bill_number,
             'customer_id' => $request->customer_id,
             'biller_id' => Auth::id(),
             'warehouse_id' => $request->warehouse_id,
-            'note' => $request->notes ?? '' ,
-            'total' => -1 * $total,
+            'note' => $request->notes ? $request->notes :'',
+            'total' => $total * -1,
             'discount' => 0,
-            'tax' => $tax,
-            'net' => $net,
+            'tax' => $tax * -1,
+            'net' => $net * -1,
             'paid' => 0,
             'purchase_status' => 'completed',
             'payment_status' => 'not_paid',
@@ -236,14 +277,13 @@ class PurchaseController extends Controller
         ]);
 
         foreach ($products as $product){
-            $product['purchase_id'] = $purchase->id;
+            $product['purchase_id'] = $sale->id;
             PurchaseDetails::create($product);
         }
 
-
         $siteController->syncQnt($qntProducts,null , false);
         $clientController = new ClientMoneyController();
-        $clientController->syncMoney($request->customer_id,0,$net);
+        $clientController->syncMoney($request->customer_id,0,$net*-1);
 
         return redirect()->route('purchases');
     }

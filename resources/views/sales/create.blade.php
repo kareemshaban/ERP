@@ -4,19 +4,19 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
-    <link rel="icon" type="image/png" href="../assets/img/favicon.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="../../assets/img/apple-icon.png">
+    <link rel="icon" type="image/png" href="../../assets/img/favicon.png">
     <title>
         ERP System Dashboard
     </title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
-    <link href="../assets/css/nucleo-icons.css" rel="stylesheet" />
-    <link href="../assets/css/nucleo-svg.css" rel="stylesheet" />
-    <link href="../assets/css/jquery-ui.css" rel="stylesheet" />
+    <link href="../../assets/css/nucleo-icons.css" rel="stylesheet" />
+    <link href="../../assets/css/nucleo-svg.css" rel="stylesheet" />
+    <link href="../../assets/css/jquery-ui.css" rel="stylesheet" />
     <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
-    <link href="../assets/css/nucleo-svg.css" rel="stylesheet" />
-    <link id="pagestyle" href="../assets/css/soft-ui-dashboard.css?v=1.0.7" rel="stylesheet" />
+    <link href="../../assets/css/nucleo-svg.css" rel="stylesheet" />
+    <link id="pagestyle" href="../../assets/css/soft-ui-dashboard.css?v=1.0.7" rel="stylesheet" />
 </head>
 
 <body @if(Config::get('app.locale') == 'en') class="g-sidenav-show  bg-gray-100" @else  class="g-sidenav-show rtl bg-gray-100" @endif>
@@ -207,7 +207,15 @@ margin: 30px auto;" value="{{__('main.save_btn')}}"></input>
     var count = 1;
 
     $(document).ready(function() {
-        document.getElementById('bill_date').valueAsDate = new Date();
+        var now = new Date();
+        now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+
+        /* remove second/millisecond if needed - credit ref. https://stackoverflow.com/questions/24468518/html5-input-datetime-local-default-value-of-today-and-current-time#comment112871765_60884408 */
+        now.setMilliseconds(null);
+        now.setSeconds(null);
+
+        document.getElementById('bill_date').value = now.toISOString().slice(0, -1);
+
         getBillNo();
         //document.getElementById('bill_date').valueAsDate = new Date();
         $('input[name=add_item]').change(function() {
@@ -245,7 +253,7 @@ margin: 30px auto;" value="{{__('main.save_btn')}}"></input>
       let bill_number = document.getElementById('bill_number');
       $.ajax({
           type:'get',
-          url:'get_sales_number',
+          url:'{{route('get_sale_no')}}',
           dataType: 'json',
 
           success:function(response){
@@ -262,7 +270,7 @@ margin: 30px auto;" value="{{__('main.save_btn')}}"></input>
   function searchProduct(code){
       $.ajax({
           type:'get',
-          url:'getProduct' + '/' + code,
+          url:'/getProduct' + '/' + code,
           dataType: 'json',
 
           success:function(response){
@@ -271,8 +279,10 @@ margin: 30px auto;" value="{{__('main.save_btn')}}"></input>
               if(response){
                   if(response.length == 1){
                       //addItemToTable
-                      addItemToTable(response[0]);
+                      showSuggestions(response[0]);
                   }else if(response.length > 1){
+                      showSuggestions(response);
+                  } else if(response.id){
                       showSuggestions(response);
                   } else {
                       //showNotFoundAlert

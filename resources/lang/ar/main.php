@@ -254,13 +254,26 @@ return [
     '21_transform' => 'معامل التحويل الي 21',
     'gold' => ' قائمة المصوغات',
     'add_gold' => 'إضافة مصوغات',
+
     'purchases' => 'قائمة المشتريات',
     'add_purchase' => 'إنشاء فاتورة مشتريات ',
     'preview' => 'معاينة',
     'return_purchase' => 'مرتجع مشتريات',
     'preview_purchase' => 'معاينة فاتورة مشتريات',
     'returned_qnt' => 'كمية المرتجع',
-    'original_bill' => 'بيانات الفاتورة الاصلية'
+    'original_bill' => 'بيانات الفاتورة الاصلية',
+
+    'InvoiceType' => 'نوع الفاتورة',
+    'sale' => 'فاتورة مبيعات',
+    'return_sale' => 'رجيع',
+    'view_payments' => 'عرض المدفوعات',
+    'add_payment' => 'إضافة مدفوع',
+    'add_return_sale' => 'إضافة رجيع',
+    'purchase' => 'فاتورة مشتريات',
+    'amount' => 'المبلغ',
+    'paid_by ' => 'الدفع بواسطة',
+    'user' => 'المستخدم'
+
 
 
 

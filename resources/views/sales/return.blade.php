@@ -20,13 +20,13 @@
 </head>
 
 <body @if(Config::get('app.locale') == 'en') class="g-sidenav-show  bg-gray-100" @else  class="g-sidenav-show rtl bg-gray-100" @endif>
-@include('layouts.side' , ['slag' => 9 , 'subSlag' => 0])
+@include('layouts.side' , ['slag' => 8 , 'subSlag' => 2])
 
 
 <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
     @include('flash-message')
     <!-- Navbar -->
-    @include('layouts.nav' , ['page_title' => __('main.return_purchase') ])
+    @include('layouts.nav' , ['page_title' => __('main.add_return_sale') ])
     <!-- End Navbar -->
     <div class="container-fluid py-4">
         <div class="row">
@@ -35,13 +35,13 @@
                     <div class="card-header pb-0">
                         <div class="row">
                             <div class="col-6 text-start">
-                                <h6>{{ __('main.return_purchase')}}</h6>
+                                <h6>{{ __('main.add_return_sale')}}</h6>
                             </div>
                         </div>
 
                     </div>
                     <div class="card-body px-0 pt-0 pb-2">
-                        <form   method="POST" action="{{ route('return_purchase_store',$id) }}"
+                        <form   method="POST" action="{{ route('store_return',$id) }}"
                                 enctype="multipart/form-data" >
                             @csrf
 
@@ -51,7 +51,7 @@
                                         <label>{{ __('main.bill_date') }} <span style="color:red; font-size:20px; font-weight:bold;">*</span> </label>
                                         <input type="datetime-local"  id="bill_date" name="bill_date"
                                                class="form-control"
-                                        />
+                                              />
                                     </div>
                                 </div>
                                 <div class="col-4">
@@ -67,30 +67,28 @@
                                 <div class="col-4 " >
                                     <div class="form-group">
                                         <label>{{ __('main.warehouse') }} <span style="color:red; font-size:20px; font-weight:bold;">*</span> </label>
-                                        <select class="form-select mr-sm-2" disabled
-                                                name="warehouse_idd" id="warehouse_idd">
+                                        <select class="form-select mr-sm-2" readonly="readonly"
+                                                name="warehouse_id" id="warehouse_id">
                                             <option  value="0" selected>Choose...</option>
                                             @foreach ($warehouses as $item)
-                                                <option @if($item->id == $purchase->warehouse_id) selected @endif value="{{$item -> id}}"> {{ $item -> name}}</option>
+                                                <option @if($item->id == $sale->warehouse_id) selected @endif value="{{$item -> id}}"> {{ $item -> name}}</option>
 
                                             @endforeach
                                         </select>
-                                        <input type="hidden" value="{{$purchase->warehouse_id}}"  name="warehouse_id" id="warehouse_id">
                                     </div>
                                 </div>
 
                                 <div class="col-4 " >
                                     <div class="form-group">
-                                        <label>{{ __('main.supplier') }} <span style="color:red; font-size:20px; font-weight:bold;">*</span> </label>
-                                        <select class="form-select mr-sm-2"  disabled
-                                                name="customer_idg" id="customer_idg">
+                                        <label>{{ __('main.clients') }} <span style="color:red; font-size:20px; font-weight:bold;">*</span> </label>
+                                        <select class="form-select mr-sm-2"  readonly="readonly"
+                                                name="customer_id" id="customer_id">
                                             <option  value="0" selected>Choose...</option>
                                             @foreach ($customers as $item)
-                                                <option @if($item->id == $purchase->customer_id) selected @endif value="{{$item -> id}}"> {{ $item -> name}}</option>
+                                                <option @if($item->id == $sale->customer_id) selected @endif value="{{$item -> id}}"> {{ $item -> name}}</option>
 
                                             @endforeach
                                         </select>
-                                        <input type="hidden" value="{{$purchase->customer_id}}"  name="customer_id" id="customer_id">
                                     </div>
                                 </div>
                             </div>
@@ -134,12 +132,12 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-12 text-center">
-                                    <input type="submit" class="btn btn-primary" id="primary" tabindex="-1"
-                                           style="width: 150px;
+                                        <input type="submit" class="btn btn-primary" id="primary" tabindex="-1"
+                                        style="width: 150px;
 margin: 30px auto;" value="{{__('main.save_btn')}}"></input>
 
                                 </div>
-                            </div>
+                                </div>
 
 
                         </form>
@@ -163,7 +161,7 @@ margin: 30px auto;" value="{{__('main.save_btn')}}"></input>
     var count = 1;
 
     $(document).ready(function() {
-        var string = "{{$purchaseItems}}";
+        var string = "{{$saleItems}}";
 
         var allsItems = JSON.parse(string.replace(/&quot;/g,'"'));
         $.each(allsItems,function (i,item) {
@@ -213,158 +211,158 @@ margin: 30px auto;" value="{{__('main.save_btn')}}"></input>
     });
 
 
-    function getBillNo(){
+  function getBillNo(){
 
-        let bill_number = document.getElementById('bill_number');
-        $.ajax({
-            type:'get',
-            url:'{{route('get_purchaseR_number')}}',
-            dataType: 'json',
+      let bill_number = document.getElementById('bill_number');
+      $.ajax({
+          type:'get',
+          url:'{{route('get_sale_return_no')}}',
+          dataType: 'json',
 
-            success:function(response){
-                console.log(response);
+          success:function(response){
+              console.log(response);
 
-                if(response){
-                    bill_number.value = response ;
-                } else {
-                    bill_number.value = '' ;
-                }
-            }
-        });
-    }
-    function searchProduct(code){
-        $.ajax({
-            type:'get',
-            url:'getProduct' + '/' + code,
-            dataType: 'json',
+              if(response){
+                  bill_number.value = response ;
+              } else {
+                  bill_number.value = '' ;
+              }
+          }
+      });
+  }
+  function searchProduct(code){
+      $.ajax({
+          type:'get',
+          url:'getProduct' + '/' + code,
+          dataType: 'json',
 
-            success:function(response){
+          success:function(response){
 
-                document.getElementById('products_suggestions').innerHTML = '';
-                if(response){
-                    if(response.length == 1){
-                        //addItemToTable
-                        addItemToTable(response[0]);
-                    }else if(response.length > 1){
-                        showSuggestions(response);
-                    } else {
-                        //showNotFoundAlert
-                        openDialog();
-                        document.getElementById('add_item').value = '' ;
-                    }
-                } else {
-                    //showNotFoundAlert
-                    openDialog();
-                    document.getElementById('add_item').value = '' ;
-                }
-            }
-        });
-    }
+              document.getElementById('products_suggestions').innerHTML = '';
+              if(response){
+                  if(response.length == 1){
+                      //addItemToTable
+                      addItemToTable(response[0]);
+                  }else if(response.length > 1){
+                      showSuggestions(response);
+                  } else {
+                      //showNotFoundAlert
+                      openDialog();
+                      document.getElementById('add_item').value = '' ;
+                  }
+              } else {
+                  //showNotFoundAlert
+                  openDialog();
+                  document.getElementById('add_item').value = '' ;
+              }
+          }
+      });
+  }
 
-    function showSuggestions(response) {
+  function showSuggestions(response) {
 
         $data = '';
         $.each(response,function (i,item) {
             suggestionItems[item.id] = item;
             $data +='<li class="select_product" data-item-id="'+item.id+'">'+item.name+'</li>';
         });
-        document.getElementById('products_suggestions').innerHTML = $data;
-    }
+      document.getElementById('products_suggestions').innerHTML = $data;
+  }
 
     function openDialog(){
-        let href = $(this).attr('data-attr');
-        $.ajax({
-            url: href,
-            beforeSend: function() {
-                $('#loader').show();
-            },
-            // return the result
-            success: function(result) {
-                $('#deleteModal').modal("show");
-            },
-            complete: function() {
-                $('#loader').hide();
-            },
-            error: function(jqXHR, testStatus, error) {
-                console.log(error);
-                alert("Page " + href + " cannot open. Error:" + error);
-                $('#loader').hide();
-            },
-            timeout: 8000
-        })
-    }
-    function addItemToTable(item){
-        if(count == 1){
-            sItems = {};
-        }
+      let href = $(this).attr('data-attr');
+      $.ajax({
+          url: href,
+          beforeSend: function() {
+              $('#loader').show();
+          },
+          // return the result
+          success: function(result) {
+              $('#deleteModal').modal("show");
+          },
+          complete: function() {
+              $('#loader').hide();
+          },
+          error: function(jqXHR, testStatus, error) {
+              console.log(error);
+              alert("Page " + href + " cannot open. Error:" + error);
+              $('#loader').hide();
+          },
+          timeout: 8000
+      })
+  }
+  function addItemToTable(item){
+      if(count == 1){
+          sItems = {};
+      }
 
-        if(sItems[item.id]){
-            sItems[item.id].qnt = sItems[item.id].qnt +1;
-        }
-        else{
-            var price = item.cost;
-            var taxType = item.tax_method;
-            var taxRate = item.tax_rate == 1 ? 0 : 15;
-            var itemTax = 0;
-            var priceWithoutTax = 0;
-            var priceWithTax = 0;
-            var itemQnt = 1;
+      if(sItems[item.id]){
+          sItems[item.id].qnt = sItems[item.id].qnt +1;
+      }
+      else{
+          var price = item.price;
+          var taxType = item.tax_method;
+          var taxRate = item.tax_rate == 1 ? 0 : 15;
+          var itemTax = 0;
+          var priceWithoutTax = 0;
+          var priceWithTax = 0;
+          var itemQnt = 1;
 
-            if(taxType == 1){
-                //included
-                priceWithTax = price;
-                priceWithoutTax = (price / (1+(taxRate/100)));
-                itemTax = priceWithTax - priceWithoutTax;
-            }else{
-                //excluded
-                itemTax = price * (taxRate/100);
-                priceWithoutTax = price;
-                priceWithTax = price + itemTax;
-            }
+          if(taxType == 1){
+              //included
+              priceWithTax = price;
+              priceWithoutTax = (price / (1+(taxRate/100)));
+              itemTax = priceWithTax - priceWithoutTax;
+          }else{
+              //excluded
+              itemTax = price * (taxRate/100);
+              priceWithoutTax = price;
+              priceWithTax = price + itemTax;
+          }
 
-            sItems[item.id] = item;
-            sItems[item.id].cost_with_tax = priceWithTax;
-            sItems[item.id].cost_withoute_tax = priceWithoutTax;
-            sItems[item.id].item_tax = itemTax;
-            sItems[item.id].qnt = 1;
+          sItems[item.id] = item;
+          sItems[item.id].price_with_tax = priceWithTax;
+          sItems[item.id].price_withoute_tax = priceWithoutTax;
+          sItems[item.id].item_tax = itemTax;
+          sItems[item.id].qnt = 1;
 
-        }
+      }
         count++;
+      loadItems();
+
+      document.getElementById('add_item').value = '' ;
+  }
+
+  var old_row_qty=0;
+  var old_row_price = 0;
+  var old_row_w_price = 0;
+
+  $(document)
+    .on('focus','.iQuantity',function () {
+        old_row_qty = $(this).val();
+    })
+    .on('change','.iQuantity',function () {
+        var row = $(this).closest('tr');
+        if(!is_numeric($(this).val()) || parseFloat($(this).val()) < 0){
+            $(this).val(old_row_qty);
+            alert('wrong value');
+            return;
+        }
+
+        var newQty = parseFloat($(this).val()),
+            item_id = row.attr('data-item-id');
+
+        if(newQty > sItems[item_id].quantity){
+            $(this).val(old_row_qty);
+            alert('wrong value');
+            return;
+        }
+
+
+        sItems[item_id].rqnt= newQty;
         loadItems();
 
-        document.getElementById('add_item').value = '' ;
-    }
-
-    var old_row_qty=0;
-    var old_row_price = 0;
-    var old_row_w_price = 0;
-
-    $(document)
-        .on('focus','.iQuantity',function () {
-            old_row_qty = $(this).val();
-        })
-        .on('change','.iQuantity',function () {
-            var row = $(this).closest('tr');
-            if(!is_numeric($(this).val()) || parseFloat($(this).val()) < 0){
-                $(this).val(old_row_qty);
-                alert('wrong value');
-                return;
-            }
-
-            var newQty = parseFloat($(this).val()),
-                item_id = row.attr('data-item-id');
-
-            if(newQty > sItems[item_id].quantity){
-                $(this).val(old_row_qty);
-                alert('wrong value');
-                return;
-            }
-
-
-            sItems[item_id].returned_qnt= newQty;
-            loadItems();
-
-        });
+    });
 
 
     function is_numeric(mixed_var) {
@@ -375,41 +373,43 @@ margin: 30px auto;" value="{{__('main.save_btn')}}"></input>
             !isNaN(mixed_var)
         );
     }
-    function loadItems(){
+  function loadItems(){
 
-        $('#sTable tbody').empty();
-        $.each(sItems,function (i,item) {
+      $('#sTable tbody').empty();
+      $.each(sItems,function (i,item) {
 
-            if(item.quantity > 0) {
+          if(item.quantity > 0) {
 
-                if (!item.returned_qnt) {
-                    item.returned_qnt = 0;
-                }
+              if (!item.rqnt) {
+                  item.rqnt = 0;
+              }
 
-                var newTr = $('<tr data-item-id="' + item.product_id + '">');
-                var tr_html = '<td><input type="hidden" name="product_id[]" value="' + item.product_id + '"> <span>' + item.product_name + '---' + (item.product_code) + '</span> </td>';
-                tr_html += '<td><input type="text" class="form-control" readonly name="price_without_tax[]" value="' + parseFloat(item.cost_without_tax).toFixed(2) + '"></td>';
-                tr_html += '<td><input type="text" class="form-control" readonly name="price_with_tax[]" value="' + parseFloat(item.cost_with_tax).toFixed(2) + '"></td>';
-                tr_html += '<td><input type="text" class="form-control" name="all_qnt[]" value="' + parseFloat(item.quantity).toFixed(2) + '"></td>';
-                tr_html += '<td><input type="text" class="form-control iQuantity" name="qnt[]" value="' + item.returned_qnt.toFixed(2) + '"></td>';
-                tr_html += '<td><input type="text" readonly="readonly" class="form-control" name="total[]" value="' + (parseFloat(item.cost_without_tax) * parseFloat(item.returned_qnt)).toFixed(2) + '"></td>';
-                tr_html += '<td><input type="text" readonly="readonly" class="form-control" name="tax[]" value="' + (parseFloat(item.tax) * parseFloat(item.returned_qnt)).toFixed(2) + '"></td>';
-                tr_html += '<td><input type="text" readonly="readonly" class="form-control" name="net[]" value="' + (parseFloat(item.cost_with_tax) * parseFloat(item.returned_qnt)).toFixed(2) + '"></td>';
+              console.log(item);
+
+              var newTr = $('<tr data-item-id="' + item.product_id + '">');
+              var tr_html = '<td><input type="hidden" name="product_id[]" value="' + item.product_id + '"> <span>' + item.product_name + '---' + (item.product_code) + '</span> </td>';
+              tr_html += '<td><input type="text" class="form-control" readonly name="price_without_tax[]" value="' + parseFloat(item.price_without_tax).toFixed(2) + '"></td>';
+              tr_html += '<td><input type="text" class="form-control" readonly name="price_with_tax[]" value="' + parseFloat(item.price_with_tax).toFixed(2) + '"></td>';
+              tr_html += '<td><input type="text" class="form-control" name="all_qnt[]" value="' + parseFloat(item.quantity).toFixed(2) + '"></td>';
+              tr_html += '<td><input type="text" class="form-control iQuantity" name="qnt[]" value="' + item.rqnt.toFixed(2) + '"></td>';
+              tr_html += '<td><input type="text" readonly="readonly" class="form-control" name="total[]" value="' + (parseFloat(item.price_without_tax) * parseFloat(item.rqnt)).toFixed(2) + '"></td>';
+              tr_html += '<td><input type="text" readonly="readonly" class="form-control" name="tax[]" value="' + (parseFloat(item.tax) * parseFloat(item.rqnt)).toFixed(2) + '"></td>';
+              tr_html += '<td><input type="text" readonly="readonly" class="form-control" name="net[]" value="' + (parseFloat(item.price_with_tax) * parseFloat(item.rqnt)).toFixed(2) + '"></td>';
 
 
-                newTr.html(tr_html);
-                newTr.appendTo('#sTable');
-            }
-        });
+              newTr.html(tr_html);
+              newTr.appendTo('#sTable');
+          }
+      });
 
-    }
+  }
 </script>
 
 
-<script src="../../assets/js/core/popper.min.js"></script>
-<script src="../../assets/js/core/bootstrap.min.js"></script>
-<script src="../../assets/js/plugins/perfect-scrollbar.min.js"></script>
-<script src="../../assets/js/plugins/smooth-scrollbar.min.js"></script>
+<script src="../assets/js/core/popper.min.js"></script>
+<script src="../assets/js/core/bootstrap.min.js"></script>
+<script src="../assets/js/plugins/perfect-scrollbar.min.js"></script>
+<script src="../assets/js/plugins/smooth-scrollbar.min.js"></script>
 <script>
     var win = navigator.platform.indexOf('Win') > -1;
     if (win && document.querySelector('#sidenav-scrollbar')) {

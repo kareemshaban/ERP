@@ -25,6 +25,10 @@ class CreateSaleDetailsTable extends Migration
             $table->double('unit_id');
             $table->double('tax');
             $table->double('total');
+            $table->double('lista');
+            $table->double('profit');
+
+
             $table->timestamps();
         });
     }

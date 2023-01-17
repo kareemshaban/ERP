@@ -259,7 +259,17 @@ return [
     'return_purchase' => 'Return Purchase',
     'preview_purchase' => 'Preview Purchase Bill',
     'returned_qnt' => 'Returned Qnt',
-    'original_bill' => 'Original Bill Data'
+    'original_bill' => 'Original Bill Data',
+    'InvoiceType' => 'Invoice Type',
+    'sale' => 'Sale Invoice',
+    'return_sale' => 'Return Sale',
+    'view_payments' => 'View Payments',
+    'add_payment' => 'Add Payment',
+    'add_return_sale' => 'Add Return',
+     'amount' => 'Amount',
+     'paid_by' => 'Payment Method',
+    'user' => 'User'
+
 
 
 

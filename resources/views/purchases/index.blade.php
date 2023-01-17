@@ -45,7 +45,7 @@
 
                     </div>
                     <div class="card-body px-0 pt-0 pb-2">
-                        <div class="table-responsive" style="min-height: 500px; width: 100% !important ;overflow-x: hidden;">
+                        <div class="table-responsive" >
                             <table class="table " >
                                 <thead>
                                 <tr>
@@ -60,6 +60,7 @@
                                     <th class="text-center text-uppercase text-secondary text-md-center font-weight-bolder opacity-7">{{__('main.net')}}</th>
                                     <th class="text-center text-uppercase text-secondary text-md-center font-weight-bolder opacity-7">{{__('main.paid')}}</th>
                                     <th class="text-center text-uppercase text-secondary text-md-center font-weight-bolder opacity-7">{{__('main.remain')}}</th>
+                                    <th class="text-center text-uppercase text-secondary text-md-center font-weight-bolder opacity-7">{{__('main.InvoiceType')}}</th>
 
                                     <th class="text-end text-uppercase text-secondary text-md-center font-weight-bolder opacity-7">{{__('main.actions')}}</th>
                                 </tr>
@@ -79,20 +80,79 @@
                                         <td class="text-center">{{$process->paid}}</td>
                                         <td class="text-center">{{$process->net - $process->paid}}</td>
                                         <td class="text-center">
-                                            <div class="btn-group" role="group">
-                                                <button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                                                    {{__('main.actions')}}
-                                                </button>
-                                                <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1" style="border: solid 1px gray">
-                                                    <li> <a class="dropdown-item actions-items"  style="color: green" href="{{route('preview_purchase' , $process -> id)}}">{{__('main.preview')}} </a></li>
-                                                    <li> <a class="dropdown-item actions-items "  style="color: blue" href="{{route('return_purchase' , $process -> id)}}">{{__('main.return_purchase')}} </a></li>
-                                                    <li> <a class="dropdown-item actions-items "  style="color: red" href="#">{{__('main.delete')}} </a></li>
-                                                </ul>
-                                            </div>
-
-
-
+                                            @if($process->net > 0)
+                                                <span class="badge bg-success">{{__('main.purchase')}}</span>
+                                            @else
+                                                <span class="badge bg-danger">{{__('main.return_purchase')}}</span>
+                                            @endif
                                         </td>
+                                        <td class="text-center">
+                                            <a href="javascript:;" class="nav-link text-body p-0" id="dropdownMenuButton"
+                                               data-bs-toggle="dropdown" aria-expanded="false">
+                                                <span class="badge bg-primary cursor-pointer">
+                                                    <i class="fa fa-caret-down" style="padding-left: 10px;padding-right: 10px"></i>{{__('main.actions')}}</span>
+                                            </a>
+                                            <ul class="dropdown-menu  dropdown-menu-end  px-2 py-3 me-sm-n4" aria-labelledby="dropdownMenuButton">
+                                                <li class="mb-2">
+                                                    <a class="dropdown-item border-radius-md"
+                                                       href="javascript:;" >
+                                                        <div class="d-flex py-1">
+                                                            <div class="d-flex flex-column justify-content-center">
+                                                                <h6 class="text-sm font-weight-normal mb-1">
+                                                                    <span class="font-weight-bold">{{__('main.view_payments')}}</span>
+                                                                </h6>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                </li>
+
+                                                <li class="mb-2">
+                                                    @if(abs($process->net) - abs($process->paid) > 0)
+                                                        <a class="dropdown-item border-radius-md"
+                                                           href="javascript:;" >
+                                                            <div class="d-flex py-1">
+                                                                <div class="d-flex flex-column justify-content-center">
+                                                                    <h6 class="text-sm font-weight-normal mb-1">
+                                                                        <span class="font-weight-bold">{{__('main.add_payment')}}</span>
+                                                                    </h6>
+                                                                </div>
+                                                            </div>
+                                                        </a>
+                                                    @else
+
+                                                    @endif
+                                                </li>
+                                               @if($process -> net > 0)
+                                                <li class="mb-2">
+                                                    <a class="dropdown-item border-radius-md"
+                                                       href="{{route('return_purchase',$process->id)}}">
+                                                        <div class="d-flex py-1">
+                                                            <div class="d-flex flex-column justify-content-center">
+                                                                <h6 class="text-sm font-weight-normal mb-1">
+                                                                    <span class="font-weight-bold">{{__('main.return_purchase')}}</span>
+                                                                </h6>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                                @endif
+
+                                                <li class="mb-2">
+                                                    <a class="dropdown-item border-radius-md"
+                                                       href="{{route('preview_purchase',$process->id)}}">
+                                                        <div class="d-flex py-1">
+                                                            <div class="d-flex flex-column justify-content-center">
+                                                                <h6 class="text-sm font-weight-normal mb-1">
+                                                                    <span class="font-weight-bold">{{__('main.preview')}}</span>
+                                                                </h6>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                </li>
+
+                                            </ul>
+                                        </td>
+
                                     </tr>
                                 @endforeach
                                 </tbody>
