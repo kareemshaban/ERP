@@ -20,13 +20,13 @@
 </head>
 
 <body @if(Config::get('app.locale') == 'en') class="g-sidenav-show  bg-gray-100" @else  class="g-sidenav-show rtl bg-gray-100" @endif>
-@include('layouts.side' , ['slag' => 8 , 'subSlag' => 19])
+@include('layouts.side' , ['slag' => 9 , 'subSlag' => 24])
 
 
 <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
     @include('flash-message')
     <!-- Navbar -->
-    @include('layouts.nav' , ['page_title' => __('main.add_sale') ])
+    @include('layouts.nav' , ['page_title' => __('main.add_purchase') ])
     <!-- End Navbar -->
     <div class="container-fluid py-4">
         <div class="row">
@@ -35,13 +35,13 @@
                     <div class="card-header pb-0">
                         <div class="row">
                             <div class="col-6 text-start">
-                                <h6>{{ __('main.add_sale')}}</h6>
+                                <h6>{{ __('main.add_purchase')}}</h6>
                             </div>
                         </div>
 
                     </div>
                     <div class="card-body px-0 pt-0 pb-2">
-                        <form   method="POST" action="{{ route('store_sale') }}"
+                        <form   method="POST" action="{{ route('store_purchase') }}"
                                 enctype="multipart/form-data" >
                             @csrf
 
@@ -80,7 +80,7 @@
 
                                 <div class="col-4 " >
                                     <div class="form-group">
-                                        <label>{{ __('main.clients') }} <span style="color:red; font-size:20px; font-weight:bold;">*</span> </label>
+                                        <label>{{ __('main.supplier') }} <span style="color:red; font-size:20px; font-weight:bold;">*</span> </label>
                                         <select class="form-select mr-sm-2"
                                                 name="customer_id" id="customer_id">
                                             <option  value="0" selected>Choose...</option>
@@ -127,13 +127,13 @@
                                                 <thead>
                                                 <tr>
                                                     <th>{{__('main.item_name_code')}}</th>
-                                                    <th class="col-md-2">{{__('main.price_without_tax')}}</th>
-                                                    <th class="col-md-2">{{__('main.price_with_tax')}}</th>
-                                                    <th class="col-md-1">{{__('main.quantity')}} </th>
-                                                    <th class="col-md-2">{{__('main.total_without_tax')}}</th>
-                                                    <th class="col-md-2">{{__('main.tax')}}</th>
-                                                    <th class="col-md-2">{{__('main.net')}}</th>
-                                                    <th style="max-width: 30px !important; text-align: center;">
+                                                    <th class="col-md-2 text-center">{{__('main.price_without_tax')}}</th>
+                                                    <th class="col-md-2 text-center">{{__('main.price_with_tax')}}</th>
+                                                    <th class="col-md-1 text-center">{{__('main.quantity')}} </th>
+                                                    <th class="col-md-2 text-center">{{__('main.total_without_tax')}}</th>
+                                                    <th class="col-md-2 text-center">{{__('main.tax')}}</th>
+                                                    <th class="col-md-2 text-center">{{__('main.net')}}</th>
+                                                    <th  class="text-center">
                                                         <i class="fa fa-trash-o" style="opacity:0.5; filter:alpha(opacity=50);"></i>
                                                     </th>
                                                 </tr>
@@ -245,7 +245,7 @@ margin: 30px auto;" value="{{__('main.save_btn')}}"></input>
       let bill_number = document.getElementById('bill_number');
       $.ajax({
           type:'get',
-          url:'get_sales_number',
+          url:'get_purchase_number',
           dataType: 'json',
 
           success:function(response){
@@ -271,9 +271,11 @@ margin: 30px auto;" value="{{__('main.save_btn')}}"></input>
               if(response){
                   if(response.length == 1){
                       //addItemToTable
-                      addItemToTable(response[0]);
+                      showSuggestions(response[0]);
                   }else if(response.length > 1){
                       showSuggestions(response);
+                  } else if(response.id){
+                      //showSuggestions(response);
                   } else {
                       //showNotFoundAlert
                       openDialog();
@@ -290,12 +292,14 @@ margin: 30px auto;" value="{{__('main.save_btn')}}"></input>
 
   function showSuggestions(response) {
 
-        $data = '';
-        $.each(response,function (i,item) {
-            suggestionItems[item.id] = item;
-            $data +='<li class="select_product" data-item-id="'+item.id+'">'+item.name+'</li>';
-        });
-      document.getElementById('products_suggestions').innerHTML = $data;
+           $data = '';
+           $.each(response,function (i,item) {
+               suggestionItems[item.id] = item;
+               $data +='<li class="select_product" data-item-id="'+item.id+'">'+item.name+'</li>';
+           });
+           document.getElementById('products_suggestions').innerHTML = $data;
+
+
   }
 
     function openDialog(){
@@ -329,7 +333,7 @@ margin: 30px auto;" value="{{__('main.save_btn')}}"></input>
           sItems[item.id].qnt = sItems[item.id].qnt +1;
       }
       else{
-          var price = item.price;
+          var price = item.cost;
           var taxType = item.tax_method;
           var taxRate = item.tax_rate == 1 ? 0 : 15;
           var itemTax = 0;

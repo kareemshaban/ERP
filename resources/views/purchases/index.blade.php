@@ -19,13 +19,13 @@
 </head>
 
 <body @if(Config::get('app.locale') == 'en') class="g-sidenav-show  bg-gray-100" @else  class="g-sidenav-show rtl bg-gray-100" @endif>
-@include('layouts.side' , ['slag' => 8 , 'subSlag' => 18])
+@include('layouts.side' , ['slag' => 9 , 'subSlag' => 23])
 
 
 <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
     @include('flash-message')
     <!-- Navbar -->
-    @include('layouts.nav' , ['page_title' => __('main.sales_invoices') ])
+    @include('layouts.nav' , ['page_title' => __('main.purchases') ])
     <!-- End Navbar -->
     <div class="container-fluid py-4">
         <div class="row">
@@ -34,10 +34,10 @@
                     <div class="card-header pb-0">
                         <div class="row">
                             <div class="col-6 text-start">
-                                <h6>{{ __('main.sales_invoices')}}</h6>
+                                <h6>{{ __('main.purchases')}}</h6>
                             </div>
                             <div class="col-6 text-end">
-                                <a type="button" class="btn btn-labeled btn-primary" href="{{route('add_sale')}}">
+                                <a type="button" class="btn btn-labeled btn-primary" href="{{route('add_purchase')}}">
                                     <span class="btn-label" style="margin-right: 10px;"><i class="fa fa-plus"></i></span>{{__('main.add_new')}}
                                 </a>
                             </div>
@@ -45,8 +45,8 @@
 
                     </div>
                     <div class="card-body px-0 pt-0 pb-2">
-                        <div class="table-responsive p-0">
-                            <table class="table align-items-center mb-0 border">
+                        <div class="table-responsive" style="min-height: 500px; width: 100% !important ;overflow-x: hidden;">
+                            <table class="table " >
                                 <thead>
                                 <tr>
                                     <th class="text-uppercase text-secondary text-md-center font-weight-bolder opacity-7">#</th>
@@ -79,6 +79,19 @@
                                         <td class="text-center">{{$process->paid}}</td>
                                         <td class="text-center">{{$process->net - $process->paid}}</td>
                                         <td class="text-center">
+                                            <div class="btn-group" role="group">
+                                                <button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    {{__('main.actions')}}
+                                                </button>
+                                                <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1" style="border: solid 1px gray">
+                                                    <li> <a class="dropdown-item actions-items"  style="color: green" href="{{route('preview_purchase' , $process -> id)}}">{{__('main.preview')}} </a></li>
+                                                    <li> <a class="dropdown-item actions-items "  style="color: blue" href="{{route('return_purchase' , $process -> id)}}">{{__('main.return_purchase')}} </a></li>
+                                                    <li> <a class="dropdown-item actions-items "  style="color: red" href="#">{{__('main.delete')}} </a></li>
+                                                </ul>
+                                            </div>
+
+
+
                                         </td>
                                     </tr>
                                 @endforeach

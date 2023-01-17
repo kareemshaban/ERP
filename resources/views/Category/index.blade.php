@@ -52,7 +52,7 @@
                                     <th class="text-uppercase text-secondary text-md-center font-weight-bolder opacity-7 ps-2">{{__('main.code')}}</th>
                                     <th class="text-center text-uppercase text-secondary text-md-center font-weight-bolder opacity-7">{{__('main.name')}}</th>
                                     <th class="text-center text-uppercase text-secondary text-md-center font-weight-bolder opacity-7"> slug </th>
-                                    <th class="text-center text-uppercase text-secondary text-md-center font-weight-bolder opacity-7"> isGold? </th>
+                                    <th class="text-center text-uppercase text-secondary text-md-center font-weight-bolder opacity-7" hidden> isGold? </th>
                                     <th class="text-end text-uppercase text-secondary text-md-center font-weight-bolder opacity-7">{{__('main.actions')}}</th>
                                 </tr>
                                 </thead>
@@ -63,7 +63,7 @@
                                         <td class="text-center">{{$category -> code}}</td>
                                         <td class="text-center">{{$category -> name}}</td>
                                         <td class="text-center">{{$category -> slug}} </td>
-                                        <td class="text-center">{{$category -> isGold == 1 ? __('main.true_val') : __('main.false_val')}} </td>
+                                        <td class="text-center" hidden>{{$category -> isGold == 1 ? __('main.true_val') : __('main.false_val')}} </td>
                                         <td class="text-center">
                                             <button type="button" class="btn btn-labeled btn-secondary " onclick="EditModal({{$category -> id}})">
                                                 <span class="btn-label" style="margin-right: 10px;"><i class="fa fa-pen"></i></span>{{__('main.edit')}}</button>
@@ -154,11 +154,11 @@
                                 <textarea type="text"  id="description" name="description" class="form-control" placeholder="{{ __('main.description') }}"></textarea>
                             </div>
                         </div>
-                        <div class="col-3 " >
+                        <div class="col-3 " hidden>
                             <div class="form-group">
                                 <label>is Gold ? <span style="color:red; font-size:20px; font-weight:bold;">*</span> </label>
                                 <input type="checkbox"   id="isGold" name="isGold"
-                                       class="form-check" style="width: 30px;"/>
+                                       class="form-check" style="width: 30px;" />
                             </div>
                         </div>
 

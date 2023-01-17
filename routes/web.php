@@ -125,7 +125,14 @@ Route::get('/getUpdateQntBillNo', [App\Http\Controllers\UpdateQuntityController:
     Route::post('/add_sale', [App\Http\Controllers\SalesController::class, 'store'])->name('store_sale');
     Route::get('/get_sales_number', [App\Http\Controllers\SalesController::class, 'getNo'])->name('get_sale_no');
 
-
+    Route::get('/purchases', [App\Http\Controllers\PurchaseController::class, 'index'])->name('purchases');
+    Route::get('/add_purchase', [App\Http\Controllers\PurchaseController::class, 'create'])->name('add_purchase');
+    Route::post('/add_purchase', [App\Http\Controllers\PurchaseController::class, 'store'])->name('store_purchase');
+    Route::get('/get_purchase_number', [App\Http\Controllers\PurchaseController::class, 'getNo'])->name('get_purchase_number');
+    Route::get('/preview_purchase/{id}', [App\Http\Controllers\PurchaseController::class, 'show'])->name('preview_purchase');
+    Route::get('/return_purchase/{id}', [App\Http\Controllers\PurchaseController::class, 'edit'])->name('return_purchase');
+    Route::get('/get_purchaseR_number', [App\Http\Controllers\PurchaseController::class, 'getNoR'])->name('get_purchaseR_number');
+    Route::post('/return_purchase', [App\Http\Controllers\PurchaseController::class, 'update'])->name('return_purchase_store');
 
 });
 

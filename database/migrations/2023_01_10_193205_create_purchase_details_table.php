@@ -25,6 +25,8 @@ class CreatePurchaseDetailsTable extends Migration
             $table->double('unit_id');
             $table->double('tax');
             $table->double('total');
+            $table->double('net');
+            $table->double('returned_qnt') -> nullable() ->default(0);
             $table->timestamps();
         });
     }

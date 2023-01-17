@@ -29,6 +29,7 @@ class CreatePurchasesTable extends Migration
             $table->string('purchase_status');
             $table->string('payment_status');
             $table->integer('created_by');
+            $table->integer('returned_bill_id') ->default(0) ->nullable();
             $table->timestamps();
         });
     }

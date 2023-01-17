@@ -26842,4 +26842,13 @@ input[type=file]::file-selector-button:hover {
     border-left-width: 1px;
     border-radius: 4px;
 }
+.actions-items{
+    text-align: center;
+    border-bottom: solid 1px gray;
+    width: 90%;
+    display: block;
+    margin: auto;
+    font-weight:bold ;
+    font-size: 13px;
+}
 /*# sourceMappingURL=dashboard-free.css.map */
