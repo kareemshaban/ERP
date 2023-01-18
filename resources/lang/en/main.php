@@ -268,7 +268,11 @@ return [
     'add_return_sale' => 'Add Return',
      'amount' => 'Amount',
      'paid_by' => 'Payment Method',
-    'user' => 'User'
+    'user' => 'User',
+    'can_not_delete' => 'The item cannot be deleted because it is related to buying or selling operations or adding quantities',
+    'update_product' => 'Update Product Data',
+    'purchases' => 'Purchases List',
+    'add_purchase' => 'Create Purchase Bill',
 
 
 

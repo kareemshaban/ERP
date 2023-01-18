@@ -44,7 +44,7 @@
                         </div>
 
                     </div>
-                    <div class="card-body px-0 pt-0 pb-2">
+                    <div class="card-body px-0 pt-0 pb-2" style="min-height: 400px;">
                         <div class="table-responsive" >
                             <table class="table " >
                                 <thead>
@@ -92,7 +92,7 @@
                                                 <span class="badge bg-primary cursor-pointer">
                                                     <i class="fa fa-caret-down" style="padding-left: 10px;padding-right: 10px"></i>{{__('main.actions')}}</span>
                                             </a>
-                                            <ul class="dropdown-menu  dropdown-menu-end  px-2 py-3 me-sm-n4" aria-labelledby="dropdownMenuButton">
+                                            <ul class="dropdown-menu  dropdown-menu-end  px-2 py-3 me-sm-n4" aria-labelledby="dropdownMenuButton" style="overflow-y: hidden !important;">
                                                 <li class="mb-2">
                                                     <a class="dropdown-item border-radius-md"
                                                        href="javascript:;" >
@@ -144,6 +144,17 @@
                                                             <div class="d-flex flex-column justify-content-center">
                                                                 <h6 class="text-sm font-weight-normal mb-1">
                                                                     <span class="font-weight-bold">{{__('main.preview')}}</span>
+                                                                </h6>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                                <li class="mb-2">
+                                                    <a class="dropdown-item border-radius-md deleteBtn"  id="{{$process->id}}">
+                                                        <div class="d-flex py-1">
+                                                            <div class="d-flex flex-column justify-content-center">
+                                                                <h6 class="text-sm font-weight-normal mb-1">
+                                                                    <span class="font-weight-bold">{{__('main.delete')}}</span>
                                                                 </h6>
                                                             </div>
                                                         </div>
@@ -205,7 +216,7 @@
     $(document).ready(function() {
         id = 0;
         $(document).on('click', '.deleteBtn', function(event) {
-            id = event.currentTarget.value ;
+            id = event.currentTarget.id ;
             event.preventDefault();
             let href = $(this).attr('data-attr');
             $.ajax({
@@ -235,7 +246,7 @@
     });
 
     function confirmDelete(){
-        let url = "{{ route('deleteUpdate_qnt', ':id') }}";
+        let url = "{{ route('delete_purchase', ':id') }}";
         url = url.replace(':id', id);
         document.location.href=url;
     }

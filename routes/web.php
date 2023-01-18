@@ -134,7 +134,7 @@ Route::get('/getUpdateQntBillNo', [App\Http\Controllers\UpdateQuntityController:
     Route::get('/return_purchase/{id}', [App\Http\Controllers\PurchaseController::class, 'edit'])->name('return_purchase');
     Route::get('/get_purchaseR_number', [App\Http\Controllers\PurchaseController::class, 'getNoR'])->name('get_purchaseR_number');
     Route::post('/return_purchase/{id}', [App\Http\Controllers\PurchaseController::class, 'update'])->name('return_purchase_store');
-
+    Route::get('/delete_purchase/{id}', [App\Http\Controllers\PurchaseController::class, 'destroy'])->name('delete_purchase');
     Route::get('/sales/return/{id}', [App\Http\Controllers\SalesController::class, 'returnSale'])->name('add_return');
     Route::post('/sales/return/{id}', [App\Http\Controllers\SalesController::class, 'storeReturn'])->name('store_return');
 

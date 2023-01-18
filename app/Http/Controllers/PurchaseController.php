@@ -294,9 +294,46 @@ class PurchaseController extends Controller
      * @param  \App\Models\Purchase  $purchase
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Purchase $purchase)
+    public function destroy($id)
     {
-        //
+        $purchase = Purchase::find($id);
+        $item = new Product();
+        $qntProducts = array();
+        $siteController = new SystemController();
+        $net = 0 ;
+        if($purchase){
+            $details = PurchaseDetails::where('purchase_id' , '=' , $id) -> get();
+            foreach ($details as $detail){
+                $item = new Product();
+                $item -> product_id = $detail -> product_id;
+                $item -> quantity = $detail-> quantity  * -1;
+                $item -> warehouse_id = $detail->warehouse_id ;
+                $qntProducts[] = $item ;
+                $net +=$detail->net;
+                $detail -> delete();
+            }
+            $returns = Purchase::where('returned_bill_id' , '=' , $id) -> get();
+            foreach ($returns as $return){
+                $details = PurchaseDetails::where('purchase_id' , '=' , $return -> id) -> get();
+                foreach ($details as $detail){
+                    $item = new Product();
+                    $item -> product_id = $detail -> product_id;
+                    $item -> quantity = $detail-> quantity  * -1;
+                    $item -> warehouse_id = $detail->warehouse_id ;
+                    $qntProducts[] = $item ;
+                    $net +=$detail->net;
+                    $detail -> delete();
+                }
+                $return -> delete();
+            }
+
+            $siteController->syncQnt($qntProducts,null , false);
+            $clientController = new ClientMoneyController();
+            $clientController->syncMoney($purchase->customer_id,0,$net*-1);
+            $purchase -> delete();
+            return redirect()->route('purchases')->with('success' ,  __('main.deleted'));
+
+        }
     }
 
     public function getNo(){

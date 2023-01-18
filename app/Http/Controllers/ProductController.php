@@ -6,8 +6,14 @@ use App\Models\Product;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Models\ProductUnit;
+use App\Models\PurchaseDetails;
+use App\Models\SaleDetails;
+use App\Models\UpdateQuntityDetails;
 use App\Models\WarehouseProducts;
+use Illuminate\Database\QueryException;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule;
 
 class ProductController extends Controller
 {
@@ -52,40 +58,83 @@ class ProductController extends Controller
      * @param  \App\Http\Requests\StoreProductRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreProductRequest $request)
+    public function store(Request $request)
     {
-        $product = Product::create($request->all());
+        $validated = $request->validate([
+            'code' => 'required|unique:products',
+            'name' => 'required|unique:products',
+            'unit' => 'required',
+            'cost' => 'required',
+            'price' => 'required',
+            'category_id' => 'required',
+            'tax_rate' => 'required',
+            'tax_method' => 'required',
+            'type' => 'required',
+            'brand' => 'required',
+            'slug' => 'required',
+        ]);
+        try {
+            $product = Product::create([
+                'code' => $request->code,
+                'name' => $request->name,
+                'unit' => $request->unit,
+                'cost' => $request->cost,
+                'price' => $request->price,
+                'lista' => $request->lista ?? 0,
+                'alert_quantity' => $request->alert_quantity ?? 0,
+                'category_id' => $request->category_id,
+                'subcategory_id' => $request->subcategory_id ?? 0,
+                'quantity' => $request->quantity ?? 0,
+                'tax_rate' => $request->tax_rate,
+                'track_quantity' => $request->track_quantity ?? 0,
+                'tax_method' => $request->tax_method,
+                'type' => $request->type,
+                'brand' => $request->brand,
+                'slug' => $request->slug,
+                'featured' => $request->featured ?? 0,
+                'active' => $request->active ?? 1,
+                'city_tax' => $request->city_tax ?? 0,
+                'max_order' => $request->max_order ?? 0,
+            ]);
+            if($product){
 
-        $unitsTable = $request->product_units;
-        if($unitsTable){
-            foreach ($unitsTable as $row){
-                ProductUnit::create([
-                    'product_id' => $product->id,
-                    'unit_id' => $row['unit'],
-                    'price' => $row['price']
-                ]);
+                $unitsTable = $request->product_units;
+                if($unitsTable){
+                    foreach ($unitsTable as $row){
+                        ProductUnit::create([
+                            'product_id' => $product->id,
+                            'unit_id' => $row['unit'],
+                            'price' => $row['price']
+                        ]);
+                    }
+                }else{
+                    ProductUnit::create([
+                        'product_id' => $product->id,
+                        'unit_id' => $product->unit,
+                        'price' => $product->price
+                    ]);
+                }
+
+
+                $systemController = new SystemController();
+                $warehouses = $systemController->getAllWarehouses();
+                foreach ($warehouses as $warehouse){
+                    WarehouseProducts::create([
+                        'warehouse_id' => $warehouse->id,
+                        'product_id' => $product->id,
+                        'cost' => $product->cost,
+                        'quantity' => 0
+                    ]);
+                }
+
+                return redirect()->route('products');
             }
-        }else{
-            ProductUnit::create([
-                'product_id' => $product->id,
-                'unit_id' => $product->unit,
-                'price' => $product->price
-            ]);
+        } catch(QueryException $ex){
+
+            return redirect()->route('products')->with('error' ,  $ex->getMessage());
         }
 
 
-        $systemController = new SystemController();
-        $warehouses = $systemController->getAllWarehouses();
-        foreach ($warehouses as $warehouse){
-            WarehouseProducts::create([
-                'warehouse_id' => $warehouse->id,
-                'product_id' => $product->id,
-                'cost' => $product->cost,
-                'quantity' => 0
-            ]);
-        }
-
-        return redirect()->route('products');
     }
 
     /**
@@ -105,9 +154,22 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function edit(Product $product)
+    public function edit($id)
     {
-        //
+        $product = Product::find($id);
+        if($product){
+            $systemController = new SystemController();
+
+            $brands = $systemController->getAllBrands();
+            $units = $systemController->getAllUnits();
+            $categories = $systemController->getAllMainCategories();
+            $taxRages = $systemController->getAllTaxRates();
+            $taxTypes = $systemController->getAllTaxTypes();
+
+
+
+            return view('products.update',compact('product','brands','categories','taxRages','taxTypes','units'));
+        }
     }
 
     /**
@@ -117,9 +179,86 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateProductRequest $request, Product $product)
+    public function update(Request $request, $id)
     {
-        //
+        $product = Product::find($id);
+        if($product){
+            $validated = $request->validate([
+                'code' => ['required' , Rule::unique('products')->ignore($id)],
+                'name' => ['required' , Rule::unique('products')->ignore($id)],
+                'unit' => 'required',
+                'cost' => 'required',
+                'price' => 'required',
+                'category_id' => 'required',
+                'tax_rate' => 'required',
+                'tax_method' => 'required',
+                'type' => 'required',
+                'brand' => 'required',
+                'slug' => 'required',
+            ]);
+            try {
+                $product -> update ([
+                    'code' => $request->code,
+                    'name' => $request->name,
+                    'unit' => $request->unit,
+                    'cost' => $request->cost,
+                    'price' => $request->price,
+                    'lista' => $request->lista ?? 0,
+                    'alert_quantity' => $request->alert_quantity ?? 0,
+                    'category_id' => $request->category_id,
+                    'subcategory_id' => $request->subcategory_id ?? 0,
+                    'quantity' => $request->quantity ?? 0,
+                    'tax_rate' => $request->tax_rate,
+                    'track_quantity' => $request->track_quantity ?? 0,
+                    'tax_method' => $request->tax_method,
+                    'type' => $request->type,
+                    'brand' => $request->brand,
+                    'slug' => $request->slug,
+                    'featured' => $request->featured ?? 0,
+                    'active' => $request->active ?? 1,
+                    'city_tax' => $request->city_tax ?? 0,
+                    'max_order' => $request->max_order ?? 0,
+                ]);
+
+                $units = ProductUnit::where('product_id' , '=' , $product -> id) -> get();
+                foreach ($units as $unit){
+                    $unit -> delete();
+                }
+                $unitsTable = $request->product_units;
+                if($unitsTable){
+                    foreach ($unitsTable as $row){
+                        ProductUnit::create([
+                            'product_id' => $product->id,
+                            'unit_id' => $row['unit'],
+                            'price' => $row['price']
+                        ]);
+                    }
+                }else{
+                    ProductUnit::create([
+                        'product_id' => $product->id,
+                        'unit_id' => $product->unit,
+                        'price' => $product->price
+                    ]);
+                }
+
+
+//                $systemController = new SystemController();
+//                $warehouses = $systemController->getAllWarehouses();
+//                foreach ($warehouses as $warehouse){
+//                    WarehouseProducts::create([
+//                        'warehouse_id' => $warehouse->id,
+//                        'product_id' => $product->id,
+//                        'cost' => $product->cost,
+//                        'quantity' => 0
+//                    ]);
+//                }
+                return redirect()->route('products')->with('success' ,  __('main.updated'));
+            }catch(QueryException $ex){
+
+                return redirect()->route('products')->with('error' ,  $ex->getMessage());
+            }
+
+        }
     }
 
     /**
@@ -128,9 +267,31 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Product $product)
+    public function destroy($id)
     {
-        //
+        $product = Product::find($id) ;
+        if($product) {
+            $sales = SaleDetails::where('product_id', '=', $id)->get();
+            $purchases = PurchaseDetails::where('product_id', '=', $id)->get();
+            $updateQnt = UpdateQuntityDetails::where('item_id', '=', $id)->get();
+            if (count($sales) == 0 && count($purchases) == 0 && count($updateQnt) == 0) {
+                $unites = ProductUnit::where('product_id', '=', $id)->get();
+                $warehouseProducts = WarehouseProducts::where('product_id', '=', $id)->get();
+                foreach ($unites as $unit){
+                    $unit -> delete();
+                }
+                foreach ($warehouseProducts as $wpro){
+                    $wpro -> delete();
+                }
+                $product -> delete();
+                return redirect()->route('products')->with('success', __('main.deleted'));
+
+        } else {
+                // can not delete
+                return redirect()->route('products')->with('success', __('main.can_not_delete'));
+            }
+        }
+
     }
     public function getProduct($code)
     {

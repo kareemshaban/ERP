@@ -76,9 +76,10 @@
                                     <td class="text-center">{{$unit->unitName}}</td>
                                     <td class="text-center">{{$unit->alert_quantity}}</td>
                                     <td class="text-center">
-                                        <button type="button" class="btn btn-labeled btn-secondary " onclick="EditModal({{$unit->id}})">
-                                            <span class="btn-label" style="margin-right: 10px;"><i class="fa fa-pen"></i></span>{{__('main.edit')}}</button>
-
+                                        <a href="{{route('editProduct' , $unit -> id)}}">
+                                            <button type="button" class="btn btn-labeled btn-secondary ">
+                                                <span class="btn-label" style="margin-right: 10px;"><i class="fa fa-pen"></i></span>{{__('main.edit')}}</button>
+                                        </a>
                                         <button type="button" class="btn btn-labeled btn-danger deleteBtn "  id="{{$unit->id}}">
                                             <span class="btn-label" style="margin-right: 10px;"><i class="fa fa-trash"></i></span>{{__('main.delete')}}</button>
                                     </td>
@@ -243,7 +244,7 @@
 
     });
     function confirmDelete(){
-        let url = "{{ route('deleteUnit', ':id') }}";
+        let url = "{{ route('deleteProduct', ':id') }}";
         url = url.replace(':id', id);
         document.location.href=url;
     }
