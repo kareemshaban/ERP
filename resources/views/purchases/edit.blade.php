@@ -196,10 +196,10 @@ margin: 30px auto;" value="{{__('main.save_btn')}}"></input>
         });
 
         $(document).on('click' , '.deleteBtn' , function (event) {
-            var row = $(this).parent().parent().index();
-            console.log(row);
-            var table = document.getElementById('tbody');
-            table.deleteRow(row);
+            var row1 = $(this).closest('tr');
+            var item_id = row1.attr('data-item-id');
+            delete sItems[item_id];
+            loadItems();
         });
 
         $(document).on('click', '.select_product', function () {
@@ -362,6 +362,63 @@ margin: 30px auto;" value="{{__('main.save_btn')}}"></input>
 
 
             sItems[item_id].returned_qnt= newQty;
+            loadItems();
+
+        });
+
+    $(document)
+        .on('focus','.iPrice',function () {
+            old_row_price = $(this).val();
+        })
+        .on('change','.iPrice',function () {
+            var row = $(this).closest('tr');
+            if(!is_numeric($(this).val()) || parseFloat($(this).val()) < 0){
+                $(this).val(old_row_price);
+                alert('wrong value');
+                return;
+            }
+
+            var newQty = parseFloat($(this).val()),
+                item_id = row.attr('data-item-id');
+
+
+            var item_tax =sItems[item_id].item_tax;
+            var priceWithTax = newQty;
+            if(item_tax > 0){
+                priceWithTax = newQty * 1.15;
+                item_tax = newQty * 0.15;
+            }
+            sItems[item_id].price_withoute_tax= newQty;
+            sItems[item_id].price_with_tax= priceWithTax;
+            sItems[item_id].item_tax= item_tax;
+            loadItems();
+
+        });
+
+    $(document)
+        .on('focus','.iPriceWTax',function () {
+            old_row_w_price = $(this).val();
+        })
+        .on('change','.iPriceWTax',function () {
+            var row = $(this).closest('tr');
+            if(!is_numeric($(this).val()) || parseFloat($(this).val()) < 0){
+                $(this).val(old_row_w_price);
+                alert('wrong value');
+                return;
+            }
+
+            var newQty = parseFloat($(this).val()),
+                item_id = row.attr('data-item-id');
+
+            var item_tax =sItems[item_id].item_tax;
+            var priceWithoutTax = newQty;
+            if(item_tax > 0){
+                priceWithoutTax = newQty / 1.15;
+                item_tax = priceWithoutTax * 0.15;
+            }
+            sItems[item_id].price_withoute_tax= priceWithoutTax;
+            sItems[item_id].price_with_tax= newQty;
+            sItems[item_id].item_tax= item_tax;
             loadItems();
 
         });

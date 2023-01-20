@@ -13,30 +13,38 @@
 
                 <div class="row col-md-12">
                     <div class="col-md-4"></div>
-                    <div class="col-md-4"><h2>{{__('main.purchase')}}</h2></div>
+                    <div class="col-md-4"><h2>{{__('main.sales_bill')}}</h2></div>
                     <div class="col-md-4"></div>
                 </div>
 
                 <div class="row col-md-12">
-                    <div class="col-md-6">
-                        <h4>{{__('main.from')}}</h4>
-                        <p>{{$vendor->name}}</p>
-                        <p>{{$vendor->company}}</p>
-                        <p>{{$vendor->vat_no}}</p>
-                        <p>{{$vendor->address}}</p>
-                        <p>{{$vendor->phone}}</p>
-                        <p>{{$vendor->email}}</p>
-                    </div>
+                    <table class="table items table-striped table-bordered table-condensed table-hover">
+                        <tbody>
+                        <tr>
+                            <td>{{__('main.bill_date')}}</td>
+                            <td>{{$data->date}}</td>
+                        </tr>
 
-                    <div class="col-md-6">
-                        <h4>{{__('main.to')}}</h4>
-                        <p>{{$cashier->name}}</p>
-                        <p>{{$cashier->company}}</p>
-                        <p>{{$cashier->vat_no}}</p>
-                        <p>{{$cashier->address}}</p>
-                        <p>{{$cashier->phone}}</p>
-                        <p>{{$cashier->email}}</p>
-                    </div>
+                        <tr>
+                            <td>{{__('main.invoice_no')}}</td>
+                            <td>{{$data->invoice_no}}</td>
+                        </tr>
+
+                        <tr>
+                            <td>{{__('main.client')}}</td>
+                            <td>{{$vendor->name}}</td>
+                        </tr>
+
+                        <tr>
+                            <td>{{__('main.client_vat_no')}}</td>
+                            <td>{{$vendor->vat_no}}</td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+
+
+
                 </div>
 
                 <div class="col-md-12">
@@ -56,12 +64,12 @@
                             @foreach($details as $detail)
                                 <tr>
                                     <td class="text-center">{{$detail ->name }} -- {{$detail ->code }}</td>
-                                    <td class="text-center">{{$detail ->cost_without_tax }}</td>
-                                    <td class="text-center">{{$detail ->cost_with_tax }}</td>
+                                    <td class="text-center">{{$detail ->price_without_tax }}</td>
+                                    <td class="text-center">{{$detail ->price_with_tax }}</td>
                                     <td class="text-center">{{$detail ->quantity }}</td>
                                     <td class="text-center">{{$detail ->total }}</td>
                                     <td class="text-center">{{$detail ->tax }}</td>
-                                    <td class="text-center">{{$detail ->net }}</td>
+                                    <td class="text-center">{{$detail ->total + $detail->tax }}</td>
                                 </tr>
                             @endforeach
                         </tbody>

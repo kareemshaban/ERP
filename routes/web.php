@@ -135,15 +135,22 @@ Route::get('/getUpdateQntBillNo', [App\Http\Controllers\UpdateQuntityController:
     Route::get('/get_purchaseR_number', [App\Http\Controllers\PurchaseController::class, 'getNoR'])->name('get_purchaseR_number');
     Route::post('/return_purchase/{id}', [App\Http\Controllers\PurchaseController::class, 'update'])->name('return_purchase_store');
     Route::get('/delete_purchase/{id}', [App\Http\Controllers\PurchaseController::class, 'destroy'])->name('delete_purchase');
+    Route::get('/purchases/payments/{id}',[\App\Http\Controllers\PaymentController::class,'getPurchasesPayments'])->name('purchases_payments');
+    Route::get('/purchases/payments/add/{id}',[\App\Http\Controllers\PaymentController::class,'addPurchasesPayment'])->name('add_purchases_payments');
+    Route::post('/purchases/payments/add/{id}',[\App\Http\Controllers\PaymentController::class,'storePurchasesPayment'])->name('store_purchases_payments');
+    Route::get('/purchases/payments/delete/{id}',[\App\Http\Controllers\PaymentController::class,'deletePurchasesPayment'])->name('delete_purchases_payments');
+
+
+
     Route::get('/sales/return/{id}', [App\Http\Controllers\SalesController::class, 'returnSale'])->name('add_return');
     Route::post('/sales/return/{id}', [App\Http\Controllers\SalesController::class, 'storeReturn'])->name('store_return');
-
     Route::get('/get_sales_number', [App\Http\Controllers\SalesController::class, 'getNo'])->name('get_sale_no');
     Route::get('/get_sales_return_number', [App\Http\Controllers\SalesController::class, 'getReturnNo'])->name('get_sale_return_no');
     Route::get('/sales/payments/{id}',[\App\Http\Controllers\PaymentController::class,'getSalesPayments'])->name('sales_payments');
     Route::get('/sales/payments/add/{id}',[\App\Http\Controllers\PaymentController::class,'addSalePayment'])->name('add_sales_payments');
     Route::post('/sales/payments/add/{id}',[\App\Http\Controllers\PaymentController::class,'storeSalePayment'])->name('store_sales_payments');
     Route::get('/sales/payments/delete/{id}',[\App\Http\Controllers\PaymentController::class,'deleteSalePayment'])->name('delete_sales_payments');
+    Route::get('/preview_sales/{id}', [App\Http\Controllers\SalesController::class, 'show'])->name('preview_sales');
 
 
 

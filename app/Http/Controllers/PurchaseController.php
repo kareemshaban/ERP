@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cashier;
+use App\Models\Company;
 use App\Models\Product;
 use App\Models\Purchase;
 use App\Http\Requests\StorePurchaseRequest;
@@ -140,7 +142,11 @@ class PurchaseController extends Controller
                 ->where('purchase_details.purchase_id' , '=' , $id)-> get();
             // return  $details ;
 
-            return view('purchases.view',compact('data' , 'details'));
+
+            $vendor = Company::find($data->customer_id);
+            $cashier = Cashier::get()->first();
+
+            return view('purchases.view',compact('data' , 'details','vendor','cashier'))->render();
         }
 
 

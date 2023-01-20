@@ -207,7 +207,16 @@ margin: 30px auto;" value="{{__('main.save_btn')}}"></input>
     var count = 1;
 
     $(document).ready(function() {
-        document.getElementById('bill_date').valueAsDate = new Date();
+
+        var now = new Date();
+        now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+
+        /* remove second/millisecond if needed - credit ref. https://stackoverflow.com/questions/24468518/html5-input-datetime-local-default-value-of-today-and-current-time#comment112871765_60884408 */
+        now.setMilliseconds(null);
+        now.setSeconds(null);
+
+        document.getElementById('bill_date').value = now.toISOString().slice(0, -1);
+
         getBillNo();
         //document.getElementById('bill_date').valueAsDate = new Date();
         $('input[name=add_item]').change(function() {
@@ -224,9 +233,11 @@ margin: 30px auto;" value="{{__('main.save_btn')}}"></input>
 
         $(document).on('click' , '.deleteBtn' , function (event) {
             var row = $(this).parent().parent().index();
-            console.log(row);
-            var table = document.getElementById('tbody');
-            table.deleteRow(row);
+
+            var row1 = $(this).closest('tr');
+            var item_id = row1.attr('data-item-id');
+            delete sItems[item_id];
+            loadItems();
         });
 
         $(document).on('click', '.select_product', function () {
@@ -245,7 +256,7 @@ margin: 30px auto;" value="{{__('main.save_btn')}}"></input>
       let bill_number = document.getElementById('bill_number');
       $.ajax({
           type:'get',
-          url:'get_purchase_number',
+          url:'{{route('get_purchase_number')}}',
           dataType: 'json',
 
           success:function(response){
@@ -271,7 +282,7 @@ margin: 30px auto;" value="{{__('main.save_btn')}}"></input>
               if(response){
                   if(response.length == 1){
                       //addItemToTable
-                      showSuggestions(response[0]);
+                      addItemToTable(response[0]);
                   }else if(response.length > 1){
                       showSuggestions(response);
                   } else if(response.id){
@@ -391,6 +402,63 @@ margin: 30px auto;" value="{{__('main.save_btn')}}"></input>
         loadItems();
 
     });
+
+    $(document)
+        .on('focus','.iPrice',function () {
+            old_row_price = $(this).val();
+        })
+        .on('change','.iPrice',function () {
+            var row = $(this).closest('tr');
+            if(!is_numeric($(this).val()) || parseFloat($(this).val()) < 0){
+                $(this).val(old_row_price);
+                alert('wrong value');
+                return;
+            }
+
+            var newQty = parseFloat($(this).val()),
+                item_id = row.attr('data-item-id');
+
+
+            var item_tax =sItems[item_id].item_tax;
+            var priceWithTax = newQty;
+            if(item_tax > 0){
+                priceWithTax = newQty * 1.15;
+                item_tax = newQty * 0.15;
+            }
+            sItems[item_id].price_withoute_tax= newQty;
+            sItems[item_id].price_with_tax= priceWithTax;
+            sItems[item_id].item_tax= item_tax;
+            loadItems();
+
+        });
+
+    $(document)
+        .on('focus','.iPriceWTax',function () {
+            old_row_w_price = $(this).val();
+        })
+        .on('change','.iPriceWTax',function () {
+            var row = $(this).closest('tr');
+            if(!is_numeric($(this).val()) || parseFloat($(this).val()) < 0){
+                $(this).val(old_row_w_price);
+                alert('wrong value');
+                return;
+            }
+
+            var newQty = parseFloat($(this).val()),
+                item_id = row.attr('data-item-id');
+
+            var item_tax =sItems[item_id].item_tax;
+            var priceWithoutTax = newQty;
+            if(item_tax > 0){
+                priceWithoutTax = newQty / 1.15;
+                item_tax = priceWithoutTax * 0.15;
+            }
+            sItems[item_id].price_withoute_tax= priceWithoutTax;
+            sItems[item_id].price_with_tax= newQty;
+            sItems[item_id].item_tax= item_tax;
+            loadItems();
+
+        });
 
 
     function is_numeric(mixed_var) {

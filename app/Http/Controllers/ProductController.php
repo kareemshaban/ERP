@@ -298,7 +298,7 @@ class ProductController extends Controller
         $single = $this->getSingleProduct($code);
 
         if($single){
-            echo json_encode ($single);
+            echo response()->json([$single]);
             exit;
         }else{
             $product = Product::where('code' , 'like' , '%'.$code.'%')

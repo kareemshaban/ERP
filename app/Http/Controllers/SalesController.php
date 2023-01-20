@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cashier;
+use App\Models\Company;
 use App\Models\Product;
 use App\Models\SaleDetails;
 use App\Models\Sales;
@@ -182,6 +184,30 @@ class SalesController extends Controller
         return $totalQnt;
     }
 
+    public function show($id)
+    {
+        $datas = DB::table('sales')
+            ->join('warehouses','sales.warehouse_id','=','warehouses.id')
+            ->join('companies','sales.customer_id','=','companies.id')
+            ->select('sales.*','warehouses.name as warehouse_name','companies.name as customer_name' )
+            ->where('sales.id' , '=' , $id) -> get();
+        if(count($datas)){
+            $data = $datas[0];
+            $details = DB::table('sale_details')
+                -> join('products' , 'sale_details.product_id' , '=' , 'products.id')
+                -> select('sale_details.*' , 'products.code' , 'products.name')
+                ->where('sale_details.sale_id' , '=' , $id)-> get();
+            // return  $details ;
+
+
+            $vendor = Company::find($data->customer_id);
+            $cashier = Cashier::get()->first();
+
+            return view('sales.view',compact('data' , 'details','vendor','cashier'))->render();
+        }
+
+
+    }
 
     /**
      * Store a newly created resource in storage.

@@ -95,7 +95,7 @@
                                             <ul class="dropdown-menu  dropdown-menu-end  px-2 py-3 me-sm-n4" aria-labelledby="dropdownMenuButton" style="overflow-y: hidden !important;">
                                                 <li class="mb-2">
                                                     <a class="dropdown-item border-radius-md"
-                                                       href="javascript:;" >
+                                                       href="javascript:;" onclick="showPayments({{$process->id}})">
                                                         <div class="d-flex py-1">
                                                             <div class="d-flex flex-column justify-content-center">
                                                                 <h6 class="text-sm font-weight-normal mb-1">
@@ -109,7 +109,7 @@
                                                 <li class="mb-2">
                                                     @if(abs($process->net) - abs($process->paid) > 0)
                                                         <a class="dropdown-item border-radius-md"
-                                                           href="javascript:;" >
+                                                           href="javascript:;" onclick="addPayments({{$process->id}})">
                                                             <div class="d-flex py-1">
                                                                 <div class="d-flex flex-column justify-content-center">
                                                                     <h6 class="text-sm font-weight-normal mb-1">
@@ -139,7 +139,7 @@
 
                                                 <li class="mb-2">
                                                     <a class="dropdown-item border-radius-md"
-                                                       href="{{route('preview_purchase',$process->id)}}">
+                                                       href="javascript:;" onclick="view_purchase({{$process->id}})">
                                                         <div class="d-flex py-1">
                                                             <div class="d-flex flex-column justify-content-center">
                                                                 <h6 class="text-sm font-weight-normal mb-1">
@@ -182,7 +182,9 @@
 
 
 
+<div class="show_modal">
 
+</div>
 <!--   Delte Modal   -->
 <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="smallModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-sm" role="document">
@@ -249,6 +251,36 @@
         let url = "{{ route('delete_purchase', ':id') }}";
         url = url.replace(':id', id);
         document.location.href=url;
+    }
+
+    function showPayments(id) {
+        var route = '{{route('purchases_payments',":id")}}';
+        route = route.replace(":id",id);
+
+        $.get( route, function( data ) {
+            $( ".show_modal" ).html( data );
+            $('#paymentsModal').modal('show');
+        });
+    }
+
+    function addPayments(id) {
+        var route = '{{route('add_purchases_payments',":id")}}';
+        route = route.replace(":id",id);
+
+        $.get( route, function( data ) {
+            $( ".show_modal" ).html( data );
+            $('#paymentsModal').modal('show');
+        });
+    }
+
+    function view_purchase(id) {
+        var route = '{{route('preview_purchase',":id")}}';
+        route = route.replace(":id",id);
+
+        $.get( route, function( data ) {
+            $( ".show_modal" ).html( data );
+            $('#paymentsModal').modal('show');
+        });
     }
 
 </script>

@@ -121,7 +121,18 @@
 
                                                     @endif
                                                 </li>
-
+                                                <li class="mb-2">
+                                                    <a class="dropdown-item border-radius-md"
+                                                       href="javascript:;" onclick="view_purchase({{$process->id}})">
+                                                        <div class="d-flex py-1">
+                                                            <div class="d-flex flex-column justify-content-center">
+                                                                <h6 class="text-sm font-weight-normal mb-1">
+                                                                    <span class="font-weight-bold">{{__('main.preview')}}</span>
+                                                                </h6>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                </li>
                                                 <li class="mb-2">
                                                     <a class="dropdown-item border-radius-md"
                                                        href="{{route('add_return',$process->id)}}">
@@ -219,6 +230,17 @@
             $('#paymentsModal').modal('show');
         });
     }
+
+    function view_purchase(id) {
+        var route = '{{route('preview_sales',":id")}}';
+        route = route.replace(":id",id);
+
+        $.get( route, function( data ) {
+            $( ".show_modal" ).html( data );
+            $('#paymentsModal').modal('show');
+        });
+    }
+
 
 </script>
 
