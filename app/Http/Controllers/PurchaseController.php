@@ -181,13 +181,13 @@ class PurchaseController extends Controller
             $returnedQnt = $this->getAllProductReturnForSameInvoice($id,$purchaseItem->product_id);
             $purchaseItem->quantity = $purchaseItem->quantity + $returnedQnt;
 
-            if($purchaseItem->quantity == 0){
+            if($purchaseItem->quantity <= 0){
                 $zeroItems +=1;
             }
         }
 
 
-        if($zeroItems == count($purchaseItems)){
+        if($zeroItems >= count($purchaseItems)){
             return redirect()->back();
         }
 

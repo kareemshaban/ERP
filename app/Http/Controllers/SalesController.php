@@ -149,13 +149,13 @@ class SalesController extends Controller
             $returnedQnt = $this->getAllProductReturnForSameInvoice($id,$saleItem->product_id);
             $saleItem->quantity = $saleItem->quantity + $returnedQnt;
 
-            if($saleItem->quantity == 0){
+            if($saleItem->quantity <= 0){
                 $zeroItems +=1;
             }
         }
 
 
-        if($zeroItems == count($saleItems)){
+        if($zeroItems >= count($saleItems)){
             return redirect()->back();
         }
 
@@ -217,6 +217,7 @@ class SalesController extends Controller
      */
     public function storeReturn(StoreSalesRequest $request,$id)
     {
+
         $siteController = new SystemController();
         $total = 0;
         $tax = 0;
@@ -227,12 +228,12 @@ class SalesController extends Controller
 
         $products = array();
         $qntProducts = array();
-        foreach ($request->product_id as $index=>$id){
-            $productDetails = $siteController->getProductById($id);
+        foreach ($request->product_id as $index=>$id1){
+            $productDetails = $siteController->getProductById($id1);
             $product = [
                 'sale_id' => 0,
                 'product_code' => $productDetails->code,
-                'product_id' => $id,
+                'product_id' => $id1,
                 'quantity' => $request->qnt[$index] * -1,
                 'price_without_tax' => $request->price_without_tax[$index] * -1,
                 'price_with_tax' => $request->price_with_tax[$index] * -1,
@@ -245,7 +246,7 @@ class SalesController extends Controller
             ];
 
             $item = new Product();
-            $item -> product_id = $id;
+            $item -> product_id = $id1;
             $item -> quantity = $request->qnt[$index]  * -1;
             $item -> warehouse_id = $request->warehouse_id ;
             $qntProducts[] = $item ;
@@ -285,7 +286,7 @@ class SalesController extends Controller
 
         $siteController->syncQnt($qntProducts,null);
         $clientController = new ClientMoneyController();
-        $clientController->syncMoney($request->customer_id,0,$net*-1);
+        $clientController->syncMoney($request->customer_id,0,$net);
 
         return redirect()->route('sales');
     }
