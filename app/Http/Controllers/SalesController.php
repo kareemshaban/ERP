@@ -123,6 +123,9 @@ class SalesController extends Controller
         $clientController = new ClientMoneyController();
         $clientController->syncMoney($request->customer_id,0,$net*-1);
 
+        $vendorMovementController = new VendorMovementController();
+        $vendorMovementController->addSaleMovement($sale->id);
+
         return redirect()->route('sales');
     }
 
@@ -287,6 +290,9 @@ class SalesController extends Controller
         $siteController->syncQnt($qntProducts,null);
         $clientController = new ClientMoneyController();
         $clientController->syncMoney($request->customer_id,0,$net);
+
+        $vendorMovementController = new VendorMovementController();
+        $vendorMovementController->addSaleMovement($sale->id);
 
         return redirect()->route('sales');
     }

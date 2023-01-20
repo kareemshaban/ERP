@@ -19,7 +19,7 @@ class CreateVendorMovementsTable extends Migration
             $table->double('paid');
             $table->double('credit');
             $table->double('debit');
-            $table->double('date');
+            $table->string('date');
             $table->string('invoice_type');
             $table->double('invoice_id');
             $table->string('invoice_no');

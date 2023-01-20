@@ -44,7 +44,7 @@ class PaymentController extends Controller
             $net = $net*-1;
         }
 
-        Payment::create([
+        $payment =Payment::create([
             'date' => $request->date,
             'purchase_id' => null,
             'sale_id' => $id,
@@ -64,6 +64,9 @@ class PaymentController extends Controller
         $clientController = new ClientMoneyController();
         $clientController->syncMoney($sale->customer_id,0,$request->amount);
 
+        $vendorMovementController = new VendorMovementController();
+        $vendorMovementController->addSalePaymentMovement($payment->id);
+
         return redirect()->route('sales');
     }
 
@@ -82,6 +85,9 @@ class PaymentController extends Controller
         $clientController = new ClientMoneyController();
         $clientController->syncMoney($sale->customer_id,0,$payment->amount * -1);
 
+
+        $vendorMovementController = new VendorMovementController();
+        $vendorMovementController->removeSalePaymentMovement($id);
 
         return redirect()->route('sales');
     }
@@ -119,7 +125,7 @@ class PaymentController extends Controller
             $net = $net*-1;
         }
 
-        Payment::create([
+        $payment = Payment::create([
             'date' => $request->date,
             'sale_id' => null,
             'purchase_id' => $id,
@@ -139,6 +145,9 @@ class PaymentController extends Controller
         $clientController = new ClientMoneyController();
         $clientController->syncMoney($sale->customer_id,0,$request->amount);
 
+        $vendorMovementController = new VendorMovementController();
+        $vendorMovementController->addSalePaymentMovement($payment->id);
+
         return redirect()->route('purchases');
     }
 
@@ -157,7 +166,33 @@ class PaymentController extends Controller
         $clientController = new ClientMoneyController();
         $clientController->syncMoney($sale->customer_id,0,$payment->amount * -1);
 
+        $vendorMovementController = new VendorMovementController();
+        $vendorMovementController->removePurchasePaymentMovement($id);
 
         return redirect()->route('purchases');
+    }
+
+    public function deleteAllPurchasePayments($id){
+
+        $sale = Purchase::find($id);
+        $payments = Payment::query()->where('purchase_id',$id);
+
+        foreach ($payments as $payment){
+            Payment::destroy($payment->id);
+
+            $paid = $sale->paid - $payment->amount;
+
+            $sale->update([
+                'paid' => $paid
+            ]);
+
+            $clientController = new ClientMoneyController();
+            $clientController->syncMoney($sale->customer_id,0,$payment->amount * -1);
+
+            $vendorMovementController = new VendorMovementController();
+            $vendorMovementController->removePurchasePaymentMovement($payment->id);
+        }
+
+
     }
 }

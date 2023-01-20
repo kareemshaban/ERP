@@ -118,6 +118,9 @@ class PurchaseController extends Controller
         $clientController = new ClientMoneyController();
         $clientController->syncMoney($request->customer_id,0,$net);
 
+        $vendorMovementController = new VendorMovementController();
+        $vendorMovementController->addPurchaseMovement($purchase->id);
+
         return redirect()->route('purchases');
     }
 
@@ -291,6 +294,9 @@ class PurchaseController extends Controller
         $clientController = new ClientMoneyController();
         $clientController->syncMoney($request->customer_id,0,$net*-1);
 
+        $vendorMovementController = new VendorMovementController();
+        $vendorMovementController->addPurchaseMovement($sale->id);
+
         return redirect()->route('purchases');
     }
 
@@ -336,7 +342,18 @@ class PurchaseController extends Controller
             $siteController->syncQnt($qntProducts,null , false);
             $clientController = new ClientMoneyController();
             $clientController->syncMoney($purchase->customer_id,0,$net*-1);
+
+
+
+            $vendorMovementController = new VendorMovementController();
+            $vendorMovementController->removePurchaseMovement($purchase->id);
+
+            $paymentController = new PaymentController();
+            $paymentController->deleteAllPurchasePayments($purchase->id);
+
             $purchase -> delete();
+
+
             return redirect()->route('purchases')->with('success' ,  __('main.deleted'));
 
         }

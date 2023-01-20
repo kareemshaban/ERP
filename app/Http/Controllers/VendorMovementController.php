@@ -2,85 +2,96 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Payment;
+use App\Models\Purchase;
+use App\Models\Sales;
 use App\Models\VendorMovement;
 use App\Http\Requests\StoreVendorMovementRequest;
 use App\Http\Requests\UpdateVendorMovementRequest;
 
 class VendorMovementController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
+    public function addSaleMovement($id){
+        $sale = Sales::find($id);
+        VendorMovement::create([
+            'vendor_id' => $sale->customer_id,
+            'paid' => 0,
+            'credit' => $sale->net,
+            'debit' => 0,
+            'date' => $sale->date,
+            'invoice_type' => 'Sales',
+            'invoice_id' => $id,
+            'invoice_no' => $sale->invoice_no,
+            'paid_by' => ''
+        ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+    public function addSalePaymentMovement($id){
+        $payment = Payment::find($id);
+        $sale = Sales::find($payment->sale_id);
+
+        VendorMovement::create([
+            'vendor_id' => $sale->customer_id,
+            'paid' => 0,
+            'credit' => 0,
+            'debit' => $payment->amount,
+            'date' => $payment->date,
+            'invoice_type' => 'Sale_Payment',
+            'invoice_id' => $id,
+            'invoice_no' => $sale->invoice_no,
+            'paid_by' => $payment->paid_by
+        ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StoreVendorMovementRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(StoreVendorMovementRequest $request)
-    {
-        //
+    public function removeSalePaymentMovement($id){
+        $vendorMovementId = VendorMovement::query()->where('invoice_id',$id)->get()->first();
+        VendorMovement::destroy($vendorMovementId);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\VendorMovement  $vendorMovement
-     * @return \Illuminate\Http\Response
-     */
-    public function show(VendorMovement $vendorMovement)
-    {
-        //
+    public function addPurchaseMovement($id){
+        $sale = Purchase::find($id);
+        VendorMovement::create([
+            'vendor_id' => $sale->customer_id,
+            'paid' => 0,
+            'debit' => $sale->net,
+            'credit' => 0,
+            'date' => $sale->date,
+            'invoice_type' => 'Purchases',
+            'invoice_id' => $id,
+            'invoice_no' => $sale->invoice_no,
+            'paid_by' => ''
+        ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\VendorMovement  $vendorMovement
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(VendorMovement $vendorMovement)
-    {
-        //
+    public function removePurchaseMovement($id){
+        $purchase = Purchase::find($id);
+
+
+
+        $vendorMovementId = VendorMovement::query()->where('invoice_id',$id)->get()->first();
+        VendorMovement::destroy($vendorMovementId);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateVendorMovementRequest  $request
-     * @param  \App\Models\VendorMovement  $vendorMovement
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdateVendorMovementRequest $request, VendorMovement $vendorMovement)
-    {
-        //
+    public function addPurchasePaymentMovement($id){
+        $payment = Payment::find($id);
+        $sale = Purchase::find($payment->purchase_id);
+
+        VendorMovement::create([
+            'vendor_id' => $sale->customer_id,
+            'paid' => 0,
+            'debit' => 0,
+            'credit' => $payment->amount,
+            'date' => $payment->date,
+            'invoice_type' => 'Purchase_Payment',
+            'invoice_id' => $id,
+            'invoice_no' => $sale->invoice_no,
+            'paid_by' => $payment->paid_by
+        ]);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\VendorMovement  $vendorMovement
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(VendorMovement $vendorMovement)
-    {
-        //
+    public function removePurchasePaymentMovement($id){
+        $vendorMovementId = VendorMovement::query()->where('invoice_id',$id)->get()->first();
+        VendorMovement::destroy($vendorMovementId);
     }
+
 }
