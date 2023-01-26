@@ -14,7 +14,7 @@ class AddSaleIdToSales extends Migration
     public function up()
     {
         Schema::table('sales', function (Blueprint $table) {
-            $table->integer('sale_id')->default(0);
+          //  $table->integer('sale_id')->default(0);
         });
     }
 

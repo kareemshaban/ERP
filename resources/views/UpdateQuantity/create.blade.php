@@ -191,7 +191,14 @@ margin: 30px auto;" value="{{__('main.save_btn')}}"></input>
 
     $(document).ready(function() {
         getBillNo();
-        document.getElementById('bill_date').valueAsDate = new Date();
+        var now = new Date();
+        now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+
+        /* remove second/millisecond if needed - credit ref. https://stackoverflow.com/questions/24468518/html5-input-datetime-local-default-value-of-today-and-current-time#comment112871765_60884408 */
+        now.setMilliseconds(null);
+        now.setSeconds(null);
+
+        document.getElementById('bill_date').value = now.toISOString().slice(0, -1);
         $('input[name=add_item]').change(function() {
             console.log($('#add_item').val());
         });

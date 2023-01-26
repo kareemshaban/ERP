@@ -143,17 +143,17 @@ class PaymentController extends Controller
         ]);
 
         $clientController = new ClientMoneyController();
-        $clientController->syncMoney($sale->customer_id,0,$request->amount);
+        $clientController->syncMoney($sale->customer_id,0, $request->amount * -1);
 
         $vendorMovementController = new VendorMovementController();
-        $vendorMovementController->addSalePaymentMovement($payment->id);
+        $vendorMovementController->addPurchasePaymentMovement($payment->id);
 
         return redirect()->route('purchases');
     }
 
     public function deletePurchasesPayment($id){
         $payment = Payment::find($id);
-        $sale = Purchase::find($payment->sale_id);
+        $sale = Purchase::find($payment->purchase_id);
 
         Payment::destroy($id);
 
@@ -164,7 +164,7 @@ class PaymentController extends Controller
         ]);
 
         $clientController = new ClientMoneyController();
-        $clientController->syncMoney($sale->customer_id,0,$payment->amount * -1);
+        $clientController->syncMoney($sale->customer_id,0,$payment->amount );
 
         $vendorMovementController = new VendorMovementController();
         $vendorMovementController->removePurchasePaymentMovement($id);

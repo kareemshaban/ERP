@@ -274,6 +274,7 @@
     }
 
     function view_purchase(id) {
+        console.log(id);
         var route = '{{route('preview_purchase',":id")}}';
         route = route.replace(":id",id);
 

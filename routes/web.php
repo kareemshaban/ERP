@@ -153,6 +153,40 @@ Route::get('/getUpdateQntBillNo', [App\Http\Controllers\UpdateQuntityController:
     Route::get('/preview_sales/{id}', [App\Http\Controllers\SalesController::class, 'show'])->name('preview_sales');
 
 
+    Route::get('/daily_sales_report', [App\Http\Controllers\ReportController::class, 'daily_sales_report'])->name('daily_sales_report');
+    Route::get('/daily_sales_report_search/{date}/{warehouse}', [App\Http\Controllers\ReportController::class, 'daily_sales_report_search'])
+        ->name('daily_sales_report_search');
+
+    Route::get('/sales_item_report', [App\Http\Controllers\ReportController::class, 'sales_item_report'])->name('sales_item_report');
+    Route::get('/sales_item_report_search/{fdate}/{tdate}/{warehouse}', [App\Http\Controllers\ReportController::class, 'sales_item_report_search'])
+        ->name('sales_item_report_search');
+
+    Route::get('/purchase_report', [App\Http\Controllers\ReportController::class, 'purchase_report'])->name('purchase_report');
+    Route::get('/purchase_report_search/{fdate}/{tdate}/{warehouse}/{bill_no}/{vendor}', [App\Http\Controllers\ReportController::class, 'purchase_report_search'])
+        ->name('purchase_report_search');
+
+    Route::get('/purchases_return_report', [App\Http\Controllers\ReportController::class, 'purchases_return_report'])->name('purchases_return_report');
+    Route::get('/purchases_return_report_search/{fdate}/{tdate}/{warehouse}/{bill_no}/{vendor}', [App\Http\Controllers\ReportController::class, 'purchases_return_report_search'])
+        ->name('purchases_return_report_search');
+
+    Route::get('/items_report', [App\Http\Controllers\ReportController::class, 'items_report'])->name('items_report');
+    Route::get('/items_report_search/{category}/{brand}', [App\Http\Controllers\ReportController::class, 'items_report_search'])->name('items_report_search');
+
+    Route::get('/items_limit_report', [App\Http\Controllers\ReportController::class, 'items_limit_report'])->name('items_limit_report');
+    Route::get('/items_limit_report_search/{category}/{brand}', [App\Http\Controllers\ReportController::class, 'items_limit_report_search'])->name('items_limit_report_search');
+
+
+    Route::get('/items_no_balance_report', [App\Http\Controllers\ReportController::class, 'items_no_balance_report'])->name('items_no_balance_report');
+    Route::get('/items_no_balance_report_search/{category}/{brand}', [App\Http\Controllers\ReportController::class, 'items_no_balance_report_search'])
+        ->name('items_no_balance_report_search');
+
+    Route::get('/items_stock_report', [App\Http\Controllers\ReportController::class, 'items_stock_report'])->name('items_stock_report');
+    Route::get('/items_stock_report_search/{fdate}/{tdate}/{warehouse}/{item}', [App\Http\Controllers\ReportController::class, 'items_stock_report_search'])
+        ->name('items_stock_report_search');
+
+    Route::get('/items_purchased_report', [App\Http\Controllers\ReportController::class, 'items_purchased_report'])->name('items_purchased_report');
+    Route::get('/items_purchased_report_search/{fdate}/{tdate}/{warehouse}/{item}/{supplier}', [App\Http\Controllers\ReportController::class, 'items_purchased_report_search'])
+        ->name('items_purchased_report_search');
 
 });
 

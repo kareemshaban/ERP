@@ -447,7 +447,7 @@ margin: 30px auto;" value="{{__('main.save_btn')}}"></input>
                 var tr_html = '<td><input type="hidden" name="product_id[]" value="' + item.product_id + '"> <span>' + item.product_name + '---' + (item.product_code) + '</span> </td>';
                 tr_html += '<td><input type="text" class="form-control" readonly name="price_without_tax[]" value="' + parseFloat(item.cost_without_tax).toFixed(2) + '"></td>';
                 tr_html += '<td><input type="text" class="form-control" readonly name="price_with_tax[]" value="' + parseFloat(item.cost_with_tax).toFixed(2) + '"></td>';
-                tr_html += '<td><input type="text" class="form-control" name="all_qnt[]" value="' + parseFloat(item.quantity).toFixed(2) + '"></td>';
+                tr_html += '<td><input readonly type="text" class="form-control" name="all_qnt[]" value="' + parseFloat(item.quantity).toFixed(2) + '"></td>';
                 tr_html += '<td><input type="text" class="form-control iQuantity" name="qnt[]" value="' + item.returned_qnt.toFixed(2) + '"></td>';
                 tr_html += '<td><input type="text" readonly="readonly" class="form-control" name="total[]" value="' + (parseFloat(item.cost_without_tax) * parseFloat(item.returned_qnt)).toFixed(2) + '"></td>';
                 tr_html += '<td><input type="text" readonly="readonly" class="form-control" name="tax[]" value="' + (parseFloat(item.tax) * parseFloat(item.returned_qnt)).toFixed(2) + '"></td>';

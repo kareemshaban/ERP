@@ -340,3 +340,18 @@ class SalesController extends Controller
         exit;
     }
 }
+
+/**
+id	1
+flight_line_id	8
+airport_id	16
+updated_at	"2023-01-21 14:51:49"
+created_at	"2023-01-21 14:51:49"
+airport_name_ar	"مطار تبليسي"
+airport_name_en	"TBILISI AIRPORT"
+line_name_ar	"الاردنية للطيران"
+line_name_en	"jordan aviation"
+
+
+
+ */

@@ -30,12 +30,12 @@
 
                     <div class="col-md-6">
                         <h4>{{__('main.to')}}</h4>
-                        <p>{{$cashier->name}}</p>
-                        <p>{{$cashier->company}}</p>
-                        <p>{{$cashier->vat_no}}</p>
-                        <p>{{$cashier->address}}</p>
-                        <p>{{$cashier->phone}}</p>
-                        <p>{{$cashier->email}}</p>
+                        <p>{{ $cashier ? $cashier->name : '' }}</p>
+                        <p>{{$cashier? $cashier->company : ''}}</p>
+                        <p>{{$cashier?  $cashier->vat_no : ''}}</p>
+                        <p>{{$cashier? $cashier->address : ''}}</p>
+                        <p>{{$cashier? $cashier->phone : ''}}</p>
+                        <p>{{$cashier? $cashier->email: ''}}</p>
                     </div>
                 </div>
 
