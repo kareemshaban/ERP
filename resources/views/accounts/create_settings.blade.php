@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
+    <link rel="icon" type="image/png" href="../assets/img/favicon.png">
+    <title>
+        ERP System Dashboard
+    </title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
+    <link href="../../assets/css/nucleo-icons.css" rel="stylesheet" />
+    <link href="../../assets/css/nucleo-svg.css" rel="stylesheet" />
+    <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+    <link href="../../assets/css/nucleo-svg.css" rel="stylesheet" />
+    <link id="pagestyle" href="../../assets/css/soft-ui-dashboard.css?v=1.0.7" rel="stylesheet" />
+</head>
+
+<body @if(Config::get('app.locale') == 'en') class="g-sidenav-show  bg-gray-100" @else  class="g-sidenav-show rtl bg-gray-100" @endif>
+@include('layouts.side' , ['slag' => 7 , 'subSlag' => 15])
+
+
+<main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+    @include('flash-message')
+    <!-- Navbar -->
+    @include('layouts.nav' , ['page_title' => __('main.account_settings'). ' / '. __('main.add_settings')])
+    <!-- End Navbar -->
+        <div class="modal-body" id="paymentBody">
+            <form   method="POST" action="{{ route('store_account_settings') }}">
+                @csrf
+
+                <div class="row" style="padding: 20px">
+                    <div class="col-md-12 col-sm-12 row">
+
+                        <div class="row col-6">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label>{{ __('main.warehouse') }} <span style="color:red; font-size:20px; font-weight:bold;">*</span> </label>
+                                    <select class="form-control @error('brand') is-invalid @enderror" id="parent_id" name="warehouse_id">
+
+                                        @foreach($warehouses as $brand)
+                                            <option value="{{$brand->id}}">{{$brand->name}}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('brand')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="row col-6">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label>{{ __('main.safe_account') }} <span style="color:red; font-size:20px; font-weight:bold;">*</span> </label>
+                                    <select class="form-control @error('brand') is-invalid @enderror" id="parent_id" name="safe_account">
+
+                                        @foreach($accounts as $brand)
+                                            <option value="{{$brand->id}}">{{$brand->name}}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('brand')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row col-6">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label>{{ __('main.sales_account') }} <span style="color:red; font-size:20px; font-weight:bold;">*</span> </label>
+                                    <select class="form-control @error('brand') is-invalid @enderror" id="parent_id" name="sales_account">
+
+                                        @foreach($accounts as $brand)
+                                            <option value="{{$brand->id}}">{{$brand->name}}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('brand')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row col-6">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label>{{ __('main.purchase_account') }} <span style="color:red; font-size:20px; font-weight:bold;">*</span> </label>
+                                    <select class="form-control @error('brand') is-invalid @enderror" id="parent_id" name="purchase_account">
+
+                                        @foreach($accounts as $brand)
+                                            <option value="{{$brand->id}}">{{$brand->name}}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('brand')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row col-6">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label>{{ __('main.return_sales_account') }} <span style="color:red; font-size:20px; font-weight:bold;">*</span> </label>
+                                    <select class="form-control @error('brand') is-invalid @enderror" id="parent_id" name="return_sales_account">
+
+                                        @foreach($accounts as $brand)
+                                            <option value="{{$brand->id}}">{{$brand->name}}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('brand')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row col-6">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label>{{ __('main.return_purchase_account') }} <span style="color:red; font-size:20px; font-weight:bold;">*</span> </label>
+                                    <select class="form-control @error('brand') is-invalid @enderror" id="parent_id" name="return_purchase_account">
+
+                                        @foreach($accounts as $brand)
+                                            <option value="{{$brand->id}}">{{$brand->name}}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('brand')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row col-6">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label>{{ __('main.stock_account') }} <span style="color:red; font-size:20px; font-weight:bold;">*</span> </label>
+                                    <select class="form-control @error('brand') is-invalid @enderror" id="parent_id" name="stock_account">
+
+                                        @foreach($accounts as $brand)
+                                            <option value="{{$brand->id}}">{{$brand->name}}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('brand')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row col-6">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label>{{ __('main.sales_discount_account') }} <span style="color:red; font-size:20px; font-weight:bold;">*</span> </label>
+                                    <select class="form-control @error('brand') is-invalid @enderror" id="parent_id" name="sales_discount_account">
+
+                                        @foreach($accounts as $brand)
+                                            <option value="{{$brand->id}}">{{$brand->name}}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('brand')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row col-6">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label>{{ __('main.sales_tax_account') }} <span style="color:red; font-size:20px; font-weight:bold;">*</span> </label>
+                                    <select class="form-control @error('brand') is-invalid @enderror" id="parent_id" name="sales_tax_account">
+
+                                        @foreach($accounts as $brand)
+                                            <option value="{{$brand->id}}">{{$brand->name}}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('brand')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row col-6">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label>{{ __('main.purchase_discount_account') }} <span style="color:red; font-size:20px; font-weight:bold;">*</span> </label>
+                                    <select class="form-control @error('brand') is-invalid @enderror" id="parent_id" name="purchase_discount_account">
+
+                                        @foreach($accounts as $brand)
+                                            <option value="{{$brand->id}}">{{$brand->name}}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('brand')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row col-6">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label>{{ __('main.purchase_tax_account') }} <span style="color:red; font-size:20px; font-weight:bold;">*</span> </label>
+                                    <select class="form-control @error('brand') is-invalid @enderror" id="parent_id" name="purchase_tax_account">
+
+                                        @foreach($accounts as $brand)
+                                            <option value="{{$brand->id}}">{{$brand->name}}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('brand')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row col-6">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label>{{ __('main.cost_account') }} <span style="color:red; font-size:20px; font-weight:bold;">*</span> </label>
+                                    <select class="form-control @error('brand') is-invalid @enderror" id="parent_id" name="cost_account">
+
+                                        @foreach($accounts as $brand)
+                                            <option value="{{$brand->id}}">{{$brand->name}}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('brand')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row col-6">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label>{{ __('main.profit_account') }} <span style="color:red; font-size:20px; font-weight:bold;">*</span> </label>
+                                    <select class="form-control @error('brand') is-invalid @enderror" id="parent_id" name="profit_account">
+
+                                        @foreach($accounts as $brand)
+                                            <option value="{{$brand->id}}">{{$brand->name}}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('brand')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row col-6">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label>{{ __('main.reverse_profit_account') }} <span style="color:red; font-size:20px; font-weight:bold;">*</span> </label>
+                                    <select class="form-control @error('brand') is-invalid @enderror" id="parent_id" name="reverse_profit_account">
+
+                                        @foreach($accounts as $brand)
+                                            <option value="{{$brand->id}}">{{$brand->name}}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('brand')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="row col-6">
+                    <div class="col-12" style="display: block; margin: 20px auto; text-align: center;">
+                        <button type="submit" class="btn btn-labeled btn-primary"  >
+                            {{__('main.save_btn')}}</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+</main>
+    @include('layouts.fixed')
+<!--   Core JS Files   -->
+
+
+
+<script type="text/javascript">
+
+</script>
+
+
+<script src="../../assets/js/core/popper.min.js"></script>
+<script src="../../assets/js/core/bootstrap.min.js"></script>
+<script src="../../assets/js/plugins/perfect-scrollbar.min.js"></script>
+<script src="../../assets/js/plugins/smooth-scrollbar.min.js"></script>
+<script>
+    var win = navigator.platform.indexOf('Win') > -1;
+    if (win && document.querySelector('#sidenav-scrollbar')) {
+        var options = {
+            damping: '0.5'
+        }
+        Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
+    }
+
+
+    $('#account_type').change(function () {
+        var t = $(this).val();
+        $('#parent_id').val(0).trigger('change');
+        $('#account_level').val(1);
+        if (t == 0) {
+            $('#parent_id').attr('disabled', true);
+        }
+        else if (t == 1) {
+            $('#parent_id').attr('disabled', false);
+        }
+        else if (t == 2) {
+            $('#parent_id').attr('disabled', false);
+        }
+        else if (t == 3) {
+            $('#parent_id').attr('disabled', false);
+        }
+    });
+
+
+    $('#parent_id').change(function () {
+        var parent = $(this).val();
+        if(parent == 0)
+            return;
+        var url = '{{route('get_account_level',":id")}}';
+        url = url.replace(":id",parent);
+        $.ajax({
+            type: "get", async: false,
+            url: url,
+            dataType: "json",
+            success: function (data) {
+                $('#level').val(+data['account']['level']+1);
+                $('#list').val(+data['account']['list']).trigger('change');
+                $('#department').val(+data['account']['department']).trigger('change');
+
+            }
+        });
+
+
+    });
+
+</script>
+<!-- Github buttons -->
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+<!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
+<script src="../../assets/js/soft-ui-dashboard.min.js?v=1.0.7"></script>
+</body>
+
+</html>
