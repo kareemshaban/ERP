@@ -6,6 +6,7 @@ use App\Models\AccountsTree;
 use App\Http\Requests\StoreAccountsTreeRequest;
 use App\Http\Requests\UpdateAccountsTreeRequest;
 use App\Models\Journal;
+use App\Models\Payment;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 
@@ -158,12 +159,29 @@ class AccountsTreeController extends Controller
     public function journals(){
         $journals = DB::table('journals')
             ->join('journal_details','journals.id','=','journal_details.journal_id')
-            ->select('journals.*',
+            ->select('journals.id','journals.date','journals.basedon_no',
+                'journals.basedon_id',
+                'journals.baseon_text',
                 DB::raw("sum(journal_details.credit) as credit_total"),
                 DB::raw("sum(journal_details.debit) as debit_total")
                 )
-            ->groupBy('journals.id')
+            ->groupBy('journals.id','journals.date','journals.basedon_no',
+                'journals.basedon_id',
+                'journals.baseon_text')
             ->orderByDesc('journals.id')->get();
         return view('accounts.journals',compact('journals'));
+    }
+
+
+    public function previewJournal($id){
+        $payments = DB::table('journal_details')
+            ->join('accounts_trees','journal_details.account_id','=','accounts_trees.id')
+            ->leftJoin('companies','companies.id','=','journal_details.ledger_id')
+            ->select('accounts_trees.code','accounts_trees.name','journal_details.credit','journal_details.debit',
+                'companies.name as ledger_name')
+            ->where('journal_details.journal_id','=',$id)
+            ->get();
+        $html = view('accounts.preview_journal',compact('payments'))->render();
+        return $html;
     }
 }

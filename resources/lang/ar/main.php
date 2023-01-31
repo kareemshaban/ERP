@@ -339,6 +339,12 @@ return [
     'cost_account' => 'حساب التكلفة',
     'profit_account' => 'حساب الربح',
     'reverse_profit_account' => 'معادلة حساب الربح',
+    'accounting' => 'الحسابات العامة',
+    'journals' => 'القيود المحاسبية',
+    'basedon_text' => 'بناءا علي',
+    'basedon_no' => 'رقم المستند',
+    'total_credit' => 'اجمالي المدين',
+    'total_debit' => 'اجمالي الدائن',
 
     'pos' => 'نقطة البيع',
     'pos_list' => 'مبيعات نقاط البيع',

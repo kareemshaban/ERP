@@ -206,6 +206,7 @@ Route::get('/getUpdateQntBillNo', [App\Http\Controllers\UpdateQuntityController:
     Route::post('/account_settings/edit/{id}',[\App\Http\Controllers\AccountSettingController::class,'update'])->name('update_account_settings');
     Route::get('/account_settings/delete/{id}',[\App\Http\Controllers\AccountSettingController::class,'destroy'])->name('delete_account_settings');
     Route::get('/accounts/journals',[\App\Http\Controllers\AccountsTreeController::class,'journals'])->name('journals');
+    Route::get('/accounts/journals/preview/{id}',[\App\Http\Controllers\AccountsTreeController::class,'previewJournal'])->name('preview_journal');
 
 
     Route::get('/pos', [App\Http\Controllers\SalesController::class, 'pos'])->name('pos');

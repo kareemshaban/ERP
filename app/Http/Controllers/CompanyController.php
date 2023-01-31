@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AccountsTree;
 use App\Models\Company;
 use App\Http\Requests\StoreCompanyRequest;
 use App\Http\Requests\UpdateCompanyRequest;
@@ -20,7 +21,7 @@ class CompanyController extends Controller
     {
         $companies = Company::with('group') -> get();
         $groups = CustomerGroup::all();
-        $accounts = [] ;
+        $accounts = AccountsTree::query()->where('type','>',1)->get();
         return view('company.index' , ['type' => $type , 'companies' =>
             $companies , 'groups' => $groups , 'accounts' => $accounts] );
     }
@@ -49,7 +50,8 @@ class CompanyController extends Controller
                 'company' => 'required',
                 'name' => 'required',
                 'opening_balance' => 'required',
-                'type' => 'required'
+                'type' => 'required',
+                'account_id' => 'required'
             ]);
             try {
                 Company::create([
@@ -74,6 +76,7 @@ class CompanyController extends Controller
                     'opening_balance' =>$request -> opening_balance? $request -> opening_balance: 0 ,
                     'credit_amount' =>$request -> has('credit_amount')? $request -> credit_amount: 0 ,
                     'stop_sale' =>$request -> has('stop_sale')? 1: 0 ,
+                    'account_id' => $request->account_id
 
                 ]);
                 return redirect()->route('clients' , $request -> type)->with('success' , __('main.created'));

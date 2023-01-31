@@ -181,7 +181,7 @@
                                 <label>{{ __('main.account') }} <span style="color:red; font-size:20px; font-weight:bold;">*</span> </label>
                                 <select class="form-select mr-sm-2"
                                         name="account_id" id="account_id">
-                                    <option selected value ="0">Choose...</option>
+                                    <option selected value ="">Choose...</option>
                                     @foreach ($accounts as $item)
                                         <option value="{{$item -> id}}"> {{ $item -> name}}</option>
 
