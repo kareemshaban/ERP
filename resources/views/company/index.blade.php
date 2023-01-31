@@ -76,11 +76,17 @@
                                     <td class="text-center">{{$company -> vat_no}}</td>
                                     <td class="text-center">{{$company -> deposit_amount}}</td>
                                     <td class="text-center">
+
+                                        <button type="button" class="btn btn-labeled btn-success"  onclick="openReport({{$company -> id}})">
+                                            <span class="btn-label" style="margin-right: 10px;"><i class="fa fa-chart"></i></span>{{__('main.Report')}}</button>
+
                                         <button type="button" class="btn btn-labeled btn-secondary " onclick="EditModal({{$company -> id}})">
                                             <span class="btn-label" style="margin-right: 10px;"><i class="fa fa-pen"></i></span>{{__('main.edit')}}</button>
 
                                         <button type="button" class="btn btn-labeled btn-danger deleteBtn "  id="{{$company -> id}}">
                                             <span class="btn-label" style="margin-right: 10px;"><i class="fa fa-trash"></i></span>{{__('main.delete')}}</button>
+
+
                                     </td>
                                 </tr>
                                     @endif
@@ -409,6 +415,12 @@
                 }
             }
         });
+    }
+
+    function openReport(id) {
+        let url = "{{ route('client_balance_report', ':id') }}";
+        url = url.replace(':id', id);
+        window.location.href=url;
     }
 </script>
 

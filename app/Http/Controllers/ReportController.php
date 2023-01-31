@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Company;
 use App\Models\Product;
 use App\Models\UpdateQuntity;
+use App\Models\VendorMovement;
 use App\Models\Warehouse;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -306,4 +307,10 @@ class ReportController extends Controller
         $html = view('Report.items_purchased_modal',compact('data' ,'fdate' , 'tdate' , 'warehouse' ,'item_id' , 'supplier'))->render();
         return $html ;
     }
+
+    public function client_balance_report($id){
+        $data = VendorMovement::query()->where('vendor_id',$id)->get();
+        return view('Report.client_movement_report',compact('data'));
+    }
+
 }
