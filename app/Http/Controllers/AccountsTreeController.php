@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\AccountsTree;
 use App\Http\Requests\StoreAccountsTreeRequest;
 use App\Http\Requests\UpdateAccountsTreeRequest;
+use App\Models\Journal;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 
 class AccountsTreeController extends Controller
@@ -150,5 +152,18 @@ class AccountsTreeController extends Controller
     public function getLevel($parent){
         $account = AccountsTree::find($parent);
         return response()->json(['account' => $account]);
+    }
+
+
+    public function journals(){
+        $journals = DB::table('journals')
+            ->join('journal_details','journals.id','=','journal_details.journal_id')
+            ->select('journals.*',
+                DB::raw("sum(journal_details.credit) as credit_total"),
+                DB::raw("sum(journal_details.debit) as debit_total")
+                )
+            ->groupBy('journals.id')
+            ->orderByDesc('journals.id')->get();
+        return view('accounts.journals',compact('journals'));
     }
 }

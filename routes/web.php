@@ -188,5 +188,27 @@ Route::get('/getUpdateQntBillNo', [App\Http\Controllers\UpdateQuntityController:
     Route::get('/items_purchased_report_search/{fdate}/{tdate}/{warehouse}/{item}/{supplier}', [App\Http\Controllers\ReportController::class, 'items_purchased_report_search'])
         ->name('items_purchased_report_search');
 
+
+
+
+    Route::get('/accounts',[\App\Http\Controllers\AccountsTreeController::class,'index'])->name('accounts_list');
+    Route::get('/accounts/create',[\App\Http\Controllers\AccountsTreeController::class,'create'])->name('create_account');
+    Route::post('/accounts/create',[\App\Http\Controllers\AccountsTreeController::class,'store'])->name('store_account');
+    Route::get('/accounts/get_level/{parent}',[\App\Http\Controllers\AccountsTreeController::class,'getLevel'])->name('get_account_level');
+    Route::get('/accounts/edit/{id}',[\App\Http\Controllers\AccountsTreeController::class,'edit'])->name('edit_account');
+    Route::post('/accounts/edit/{id}',[\App\Http\Controllers\AccountsTreeController::class,'update'])->name('update_account');
+    Route::get('/accounts/delete/{id}',[\App\Http\Controllers\AccountsTreeController::class,'destroy'])->name('delete_account');
+
+    Route::get('/account_settings',[\App\Http\Controllers\AccountSettingController::class,'index'])->name('account_settings_list');
+    Route::get('/account_settings/create',[\App\Http\Controllers\AccountSettingController::class,'create'])->name('create_account_settings');
+    Route::post('/account_settings/create',[\App\Http\Controllers\AccountSettingController::class,'store'])->name('store_account_settings');
+    Route::get('/account_settings/edit/{id}',[\App\Http\Controllers\AccountSettingController::class,'edit'])->name('edit_account_settings');
+    Route::post('/account_settings/edit/{id}',[\App\Http\Controllers\AccountSettingController::class,'update'])->name('update_account_settings');
+    Route::get('/account_settings/delete/{id}',[\App\Http\Controllers\AccountSettingController::class,'destroy'])->name('delete_account_settings');
+    Route::get('/accounts/journals',[\App\Http\Controllers\AccountsTreeController::class,'journals'])->name('journals');
+
+
+    Route::get('/pos', [App\Http\Controllers\SalesController::class, 'pos'])->name('pos');
+
 });
 
