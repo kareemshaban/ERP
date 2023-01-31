@@ -224,6 +224,8 @@
                 <ul class="dropdown-menu text-small subM" aria-labelledby="dropdown">
                     <li><a @if($subSlag == 18) class="dropdown-item active-drop" @else class="dropdown-item" @endif href="{{route('sales')}}">{{__('main.sales_bill')}}</a></li>
                     <li><a @if($subSlag == 19) class="dropdown-item active-drop" @else class="dropdown-item" @endif href="{{route('add_sale')}}">{{__('main.add_sale')}}</a></li>
+                    <li><a @if($subSlag == 34) class="dropdown-item active-drop" @else class="dropdown-item" @endif href="{{route('pos')}}">{{__('main.pos')}}</a></li>
+
 
                 </ul>
 

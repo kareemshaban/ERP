@@ -302,6 +302,10 @@ return [
     'qnt_sales' => 'Sales Quantity',
     'qnt_sales_return' => 'Sales Return Quantity',
     'qnt_net' => 'Net Quantity (Current Balance)',
+    'pos' => 'POS',
+    'pos_list' => 'Pos Sales',
+    'item_count' => 'Item Count',
+    'req_money'=> 'Deserved Amount'
 
 
 

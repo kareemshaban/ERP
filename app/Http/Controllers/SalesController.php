@@ -10,6 +10,7 @@ use App\Models\Sales;
 use App\Http\Requests\StoreSalesRequest;
 use App\Http\Requests\UpdateSalesRequest;
 use App\Models\SystemSettings;
+use App\Models\Warehouse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -109,7 +110,7 @@ class SalesController extends Controller
             'sale_status' => 'completed',
             'payment_status' => 'not_paid',
             'created_by' => Auth::id(),
-            'pos' => 0,
+            'pos' => $request -> has('POS') ? $request ->POS :   0,
             'lista' => $lista,
             'profit'=> $profit
         ]);
@@ -343,19 +344,11 @@ class SalesController extends Controller
         echo $no ;
         exit;
     }
+
+    public function pos(){
+        $vendors = Company::where('group_id' , '=' , 3) -> get();
+        $warehouses = Warehouse::all();
+        return view('sales.pos' , compact('vendors' , 'warehouses'));
+    }
 }
 
-/**
-id	1
-flight_line_id	8
-airport_id	16
-updated_at	"2023-01-21 14:51:49"
-created_at	"2023-01-21 14:51:49"
-airport_name_ar	"مطار تبليسي"
-airport_name_en	"TBILISI AIRPORT"
-line_name_ar	"الاردنية للطيران"
-line_name_en	"jordan aviation"
-
-
-
- */
