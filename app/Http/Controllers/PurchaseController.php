@@ -121,6 +121,8 @@ class PurchaseController extends Controller
         $vendorMovementController = new VendorMovementController();
         $vendorMovementController->addPurchaseMovement($purchase->id);
 
+        $siteController->purchaseJournals($purchase->id);
+
         return redirect()->route('purchases');
     }
 
@@ -297,6 +299,7 @@ class PurchaseController extends Controller
         $vendorMovementController = new VendorMovementController();
         $vendorMovementController->addPurchaseMovement($sale->id);
 
+        $siteController->purchaseJournals($sale->id);
         return redirect()->route('purchases');
     }
 

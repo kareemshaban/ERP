@@ -127,6 +127,8 @@ class SalesController extends Controller
         $vendorMovementController = new VendorMovementController();
         $vendorMovementController->addSaleMovement($sale->id);
 
+        $siteController->saleJournals($sale->id);
+
         return redirect()->route('sales');
     }
 
@@ -294,6 +296,8 @@ class SalesController extends Controller
 
         $vendorMovementController = new VendorMovementController();
         $vendorMovementController->addSaleMovement($sale->id);
+
+        $siteController->saleJournals($sale->id);
 
         return redirect()->route('sales');
     }
