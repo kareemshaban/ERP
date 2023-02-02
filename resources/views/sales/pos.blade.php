@@ -106,7 +106,7 @@
                                         <input type="text"  id="bill_number" name="bill_number" hidden
                                                class="form-control" placeholder="bill_number" readonly
                                         />
-                                        <input type="text"  id="POS" name="POS" hidden value="0"
+                                        <input type="text"  id="POS" name="POS" hidden value="1"
                                                class="form-control" placeholder="bill_number" readonly
                                         />
 

@@ -4,17 +4,41 @@
     <div class="modal-dialog modal-sm" role="document" style="min-width: 1000px">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close"  data-bs-dismiss="modal"  aria-label="Close" style="color: red; font-size: 20px; font-weight: bold;">
-                    <span aria-hidden="true">&times;</span>
-                </button>
 
+                        <button type="button" class="close not-print"  data-bs-dismiss="modal"  aria-label="Close" style="color: red; font-size: 20px; font-weight: bold;">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
             </div>
             <div class="modal-body" id="smallBody">
 
                 <div class="row col-md-12">
-                    <div class="col-md-4"></div>
-                    <div class="col-md-4"><h2>{{__('main.sales_bill')}}</h2></div>
-                    <div class="col-md-4"></div>
+                    <div class="col-3" style="display: flex; justify-content: center">
+                        <button class="btn btn-info not-print" style="width: 150px" onclick="print_modal()"> <i class="fa fa-print " ></i> Print</button>
+
+                    </div>
+                    <div class="col-6" style="display: flex; justify-content: center">
+                        <h2 class="text-center">
+                            @if($data -> pos == 1 )    {{__('main.sales_bill_title1')}}
+                            @else
+                                @if($vendor->vat_no)  {{__('main.sales_bill_title2')}}
+                                @else {{__('main.sales_bill_title3')}}
+                                @endif
+                            @endif
+
+                        </h2>
+                    </div>
+                    <div class="col-3" style="display: flex; justify-content: center">
+                        <img id='barcode'
+                             src="https://api.qrserver.com/v1/create-qr-code/?data=https://seasonsge.com/showBooking/{{$data -> invoice_no}}&amp;size=80x80"
+                             alt=""
+                             title="HELLO"
+                             width="80"
+                             height="80"
+                             style="width: 80px; height: 80px;"
+                        />
+                    </div>
+
+
                 </div>
 
                 <div class="row col-md-12">
@@ -48,6 +72,7 @@
                 </div>
 
                 <div class="col-md-12">
+                    <h2 class="text-center"> {{__('main.items')}} </h2>
                     <table class="table items table-striped table-bordered table-condensed table-hover">
                         <thead>
                         <tr>
@@ -75,7 +100,31 @@
                         </tbody>
                     </table>
                 </div>
+                <br>
+                <h2 class="text-center"> {{__('main.payments')}} </h2>
 
+                <table class="table items table-striped table-bordered table-condensed table-hover">
+                    <thead>
+                        <tr>
+                            <th class="text-center">{{__('main.date')}}</th>
+                            <th class="text-center">{{__('main.paid_by')}}</th>
+                            <th class="text-center"> {{__('main.amount')}}</th>
+                            <th class="text-center">{{__('main.user')}}</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                    @foreach($payments as $payment)
+                        <tr>
+                            <td class="text-center">{{$payment->date}}</td>
+                            <td class="text-center">{{$payment->paid_by}}</td>
+                            <td class="text-center">{{$payment->amount}}</td>
+                            <td class="text-center">{{$payment->user ?  $payment->user -> name : ''}}</td>
+
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
                 <br>
                 <table class="table items table-striped table-bordered table-condensed table-hover">
                     <tbody>
@@ -87,6 +136,10 @@
                         <tr>
                             <td>{{__('main.tax')}}</td>
                             <td>{{$data->tax}}</td>
+                        </tr>
+                        <tr>
+                            <td>{{__('main.additional_service')}}</td>
+                            <td>{{$data->additional_service}}</td>
                         </tr>
 
                         <tr>
@@ -115,5 +168,13 @@
 <script>
     $(document).ready(function() {
 
-    })
+    });
+    function print_modal(){
+        const originalHTML = document.body.innerHTML;
+        document.body.innerHTML = document.getElementById('paymentsModal').innerHTML;
+        document.querySelectorAll('.not-print')
+            .forEach(img => img.remove())
+        window.print();
+        document.body.innerHTML = originalHtml;
+    }
 </script>

@@ -351,7 +351,22 @@ return [
     'item_count' => 'عدد الأصناف',
     'req_money' => 'المبلغ المستحق',
     'Report' => 'تقرير تفصيلي',
-    'client_movement_report' => 'كشف حركة عميل / مورد'
+    'client_movement_report' => 'كشف حركة عميل / مورد',
+    'invoice_no' => 'رقم الفاتورة',
+    'client' => 'العميل',
+    'client_vat_no' => 'رقم السجل الضريبي للعميل',
+    'sales_bill_title1' => 'فاتورة ضريبية مبسطة',
+    'sales_bill_title2' => 'فاتورة ضريبية',
+    'sales_bill_title3' => 'فاتورة غير خاضعة للضريبة',
+    'payments' => 'مدفوعات الفاتورة',
+    'additional_service' => 'مصروفات إضافية',
+    'total_sales_without_tax' => 'إجمالي المبيعات بدون ضريبة',
+    'total_tax' => 'إجمالي الضريبة',
+    'total_sales_with_tax' => 'إجمالي المبيعات شامل الضريبة',
+    'total_profit_without_tax' => 'إجمالي الربح بدون ضريبة',
+    'total_purchase' => 'إجمالي المشتريات',
+    'total_expenses' => 'إجمالي المصروفات',
+    'total_movements' => 'اجمالى العمليات لتاريخ'
 
 
 

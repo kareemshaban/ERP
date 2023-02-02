@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AccountsTree;
 use App\Models\Currency;
 use App\Models\ExpensesCategory;
 use App\Http\Requests\StoreExpensesCategoryRequest;
@@ -19,8 +20,8 @@ class ExpensesCategoryController extends Controller
      */
     public function index()
     {
-        $expenses = ExpensesCategory::all();
-        $accounts = [] ;
+        $expenses = ExpensesCategory::with('account') -> get();
+        $accounts = AccountsTree::query()->where('type','>',1)->get();
         return view('Expenses.index' , ['expenses' => $expenses , 'accounts' => $accounts]);
     }
 

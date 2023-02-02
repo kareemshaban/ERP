@@ -14,4 +14,8 @@ class ExpensesCategory extends Model
         'name',
         'account_id'
     ];
+
+    public function account(){
+        return $this -> belongsTo(AccountsTree::class , 'account_id');
+    }
 }

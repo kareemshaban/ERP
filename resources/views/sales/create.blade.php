@@ -145,14 +145,23 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-12">
+                            <div class="row" style="display: flex ; align-items: center">
+                                <div class="col-4">
+                                    <div class="form-group">
+                                        <label>{{ __('main.additional_service') }} <span style="color:red; font-size:20px; font-weight:bold;">*</span> </label>
+                                        <input  name="additional_service" id="additional_service"  placeholder="0" class="form-control" type="number" />
+                                    </div>
+                                </div>
+
+
+                                <div class="col-8">
                                     <div class="form-group">
                                         <label>{{ __('main.notes') }} <span style="color:red; font-size:20px; font-weight:bold;">*</span> </label>
                                         <textarea name="notes" id="notes" rows="3" placeholder="{{ __('main.notes') }}" class="form-control-lg" style="width: 100%"></textarea>
                                     </div>
                                 </div>
                             </div>
+
                             <div class="row">
                                 <div class="col-md-12 text-center">
                                         <input type="submit" class="btn btn-primary" id="primary" tabindex="-1"
@@ -187,7 +196,7 @@ margin: 30px auto;" value="{{__('main.save_btn')}}"></input>
                 </button>
             </div>
             <div class="modal-body" id="smallBody">
-                <img src="../assets/img/warning.png" class="alertImage">
+                <img src="../../assets/img/warning.png" class="alertImage">
                 <label class="alertTitle">{{__('main.notfound')}}</label>
                 <br> <label  class="alertSubTitle" id="modal_table_bill"></label>
                 <div class="row text-center">

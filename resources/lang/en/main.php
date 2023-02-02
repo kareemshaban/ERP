@@ -343,7 +343,22 @@ return [
 
     'reverse_profit_account' => 'profit calculation equation',
     'Report' => 'Details Report',
-    'client_movement_report' => 'Vendor Account Movements'
+    'client_movement_report' => 'Vendor Account Movements',
+    'invoice_no' => 'Bill Number',
+    'client' => 'Client',
+    'client_vat_no' => 'Client Tax Number',
+    'sales_bill_title1' => 'Simplified Tax Invoice',
+    'sales_bill_title2' => 'Taxable Sales Bill',
+    'sales_bill_title3' => 'Non-taxable invoice',
+    'payments' => 'Invoice Payments',
+    'additional_service' => 'Additional Expenses',
+    'total_sales_without_tax' => 'Total Sales Without Tax',
+    'total_tax' => 'Total Tax',
+    'total_sales_with_tax' => 'Total Sales With Tax',
+    'total_profit_without_tax' => 'Total Profit Without Tax',
+    'total_purchase' => 'Total Purchases',
+    'total_expenses' => 'Total Expenses',
+    'total_movements' => 'Total Transactions For'
 
 
 

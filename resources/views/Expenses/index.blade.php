@@ -61,7 +61,7 @@
                                         <td class="text-center">{{$expense -> id}}</td>
                                         <td class="text-center">{{$expense -> code}}</td>
                                         <td class="text-center">{{$expense -> name}}</td>
-                                        <td class="text-center"> </td>
+                                        <td class="text-center"> {{$expense -> account -> name}}</td>
                                         <td class="text-center">
                                             <button type="button" class="btn btn-labeled btn-secondary " onclick="EditModal({{$expense -> id}})">
                                                 <span class="btn-label" style="margin-right: 10px;"><i class="fa fa-pen"></i></span>{{__('main.edit')}}</button>
@@ -270,7 +270,7 @@
                             $('#createModal').modal("show");
                             $(".modal-body #name").val( response.name );
                             $(".modal-body #code").val( response.code );
-                            $(".modal-body #symbol").val( response.account_id);
+                            $(".modal-body #account_id").val( response.account_id);
                             $(".modal-body #id").val( response.id );
 
                         },

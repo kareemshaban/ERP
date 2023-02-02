@@ -32,6 +32,7 @@ class CreateSalesTable extends Migration
             $table->integer('pos');
             $table->double('lista');
             $table->double('profit');
+            $table->double('additional_service') -> default(0);
             $table->timestamps();
         });
     }

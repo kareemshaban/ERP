@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Cashier;
 use App\Models\Company;
+use App\Models\Payment;
 use App\Models\Product;
 use App\Models\SaleDetails;
 use App\Models\Sales;
@@ -95,6 +96,8 @@ class SalesController extends Controller
             $profit +=($request->price_without_tax[$index] - $productDetails->cost) * $request->qnt[$index];
         }
 
+        $net += $request -> additional_service ?? 0 ;
+
         $sale = Sales::create([
             'date' => $request->bill_date,
             'invoice_no' => $request-> bill_number,
@@ -105,14 +108,15 @@ class SalesController extends Controller
             'total' => $total,
             'discount' => 0,
             'tax' => $tax,
-            'net' => $net,
+            'net' => $net ,
             'paid' => 0,
             'sale_status' => 'completed',
             'payment_status' => 'not_paid',
             'created_by' => Auth::id(),
             'pos' => $request -> has('POS') ? $request ->POS :   0,
             'lista' => $lista,
-            'profit'=> $profit
+            'profit'=> $profit,
+            'additional_service' => $request -> additional_service ?? 0
         ]);
 
         foreach ($products as $product){
@@ -203,13 +207,14 @@ class SalesController extends Controller
                 -> join('products' , 'sale_details.product_id' , '=' , 'products.id')
                 -> select('sale_details.*' , 'products.code' , 'products.name')
                 ->where('sale_details.sale_id' , '=' , $id)-> get();
-            // return  $details ;
+            $payments = Payment::with('user') -> where('sale_id',$id)
+                ->where('sale_id','<>',null)->get();
 
 
             $vendor = Company::find($data->customer_id);
             $cashier = Cashier::get()->first();
 
-            return view('sales.view',compact('data' , 'details','vendor','cashier'))->render();
+            return view('sales.view',compact('data' , 'details','vendor','cashier' , 'payments' ))->render();
         }
 
 

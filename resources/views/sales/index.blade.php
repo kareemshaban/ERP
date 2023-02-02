@@ -15,9 +15,9 @@
     <link href="../assets/css/nucleo-svg.css" rel="stylesheet" />
     <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap4.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.4.0/css/responsive.bootstrap5.min.css">
 
 
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
@@ -38,25 +38,24 @@
     <!-- Navbar -->
     @include('layouts.nav' , ['page_title' => __('main.sales_invoices') ])
     <!-- End Navbar -->
-    <div class="container-fluid py-4">
+    <div class="container-fluid py-4" @if(Config::get('app.locale') == 'ar') style="direction: rtl" @endif>
         <div class="row">
             <div class="col-12">
                 <div class="card mb-4">
                     <div class="card-header pb-0">
                         <div class="row">
-                            <div class="col-6 text-start">
+                            <div class="col-6">
                                 <h6>{{ __('main.sales_invoices')}}</h6>
-                            </div>
-                            <div class="col-6 text-end">
                                 <a type="button" class="btn btn-labeled btn-primary" href="{{route('add_sale')}}">
                                     <span class="btn-label" style="margin-right: 10px;"><i class="fa fa-plus"></i></span>{{__('main.add_new')}}
                                 </a>
                             </div>
+
                         </div>
 
                     </div>
                     <div class="card-body px-0 pt-0 pb-2">
-                        <div class="table-responsive p-0">
+                        <div class="table-responsive p-0" style="padding: 5px !important;">
                             <table class="table align-items-center mb-0 border" id="table">
                                 <thead>
                                 <tr>
@@ -68,6 +67,7 @@
                                     <th class="text-center text-uppercase text-secondary text-md-center font-weight-bolder opacity-7">{{__('main.total')}}</th>
                                     <th class="text-center text-uppercase text-secondary text-md-center font-weight-bolder opacity-7">{{__('main.tax')}}</th>
                                     <th class="text-center text-uppercase text-secondary text-md-center font-weight-bolder opacity-7">{{__('main.discount')}}</th>
+                                    <th class="text-center text-uppercase text-secondary text-md-center font-weight-bolder opacity-7">{{__('main.additional_service')}}</th>
                                     <th class="text-center text-uppercase text-secondary text-md-center font-weight-bolder opacity-7">{{__('main.net')}}</th>
                                     <th class="text-center text-uppercase text-secondary text-md-center font-weight-bolder opacity-7">{{__('main.paid')}}</th>
                                     <th class="text-center text-uppercase text-secondary text-md-center font-weight-bolder opacity-7">{{__('main.remain')}}</th>
@@ -86,6 +86,7 @@
                                         <td class="text-center">{{$process->total}}</td>
                                         <td class="text-center">{{$process->tax}}</td>
                                         <td class="text-center">{{$process->discount}}</td>
+                                        <td class="text-center">{{$process->additional_service}}</td>
                                         <td class="text-center">{{$process->net}}</td>
                                         <td class="text-center">{{$process->paid}}</td>
                                         <td class="text-center">{{$process->net - $process->paid}}</td>
