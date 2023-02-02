@@ -343,7 +343,11 @@ return [
 
     'reverse_profit_account' => 'profit calculation equation',
     'Report' => 'Details Report',
-    'client_movement_report' => 'Vendor Account Movements'
+    'client_movement_report' => 'Vendor Account Movements',
+    'select_print_options' => 'Select Print Options',
+    'company_name' => 'Company Name',
+    'include_tax' => 'Include Tax',
+    'no_product_selected' => 'No Data To print'
 
 
 

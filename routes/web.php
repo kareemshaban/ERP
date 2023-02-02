@@ -103,13 +103,15 @@ Route::get('/deleteUserGroup/{id}', [App\Http\Controllers\UserGroupController::c
 Route::get('/getUserGroup/{id}', [App\Http\Controllers\UserGroupController::class, 'edit'])->name('getUserGroup');
 
 
-Route::get('/products', [App\Http\Controllers\ProductController::class, 'index'])->name('products');
-Route::get('/products/create', [App\Http\Controllers\ProductController::class, 'create'])->name('createProduct');
-Route::post('products/create', [App\Http\Controllers\ProductController::class, 'store'])->name('storeProduct');
-Route::get('/products/edit/{id}', [App\Http\Controllers\ProductController::class, 'edit'])->name('editProduct');
-Route::post('/products/update/{id}', [App\Http\Controllers\ProductController::class, 'update'])->name('updateProduct');
-Route::get('/products/delete/{id}', [App\Http\Controllers\ProductController::class, 'destroy'])->name('deleteProduct');
-Route::get('/getProduct/{code}', [App\Http\Controllers\ProductController::class, 'getProduct'])->name('getProduct');
+    Route::get('/products', [App\Http\Controllers\ProductController::class, 'index'])->name('products');
+    Route::get('/products/create', [App\Http\Controllers\ProductController::class, 'create'])->name('createProduct');
+    Route::post('products/create', [App\Http\Controllers\ProductController::class, 'store'])->name('storeProduct');
+    Route::get('/products/edit/{id}', [App\Http\Controllers\ProductController::class, 'edit'])->name('editProduct');
+    Route::post('/products/update/{id}', [App\Http\Controllers\ProductController::class, 'update'])->name('updateProduct');
+    Route::get('/products/delete/{id}', [App\Http\Controllers\ProductController::class, 'destroy'])->name('deleteProduct');
+    Route::get('/getProduct/{code}', [App\Http\Controllers\ProductController::class, 'getProduct'])->name('getProduct');
+    Route::get('/products/print_barcode', [App\Http\Controllers\ProductController::class, 'print_barcode'])->name('print_barcode');
+    Route::post('/products/print_barcode', [App\Http\Controllers\ProductController::class, 'do_print_barcode'])->name('preview_barcode');
 
 
 Route::get('/update_qnt', [App\Http\Controllers\UpdateQuntityController::class, 'index'])->name('update_qnt');

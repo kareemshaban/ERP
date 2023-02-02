@@ -351,7 +351,11 @@ return [
     'item_count' => 'عدد الأصناف',
     'req_money' => 'المبلغ المستحق',
     'Report' => 'تقرير تفصيلي',
-    'client_movement_report' => 'كشف حركة عميل / مورد'
+    'client_movement_report' => 'كشف حركة عميل / مورد',
+    'select_print_options' => 'اختيار ما يتم طباعته',
+    'company_name' => 'اسم الشركة',
+    'include_tax' => 'شامل الضريبة',
+    'no_product_selected' => 'لا توجد بيانات للطباعة'
 
 
 

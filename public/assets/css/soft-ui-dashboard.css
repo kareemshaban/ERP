@@ -26851,4 +26851,19 @@ input[type=file]::file-selector-button:hover {
     font-weight:bold ;
     font-size: 13px;
 }
+
+.barcode { width: 8.45in; height: 10.3in; display: block; border: 1px solid #CCC; margin: 10px auto; padding-top: 0.1in; page-break-after:always; }
+.barcode .item { display: block; overflow: hidden; text-align: center; border: 1px dotted #CCC; font-size: 12px; line-height: 14px; text-transform: uppercase; float: left; }
+.style50 { font-size: 10px; line-height: 12px; margin: 0 auto; display: block; text-align: center; border: 1px dotted #CCC; font-size: 12px; line-height: 14px; text-transform: uppercase; page-break-after:always; }
 /*# sourceMappingURL=dashboard-free.css.map */
+@media print{
+    .no-print{
+        display: none;
+    }
+}
+@media print {
+    .tooltip, #sliding-ad { display: none !important; }
+    .barcode, .barcodea4 { margin: 0; }
+    .barcode, .barcode .item, .barcodea4, .barcodea4 .item, .style50, .div50 { border: none !important; }
+    .div50, .modal-content { page-break-after:always; }
+}

@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateProductRequest;
 use App\Models\ProductUnit;
 use App\Models\PurchaseDetails;
 use App\Models\SaleDetails;
+use App\Models\SystemSettings;
 use App\Models\UpdateQuntityDetails;
 use App\Models\WarehouseProducts;
 use Illuminate\Database\QueryException;
@@ -317,4 +318,34 @@ class ProductController extends Controller
             -> get()->first();
     }
 
+
+
+    public function print_barcode(){
+
+        return view('products.print_barcode');
+    }
+
+
+    public function do_print_barcode(Request $request){
+
+        $data = [];
+        foreach ($request->product_id as $index=>$id){
+            $product = Product::find($id);
+            $settings = SystemSettings::get()->first();
+            $qnt = $request->qnt[$index];
+            $item = [
+                'quantity' => $qnt,
+                'site' => $request->company_name == 1 ? $settings == null ? '' : $settings->company_name : false,
+                'name' => $request->company_name == 1 ? $product->name : false,
+                'price' => $request->company_name == 1 ? $product->price : false,
+                'currency' => $request->company_name == 1 ? 'ر.س' : false,
+                'include_tax' => $request->company_name == 1 ? true : false,
+                'barcode' => $product->code,
+            ];
+
+            $data[] = $item;
+        }
+
+        return view('products.print_barcode',compact('data'));
+    }
 }
