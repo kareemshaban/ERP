@@ -441,6 +441,8 @@ class SystemController extends Controller
 
 
         $saleInvoice = Purchase::find($id);
+        if($saleInvoice->net < 0)
+            return $this->returnPurchaseJournals($id);
 
         $settings = AccountSetting::query()->where('warehouse_id',$saleInvoice->warehouse_id)->get()->first();
         if(!$settings)
