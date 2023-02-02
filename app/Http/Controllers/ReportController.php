@@ -308,9 +308,9 @@ class ReportController extends Controller
         return $html ;
     }
 
-    public function client_balance_report($id){
+    public function client_balance_report($id , $slag){
         $data = VendorMovement::query()->where('vendor_id',$id)->get();
-        return view('Report.client_movement_report',compact('data'));
+        return view('Report.client_movement_report',compact('data' , 'slag'));
     }
 
 }

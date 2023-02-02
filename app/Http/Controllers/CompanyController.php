@@ -128,7 +128,8 @@ class CompanyController extends Controller
                 'company' => 'required',
                 'name' => 'required',
                 'opening_balance' => 'required',
-                'type' => 'required'
+                'type' => 'required',
+                'account_id' => 'required'
             ]);
             try {
                 $company -> update([
@@ -153,6 +154,7 @@ class CompanyController extends Controller
                     'opening_balance' =>$request -> opening_balance? $request -> opening_balance: $company ->  opening_balance,
                     'credit_amount' =>$request -> has('credit_amount')? $request -> credit_amount: $company -> credit_amount ,
                     'stop_sale' =>$request -> has('stop_sale')? 1: $company -> stop_sale ,
+                    'account_id' => $request->account_id
 
                 ]);
                 return redirect()->route('clients' , $request -> type)->with('success' , __('main.updated'));

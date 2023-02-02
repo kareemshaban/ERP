@@ -342,6 +342,8 @@ return [
     'profit_account' => 'Profit account',
 
     'reverse_profit_account' => 'profit calculation equation',
+    'Report' => 'Details Report',
+    'client_movement_report' => 'Vendor Account Movements'
 
 
 

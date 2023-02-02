@@ -25,7 +25,7 @@
 <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
     @include('flash-message')
     <!-- Navbar -->
-    @include('layouts.nav' , ['page_title' => __('main.basic_date')  . ' / ' . $type == 3 ? __('main.clients') : __('main.supplier') ])
+    @include('layouts.nav' , ['page_title' => $type == 3 ? __('main.clients') : __('main.supplier') ])
     <!-- End Navbar -->
     <div class="container-fluid py-4">
         <div class="row">
@@ -418,8 +418,11 @@
     }
 
     function openReport(id) {
-        let url = "{{ route('client_balance_report', ':id') }}";
+        const type = document.getElementById('type').value ;
+        let url = "{{ route('client_balance_report', [':id' , ':slag']) }}";
         url = url.replace(':id', id);
+        url = url.replace(':slag', type);
+
         window.location.href=url;
     }
 </script>

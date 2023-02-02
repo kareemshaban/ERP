@@ -188,7 +188,7 @@ Route::get('/getUpdateQntBillNo', [App\Http\Controllers\UpdateQuntityController:
     Route::get('/items_purchased_report_search/{fdate}/{tdate}/{warehouse}/{item}/{supplier}', [App\Http\Controllers\ReportController::class, 'items_purchased_report_search'])
         ->name('items_purchased_report_search');
 
-    Route::get('/client_balance_report/{id}',[\App\Http\Controllers\ReportController::class,'client_balance_report'])->name('client_balance_report');
+    Route::get('/client_balance_report/{id}/{slag}',[\App\Http\Controllers\ReportController::class,'client_balance_report'])->name('client_balance_report');
 
 
 
