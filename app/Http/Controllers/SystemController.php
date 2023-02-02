@@ -207,6 +207,8 @@ class SystemController extends Controller
         }
 
         $settings = AccountSetting::query()->where('warehouse_id',$saleInvoice->warehouse_id)->get()->first();
+        if(!$settings)
+            return;
 
         $headerData = [
             'date' => $saleInvoice->date,
@@ -322,6 +324,8 @@ class SystemController extends Controller
         $saleInvoice = Sales::find($id);
 
         $settings = AccountSetting::query()->where('warehouse_id',$saleInvoice->warehouse_id)->get()->first();
+        if(!$settings)
+            return;
         //journal header
         $headerData = [
             'date' => $saleInvoice->date,
@@ -439,6 +443,8 @@ class SystemController extends Controller
         $saleInvoice = Purchase::find($id);
 
         $settings = AccountSetting::query()->where('warehouse_id',$saleInvoice->warehouse_id)->get()->first();
+        if(!$settings)
+            return;
 
         $headerData = [
             'date' => $saleInvoice->date,
@@ -526,6 +532,8 @@ class SystemController extends Controller
         $saleInvoice = Purchase::find($id);
 
         $settings = AccountSetting::query()->where('warehouse_id',$saleInvoice->warehouse_id)->get()->first();
+        if(!$settings)
+            return;
 
         //journal header
         $headerData = [
