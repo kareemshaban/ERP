@@ -193,6 +193,9 @@ Route::get('/getUpdateQntBillNo', [App\Http\Controllers\UpdateQuntityController:
 
     Route::get('/client_balance_report/{id}/{slag}',[\App\Http\Controllers\ReportController::class,'client_balance_report'])->name('client_balance_report');
 
+        Route::get('/incoming_list',[\App\Http\Controllers\JournalController::class,'incoming_list'])->name('incoming_list');
+        Route::get('/balance_sheet',[\App\Http\Controllers\JournalController::class,'balance_sheet'])->name('balance_sheet');
+        
 
 
     Route::get('/accounts',[\App\Http\Controllers\AccountsTreeController::class,'index'])->name('accounts_list');
@@ -223,6 +226,8 @@ Route::get('/getUpdateQntBillNo', [App\Http\Controllers\UpdateQuntityController:
     Route::get('/init',[\App\Http\Controllers\InitializeController::class,'getIntialize'])->name('init');
     Route::get('/subscribe_data',[\App\Http\Controllers\InitializeController::class,'subscribeData'])->name('subscribe_data');
     Route::post('/init',[\App\Http\Controllers\InitializeController::class,'storeInitialize'])->name('store_init');
+
+
 
 });
 

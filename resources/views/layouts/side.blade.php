@@ -359,6 +359,9 @@
                     <li><a @if($subSlag == 30) class="dropdown-item active-drop" @else class="dropdown-item" @endif href="{{route('items_stock_report')}}">{{__('main.users_transactions_report')}}</a></li>
                     <li><a @if($subSlag == 31) class="dropdown-item active-drop" @else class="dropdown-item" @endif href="{{route('items_purchased_report')}}">{{__('main.imported_items_reports')}}</a></li>
 
+                    <li><a @if($subSlag == 31) class="dropdown-item active-drop" @else class="dropdown-item" @endif href="{{route('incoming_list')}}">{{__('main.incoming_list_report')}}</a></li>
+                    <li><a @if($subSlag == 31) class="dropdown-item active-drop" @else class="dropdown-item" @endif href="{{route('balance_sheet')}}">{{__('main.balance_sheet_report')}}</a></li>
+
 
                 </ul>
 
