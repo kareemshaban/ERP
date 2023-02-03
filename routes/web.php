@@ -195,7 +195,7 @@ Route::get('/getUpdateQntBillNo', [App\Http\Controllers\UpdateQuntityController:
 
         Route::get('/incoming_list',[\App\Http\Controllers\JournalController::class,'incoming_list'])->name('incoming_list');
         Route::get('/balance_sheet',[\App\Http\Controllers\JournalController::class,'balance_sheet'])->name('balance_sheet');
-        
+
 
 
     Route::get('/accounts',[\App\Http\Controllers\AccountsTreeController::class,'index'])->name('accounts_list');
