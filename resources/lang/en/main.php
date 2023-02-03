@@ -344,6 +344,7 @@ return [
     'reverse_profit_account' => 'profit calculation equation',
     'Report' => 'Details Report',
     'client_movement_report' => 'Vendor Account Movements',
+
     'invoice_no' => 'Bill Number',
     'client' => 'Client',
     'client_vat_no' => 'Client Tax Number',
@@ -358,7 +359,22 @@ return [
     'total_profit_without_tax' => 'Total Profit Without Tax',
     'total_purchase' => 'Total Purchases',
     'total_expenses' => 'Total Expenses',
-    'total_movements' => 'Total Transactions For'
+    'total_movements' => 'Total Transactions For',
+
+    'select_print_options' => 'Select Print Options',
+    'company_name' => 'Company Name',
+    'include_tax' => 'Include Tax',
+    'no_product_selected' => 'No Data To print',
+    'print_barcode' => 'Barcode Print',
+
+    'box_expenses' => 'Expenses Receipt',
+    'box_expenses_list' => 'Expenses Receipt List ',
+    'box_expenses_create' => 'Create Expenses Receipt',
+    'expenses_category' => 'Expenses Type',
+    'payment_type' => 'Payment Type',
+    'box_expenses_preview' => 'Preview Expenses Receipt'
+
+
 
 
 

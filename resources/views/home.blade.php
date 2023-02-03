@@ -86,7 +86,7 @@
                         <h2 class="blue"><i class="fa fa-th"></i><span class="break"></span>{{__('main.total_movements')}}
                        <label>  </label> ({{\Carbon\Carbon::now() -> format('d - m - Y')}})</h2>
                     </div>
-                    <div class="box-content">
+                    <div class="box-content" style=" background: whitesmoke;">
 
                         <div class="row" style=" margin: 30px auto; width: 80% ;" >
                             <div class="col-xl-6 col-sm-6 " >
@@ -97,7 +97,7 @@
                                                 <div class="numbers">
                                                     <p class="text-sm mb-0 text-capitalize font-weight-bold">{{__('main.total_sales_without_tax')}}</p>
                                                     <h5 class="font-weight-bolder mb-0">
-                                                        $53,000
+                                                        {{$sales_total - $sales_tax}}
                                                     </h5>
                                                 </div>
                                             </div>
@@ -118,13 +118,13 @@
                                                 <div class="numbers">
                                                     <p class="text-sm mb-0 text-capitalize font-weight-bold">{{__('main.total_tax')}}</p>
                                                     <h5 class="font-weight-bolder mb-0">
-                                                        2,300
+                                                        {{$sales_tax}}
                                                     </h5>
                                                 </div>
                                             </div>
                                             <div class="col-4 text-end">
                                                 <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
-                                                    <i class="ni ni-world text-lg opacity-10" aria-hidden="true"></i>
+                                                    <i class="ni ni-badge text-lg opacity-10" aria-hidden="true"></i>
                                                 </div>
                                             </div>
                                         </div>
@@ -139,16 +139,16 @@
                                         <div class="row">
                                             <div class="col-8">
                                                 <div class="numbers">
-                                                    <p class="text-sm mb-0 text-capitalize font-weight-bold">{{__('main.total_tax')}}</p>
+                                                    <p class="text-sm mb-0 text-capitalize font-weight-bold">{{__('main.total_purchase')}}</p>
                                                     <h5 class="font-weight-bolder mb-0">
-                                                        +3,462
-                                                        <span class="text-danger text-sm font-weight-bolder">-2%</span>
+                                                        {{$purchase_total}}
+
                                                     </h5>
                                                 </div>
                                             </div>
                                             <div class="col-4 text-end">
                                                 <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
-                                                    <i class="ni ni-paper-diploma text-lg opacity-10" aria-hidden="true"></i>
+                                                    <i class="ni ni-building text-lg opacity-10" aria-hidden="true"></i>
                                                 </div>
                                             </div>
                                         </div>
@@ -161,15 +161,15 @@
                                         <div class="row">
                                             <div class="col-8">
                                                 <div class="numbers">
-                                                    <p class="text-sm mb-0 text-capitalize font-weight-bold">{{__('main.total_sales_without_tax')}}</p>
+                                                    <p class="text-sm mb-0 text-capitalize font-weight-bold">{{__('main.total_expenses')}}</p>
                                                     <h5 class="font-weight-bolder mb-0">
-                                                        $103,430
+                                                      {{$total_expenses}}
                                                     </h5>
                                                 </div>
                                             </div>
                                             <div class="col-4 text-end">
                                                 <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
-                                                    <i class="ni ni-cart text-lg opacity-10" aria-hidden="true"></i>
+                                                    <i class="ni ni-money-coins text-lg opacity-10" aria-hidden="true"></i>
                                                 </div>
                                             </div>
                                         </div>
@@ -192,7 +192,7 @@
                     <div class="box-header">
                         <h2 class="blue"><i class="fa fa-th"></i><span class="break"></span>روابط سريعة</h2>
                     </div>
-                    <div class="box-content" style="display: flex;flex-flow: wrap; padding: 20px;">
+                    <div class="box-content" style="display: flex;flex-flow: wrap; padding: 20px; background: whitesmoke;">
                         <div class="col-md-2 col-xs-4 padding1010">
                             <a class="bblue white quick-button small" href="{{route('products')}}">
                                 <i class="fa fa-barcode"></i>
@@ -233,7 +233,7 @@
                         </div>
 
                         <div class="col-md-2 col-xs-4 padding1010">
-                            <a class="bgrey white quick-button small" href="{{route('clients' , 0)}}">
+                            <a class="bgrey white quick-button small" href="{{route('clients' , 3)}}">
                                 <i class="fa fa-users"></i>
 
                                 <p>{{__('main.clients')}}</p>
@@ -241,7 +241,7 @@
                         </div>
 
                         <div class="col-md-2 col-xs-4 padding1010">
-                            <a class="bgrey white quick-button small" href="{{route('clients' , 1)}}">
+                            <a class="bgrey white quick-button small" href="{{route('clients' , 4)}}">
                                 <i class="fa fa-users"></i>
 
                                 <p>{{__('main.supplier')}}</p>

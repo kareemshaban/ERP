@@ -352,6 +352,7 @@ return [
     'req_money' => 'المبلغ المستحق',
     'Report' => 'تقرير تفصيلي',
     'client_movement_report' => 'كشف حركة عميل / مورد',
+
     'invoice_no' => 'رقم الفاتورة',
     'client' => 'العميل',
     'client_vat_no' => 'رقم السجل الضريبي للعميل',
@@ -366,7 +367,20 @@ return [
     'total_profit_without_tax' => 'إجمالي الربح بدون ضريبة',
     'total_purchase' => 'إجمالي المشتريات',
     'total_expenses' => 'إجمالي المصروفات',
-    'total_movements' => 'اجمالى العمليات لتاريخ'
+    'total_movements' => 'اجمالى العمليات لتاريخ',
+
+    'select_print_options' => 'اختيار ما يتم طباعته',
+    'company_name' => 'اسم الشركة',
+    'include_tax' => 'شامل الضريبة',
+    'no_product_selected' => 'لا توجد بيانات للطباعة',
+    'print_barcode' => 'طباعة الباركود',
+    'box_expenses' => 'مستند صرف الصندوق',
+    'box_expenses_list' => 'قائمة مستند صرف الصندوق ',
+    'box_expenses_create' => 'إضافة  مستند صرف الصندوق',
+    'expenses_category' => 'بند الصرف',
+     'payment_type' => 'نوع الصرف',
+    'box_expenses_preview' => 'معاينة مستند صرف الصندوف'
+
 
 
 
