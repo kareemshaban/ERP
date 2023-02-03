@@ -126,6 +126,8 @@ Route::get('/getUpdateQntBillNo', [App\Http\Controllers\UpdateQuntityController:
     Route::get('/sales', [App\Http\Controllers\SalesController::class, 'index'])->name('sales');
     Route::get('/sales/add', [App\Http\Controllers\SalesController::class, 'create'])->name('add_sale');
     Route::post('/sales/add', [App\Http\Controllers\SalesController::class, 'store'])->name('store_sale');
+    Route::get('/getLastSalesBill', [App\Http\Controllers\SalesController::class, 'getLastSalesBill'])->name('getLastSalesBill');
+
 
 
     Route::get('/purchases', [App\Http\Controllers\PurchaseController::class, 'index'])->name('purchases');
