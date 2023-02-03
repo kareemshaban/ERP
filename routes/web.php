@@ -28,6 +28,7 @@ Route::get('/', function () {
 
 Auth::routes();
 
+    Route::group(['middleware' => 'auth'], function () {
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
@@ -219,5 +220,10 @@ Route::get('/getUpdateQntBillNo', [App\Http\Controllers\UpdateQuntityController:
     Route::get('/pos', [App\Http\Controllers\SalesController::class, 'pos'])->name('pos');
 
 
+    Route::get('/init',[\App\Http\Controllers\InitializeController::class,'getIntialize'])->name('init');
+    Route::get('/subscribe_data',[\App\Http\Controllers\InitializeController::class,'subscribeData'])->name('subscribe_data');
+    Route::post('/init',[\App\Http\Controllers\InitializeController::class,'storeInitialize'])->name('store_init');
+
 });
 
+});

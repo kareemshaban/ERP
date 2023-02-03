@@ -372,7 +372,17 @@ return [
     'box_expenses_create' => 'Create Expenses Receipt',
     'expenses_category' => 'Expenses Type',
     'payment_type' => 'Payment Type',
-    'box_expenses_preview' => 'Preview Expenses Receipt'
+    'box_expenses_preview' => 'Preview Expenses Receipt',
+
+
+    'init_settings' => 'Initialize Settings',
+    'valid_to' => 'Valid To',
+    'contact_phone' => 'Contact Phone',
+    'max_users' => 'Max Users',
+    'max_branches' => 'Max Branches',
+
+    'remaining_days' => 'Remaining Days',
+    'subscribe_data' => 'Subscription Data',
 
 
 
