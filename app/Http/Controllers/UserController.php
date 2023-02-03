@@ -7,6 +7,7 @@ use App\Models\UserGroup;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 
@@ -21,6 +22,14 @@ class UserController extends Controller
     }
 
     public function store(Request $request){
+
+        $usersCount = DB::table('users')->get()->count();
+        $maxUsers = DB::table('system_settings')->select('max_users')->get()->first()->max_users;
+
+        if($usersCount >= $maxUsers){
+            return redirect()->back()->with('error',__('main.Max Users Reached'));
+        }
+
         if ($request -> id == 0) {
             $validated = $request->validate([
                 'name' => 'required',

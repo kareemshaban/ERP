@@ -25,5 +25,30 @@
                 </ul>
             </div>
         </div>
+
+        <div class="show_modal_init">
+
+        </div>
     </div>
+
+    <script>
+
+        function showSubscribeData() {
+            var route = '{{route('subscribe_data')}}';
+
+            $.get( route, function( data ) {
+                $( ".show_modal_init" ).html( data );
+                $('#paymentsModal').modal('show');
+            });
+        }
+
+        function showInitModal() {
+            var route = '{{route('init')}}';
+
+            $.get( route, function( data ) {
+                $( ".show_modal_init" ).html( data );
+                $('#paymentsModal').modal('show');
+            });
+        }
+    </script>
 </footer>

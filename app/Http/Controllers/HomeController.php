@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Expenses;
 use App\Models\Purchase;
 use App\Models\Sales;
+use App\Models\SystemSettings;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -30,6 +31,8 @@ class HomeController extends Controller
         $sales = Sales::where('sale_id' , '=' , 0 ) -> get();
         $purchases = Purchase::where('returned_bill_id' , '=' , 0 ) -> get();
         $expenses = Expenses::all();
+        $settings = SystemSettings::all()->first();
+
         $sales_total = 0 ;
         $sales_tax = 0 ;
         $purchase_total = 0 ;
@@ -53,8 +56,13 @@ class HomeController extends Controller
         }
 
 
+        $validTo = $settings->valid_to;
+        $new_format = str_replace('/', '-', $validTo);
+        $timestamp = strtotime($new_format);
+        $currentDate = time();
+        $datediff = $timestamp - $currentDate;
+        $remaining_days = round($datediff / (60 * 60 * 24));
 
-
-        return view('home' , compact('sales_total' , 'sales_tax' , 'purchase_total' , 'total_expenses'));
+        return view('home' , compact('sales_total' , 'sales_tax' , 'purchase_total' , 'total_expenses','remaining_days','settings'));
     }
 }

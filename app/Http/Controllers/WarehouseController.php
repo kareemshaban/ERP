@@ -8,6 +8,7 @@ use App\Http\Requests\StoreWarehouseRequest;
 use App\Http\Requests\UpdateWarehouseRequest;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 
 class WarehouseController extends Controller
@@ -41,6 +42,14 @@ class WarehouseController extends Controller
      */
     public function store(Request $request)
     {
+        $usersCount = DB::table('users')->get()->count();
+        $maxUsers = DB::table('system_settings')->select('max_branches')->get()->first()->max_branches;
+
+        if($usersCount >= $maxUsers){
+            return redirect()->back()->with('error',__('main.Max Branches Reached'));
+        }
+
+        
         if($request -> id == 0){
             $validated = $request->validate([
                 'code' => 'required|unique:warehouses',

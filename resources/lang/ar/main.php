@@ -379,7 +379,17 @@ return [
     'box_expenses_create' => 'إضافة  مستند صرف الصندوق',
     'expenses_category' => 'بند الصرف',
      'payment_type' => 'نوع الصرف',
-    'box_expenses_preview' => 'معاينة مستند صرف الصندوف'
+    'box_expenses_preview' => 'معاينة مستند صرف الصندوف',
+
+
+    'init_settings' => 'تهيئة الموقع',
+    'valid_to' => 'تاريخ انتهاء الصلاحية',
+    'contact_phone' => 'رقم الهاتف للتواصل',
+    'max_users' => 'أقصي عدد من المستخدمين',
+    'max_branches' => 'أقصي عدد من الفروع',
+
+    'remaining_days' => 'عدد الأيام المتبقية',
+    'subscribe_data' => 'بيانات الاشتراك',
 
 
 

@@ -9,12 +9,16 @@
     <title>
         ERP System Dashboard
     </title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
     <link href="../assets/css/nucleo-icons.css" rel="stylesheet" />
     <link href="../assets/css/nucleo-svg.css" rel="stylesheet" />
     <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
     <link href="../assets/css/nucleo-svg.css" rel="stylesheet" />
     <link id="pagestyle" href="../assets/css/soft-ui-dashboard.css?v=1.0.7" rel="stylesheet" />
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+
     <style>
         .quick-button.small {
             padding: 15px 0px 1px 0px;
@@ -81,10 +85,19 @@
 
         <div class="row" style="margin-bottom: 15px;">
             <div class="col-lg-12">
-                <div class="box" style="padding-bottom: 30px; width: 90%; margin: auto">
-                    <div class="box-header">
-                        <h2 class="blue"><i class="fa fa-th"></i><span class="break"></span>{{__('main.total_movements')}}
+                <div class="box" style="padding-bottom: 30px; width: 100%; margin: auto">
+                    <div class="box-header col-md-12">
+                        <h2 class="col-md-4 blue"><i class="fa fa-th"></i><span class="break"></span>{{__('main.total_movements')}}
                        <label>  </label> ({{\Carbon\Carbon::now() -> format('d - m - Y')}})</h2>
+
+                        <h2 class="col-md-4" style="text-align: center">{{__('main.remaining_days')}} : {{$remaining_days}}</h2>
+
+                        <h2 class="col-md-4" style="text-align: left">
+                            <a href="javascript:;" onclick="showSubscribeData()">{{__('main.subscribe_data')}}</a>
+                        </h2>
+
+
+
                     </div>
                     <div class="box-content" style=" background: whitesmoke;">
 
