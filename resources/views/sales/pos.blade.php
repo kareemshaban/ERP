@@ -243,7 +243,9 @@
     </div>
 </main>
 
+<div class="show_modal">
 
+</div>
 
 <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="smallModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-sm" role="document">
@@ -288,8 +290,37 @@
     var suggestionItems = {};
     var sItems = {};
     var count = 1;
-
+    var Bill = null ;
     $(document).ready(function() {
+
+        $.ajax({
+            type: 'get',
+            url: 'getLastSalesBill',
+            dataType: 'json',
+
+            success: function (response) {
+                console.log(response);
+
+                if (response) {
+
+                    if (response.pos == 1 ) {
+                        if (response.paid == 0) {
+                            Bill = response;
+                            addPayments(Bill.id);
+                        } else {
+                          Bill = null ;
+                        }
+
+                    } else {
+                        Bill = null;
+                    }
+
+
+                } else {
+                    Bill = null;
+                }
+            }
+        });
 
         var now = new Date();
         now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
@@ -336,7 +367,24 @@
 
     });
 
+    function addPayments(id) {
+        var route = '{{route('add_sales_payments',":id")}}';
+        route = route.replace(":id",id);
 
+        $.get( route, function( data ) {
+            $( ".show_modal" ).html( data );
+            $('#paymentsModal').modal('show');
+        });
+    }
+    function view_purchase(id) {
+        var route = '{{route('preview_sales',":id")}}';
+        route = route.replace(":id",id);
+
+        $.get( route, function( data ) {
+            $( ".show_modal" ).html( data );
+            $('#paymentsModal').modal('show');
+        });
+    }
     function getBillNo(){
 
         let bill_number = document.getElementById('bill_number');

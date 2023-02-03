@@ -133,7 +133,12 @@ class SalesController extends Controller
 
         $siteController->saleJournals($sale->id);
 
-        return redirect()->route('sales');
+        if(!$request ->POS){
+            return redirect()->route('sales');
+        } else {
+            return redirect()->route('pos');
+        }
+
     }
 
     public function returnSale($id)
@@ -354,6 +359,14 @@ class SalesController extends Controller
         $vendors = Company::where('group_id' , '=' , 3) -> get();
         $warehouses = Warehouse::all();
         return view('sales.pos' , compact('vendors' , 'warehouses'));
+    }
+    public function getLastSalesBill(){
+        $bills = Sales::orderBy('id', 'desc')->get();
+        if(count($bills) > 0)
+            echo json_encode ($bills ->first());
+        else
+            json_encode (null);
+        exit;
     }
 }
 

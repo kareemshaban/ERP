@@ -67,7 +67,12 @@ class PaymentController extends Controller
         $vendorMovementController = new VendorMovementController();
         $vendorMovementController->addSalePaymentMovement($payment->id);
 
-        return redirect()->route('sales');
+        if($sale -> pos == 0 ){
+            return redirect()->route('sales');
+        } else {
+            return redirect()->route('pos');
+        }
+
     }
 
     public function deleteSalePayment($id){
