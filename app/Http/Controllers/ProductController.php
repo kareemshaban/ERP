@@ -336,10 +336,10 @@ class ProductController extends Controller
             $item = [
                 'quantity' => $qnt,
                 'site' => $request->company_name == 1 ? $settings == null ? '' : $settings->company_name : false,
-                'name' => $request->company_name == 1 ? $product->name : false,
-                'price' => $request->company_name == 1 ? $product->price : false,
-                'currency' => $request->company_name == 1 ? 'ر.س' : false,
-                'include_tax' => $request->company_name == 1 ? true : false,
+                'name' => $request->product_name == 1 ? $product->name : false,
+                'price' => $request->sale_Price == 1 ? $product->price : false,
+                'currency' => $request->currencies == 1 ? 'ر.س' : false,
+                'include_tax' => $request->include_tax == 1 ? true : false,
                 'barcode' => $product->code,
             ];
 
@@ -347,5 +347,37 @@ class ProductController extends Controller
         }
 
         return view('products.print_barcode',compact('data'));
+    }
+
+
+    public function print_qr(){
+
+        return view('products.print_qr');
+    }
+
+
+    public function do_print_qr(Request $request){
+
+        $data = [];
+        foreach ($request->product_id as $index=>$id){
+            $product = Product::find($id);
+            $settings = SystemSettings::get()->first();
+            $qnt = $request->qnt[$index];
+
+            $text = $request->company_name == 1 ? $settings == null ? '' : $settings->company_name."\n" : '';
+            $text.= $request->company_name == 1 ? $product->name."\n" : '';
+            $text.= $request->sale_Price == 1 ? $product->price."\n" : '';
+            $text.= $product->code;
+
+            $item = [
+                'quantity' => $qnt,
+                'data' => $text,
+                'name' => $product->name
+            ];
+
+            $data[] = $item;
+        }
+
+        return view('products.print_qr',compact('data'));
     }
 }

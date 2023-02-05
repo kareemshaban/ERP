@@ -113,6 +113,8 @@ Route::get('/getUserGroup/{id}', [App\Http\Controllers\UserGroupController::clas
     Route::get('/getProduct/{code}', [App\Http\Controllers\ProductController::class, 'getProduct'])->name('getProduct');
     Route::get('/products/print_barcode', [App\Http\Controllers\ProductController::class, 'print_barcode'])->name('print_barcode');
     Route::post('/products/print_barcode', [App\Http\Controllers\ProductController::class, 'do_print_barcode'])->name('preview_barcode');
+        Route::get('/products/print_qr', [App\Http\Controllers\ProductController::class, 'print_qr'])->name('print_qr');
+        Route::post('/products/print_qr', [App\Http\Controllers\ProductController::class, 'do_print_qr'])->name('preview_qr');
 
 
 Route::get('/update_qnt', [App\Http\Controllers\UpdateQuntityController::class, 'index'])->name('update_qnt');

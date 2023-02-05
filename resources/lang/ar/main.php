@@ -374,6 +374,7 @@ return [
     'include_tax' => 'شامل الضريبة',
     'no_product_selected' => 'لا توجد بيانات للطباعة',
     'print_barcode' => 'طباعة الباركود',
+    'print_qr' => 'طباعة الQR',
     'box_expenses' => 'مستند صرف الصندوق',
     'box_expenses_list' => 'قائمة مستند صرف الصندوق ',
     'box_expenses_create' => 'إضافة  مستند صرف الصندوق',

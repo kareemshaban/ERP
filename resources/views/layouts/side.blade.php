@@ -170,6 +170,7 @@
                     <li><a @if($subSlag == 16) class="dropdown-item active-drop" @else class="dropdown-item" @endif href="{{route('update_qnt')}}">{{__('main.update_qnt')}}</a></li>
                     <li><a @if($subSlag == 17) class="dropdown-item active-drop" @else class="dropdown-item" @endif href="{{route('add_update_qnt')}}">{{__('main.add_update_qnt')}}</a></li>
                     <li><a @if($subSlag == 38) class="dropdown-item active-drop" @else class="dropdown-item" @endif href="{{route('print_barcode')}}">{{__('main.print_barcode')}}</a></li>
+                    <li><a @if($subSlag == 39) class="dropdown-item active-drop" @else class="dropdown-item" @endif href="{{route('print_qr')}}">{{__('main.print_qr')}}</a></li>
 
 
                 </ul>

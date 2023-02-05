@@ -366,6 +366,7 @@ return [
     'include_tax' => 'Include Tax',
     'no_product_selected' => 'No Data To print',
     'print_barcode' => 'Barcode Print',
+    'print_qr' => 'QR Print',
 
     'box_expenses' => 'Expenses Receipt',
     'box_expenses_list' => 'Expenses Receipt List ',
