@@ -322,7 +322,7 @@
                     <li><a @if($subSlag == 9) class="dropdown-item active-drop" @else class="dropdown-item" @endif href="{{route('system_settings')}}">{{__('main.system_settings')}}</a></li>
                     <li><a @if($subSlag == 10) class="dropdown-item active-drop" @else class="dropdown-item" @endif href="{{route('pos_settings')}}">{{__('main.pos_settings')}}</a></li>
 
-                    @if(\Illuminate\Support\Facades\Auth::user()->email == 'mm@g.com')
+                    @if(\Illuminate\Support\Facades\Auth::user()->email == 'admin@gmail.com')
                         <li><a onclick="showInitModal()" @if($subSlag == 100) class="dropdown-item active-drop" @else class="dropdown-item" @endif href="javascript:;">{{__('main.init_settings')}}</a></li>
                     @endif
                 </ul>
