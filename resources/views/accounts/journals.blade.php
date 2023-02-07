@@ -37,7 +37,7 @@
                                 <h6>{{ __('main.journals_list')}}</h6>
                             </div>
                             <div class="col-6 text-end">
-                                <a type="button" class="btn btn-labeled btn-primary" href="{{route('create_account')}}">
+                                <a type="button" class="btn btn-labeled btn-primary" href="{{route('manual_journal')}}">
                                     <span class="btn-label" style="margin-right: 10px;"><i class="fa fa-plus"></i></span>{{__('main.add_new')}}
                                 </a>
                             </div>
@@ -72,6 +72,11 @@
                                             <button type="button" class="btn btn-labeled btn-success"  onclick="showPayments({{$unit->id}})">
                                                 <span class="btn-label" style="margin-right: 10px;"><i class="fa fa-eye"></i></span>{{__('main.preview')}}</button>
 
+                                            @if($unit->basedon_no == '')
+                                                <button type="button" class="btn btn-labeled btn-danger deleteBtn "  id="{{$unit->id}}">
+                                                    <span class="btn-label" style="margin-right: 10px;"><i class="fa fa-trash"></i></span>{{__('main.delete')}}</button>
+                                            @endif
+
                                         </td>
                                     </tr>
                                 @endforeach
@@ -95,7 +100,32 @@
 <div class="show_modal">
 
 </div>
-
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="smallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close"  data-bs-dismiss="modal"  aria-label="Close" style="color: red; font-size: 20px; font-weight: bold;">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="smallBody">
+                <img src="../../assets/img/warning.png" class="alertImage">
+                <label class="alertTitle">{{__('main.delete_alert')}}</label>
+                <br> <label  class="alertSubTitle" id="modal_table_bill"></label>
+                <div class="row">
+                    <div class="col-6 text-center">
+                        <button type="button" class="btn btn-labeled btn-primary" onclick="confirmDelete()">
+                            <span class="btn-label" style="margin-right: 10px;"><i class="fa fa-check"></i></span>{{__('main.confirm_btn')}}</button>
+                    </div>
+                    <div class="col-6 text-center">
+                        <button type="button" class="btn btn-labeled btn-secondary cancel-modal"  >
+                            <span class="btn-label" style="margin-right: 10px;"><i class="fa fa-close"></i></span>{{__('main.cancel_btn')}}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script type="text/javascript">
     let id = 0 ;
@@ -146,7 +176,7 @@
 
     });
     function confirmDelete(){
-        let url = "{{ route('delete_account', ':id') }}";
+        let url = "{{ route('delete_journal', ':id') }}";
         url = url.replace(':id', id);
         document.location.href=url;
     }

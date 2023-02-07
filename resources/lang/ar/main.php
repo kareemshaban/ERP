@@ -392,6 +392,11 @@ return [
     'remaining_days' => 'عدد الأيام المتبقية',
     'subscribe_data' => 'بيانات الاشتراك',
 
+    'add_manual_journal' => 'إضافة قيد يدوي',
+    'search_journal' => 'بحث عن الحسابات',
+    'account_code' => 'كود الحساب',
+    'account_name' => 'اسم الحساب',
+    'accounts' => 'الحسابات'
 
 
 

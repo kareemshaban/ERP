@@ -42,4 +42,61 @@ class JournalController extends Controller
     public function search_balance_sheet(Request $request){
 
     }
+
+
+    public function create(){
+        return view('accounts.manual');
+    }
+
+    public function store(Request $request){
+        $siteController = new SystemController();
+
+        $header =[
+            'date' => date('Y-m-d').'T'.date('H:i'),
+            'basedon_no' => '',
+            'basedon_id' => 0,
+            'baseon_text' => 'سند قيد يدوي',
+            'total_credit' => 0,
+            'total_debit' => 0,
+            'notes' => $request->notes ? $request->notes : ''
+        ];
+
+
+        $details = [];
+        foreach ($request->account_id as $index=>$account_id){
+            $accountId = $account_id;
+            $credit = $request->credit[$index];
+            $debit = $request->debit[$index];
+            $ledger = 0;
+
+            $details[] = [
+                'account_id' => $accountId,
+                'credit' => $credit,
+                'debit' => $debit,
+                'ledger_id' => $ledger,
+                'notes' => ''
+            ];
+        }
+
+        $siteController->insertJournal($header,$details,1);
+        return redirect()->route('journals');
+    }
+
+    public function delete($id){
+
+        $header = [
+            'date' => '',
+            'basedon_no' => '',
+            'basedon_id' => '',
+            'baseon_text' => 'سند قيد يدوي رقم '.$id,
+            'total_credit' => 0,
+            'total_debit' => 0,
+            'notes' => ''
+        ];
+        $siteController = new SystemController();
+        $siteController->deleteJournal($header);
+
+        return redirect()->route('journals');
+    }
+
 }

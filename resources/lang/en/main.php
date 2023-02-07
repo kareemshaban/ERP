@@ -385,6 +385,8 @@ return [
     'remaining_days' => 'Remaining Days',
     'subscribe_data' => 'Subscription Data',
 
+    'add_manual_journal' => 'Add Manual Journal',
+    'search_journal' => 'Search Journal'
 
 
 

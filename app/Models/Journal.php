@@ -9,4 +9,6 @@ class Journal extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['baseon_text'];
+
 }

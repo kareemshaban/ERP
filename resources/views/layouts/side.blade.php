@@ -290,6 +290,7 @@
                     <li><a @if($subSlag == 35) class="dropdown-item active-drop" @else class="dropdown-item" @endif href="{{route('accounts_list')}}">{{__('main.accounts_list')}}</a></li>
                     <li><a @if($subSlag == 36) class="dropdown-item active-drop" @else class="dropdown-item" @endif href="{{route('account_settings_list')}}">{{__('main.account_settings')}}</a></li>
                     <li><a @if($subSlag == 37) class="dropdown-item active-drop" @else class="dropdown-item" @endif href="{{route('journals')}}">{{__('main.journals')}}</a></li>
+                    <li><a @if($subSlag == 38) class="dropdown-item active-drop" @else class="dropdown-item" @endif href="{{route('manual_journal')}}">{{__('main.add_manual_journal')}}</a></li>
 
 
                 </ul>
