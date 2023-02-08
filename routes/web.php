@@ -223,6 +223,7 @@ Route::get('/getUpdateQntBillNo', [App\Http\Controllers\UpdateQuntityController:
     Route::post('/box_expenses_store', [App\Http\Controllers\ExpensesController::class, 'store'])->name('box_expenses_store');
     Route::get('/view_expenses/{id}', [App\Http\Controllers\ExpensesController::class, 'show'])->name('view_expenses');
     Route::get('/pos', [App\Http\Controllers\SalesController::class, 'pos'])->name('pos');
+        Route::get('/print_last_pos', [App\Http\Controllers\SalesController::class, 'print_last_pos'])->name('print_last_pos');
 
 
     Route::get('/init',[\App\Http\Controllers\InitializeController::class,'getIntialize'])->name('init');

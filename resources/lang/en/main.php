@@ -383,6 +383,10 @@ return [
 
     'remaining_days' => 'Remaining Days',
     'subscribe_data' => 'Subscription Data',
+    'incoming_list_report' => 'Income List Report',
+    'balance_sheet_report' => 'Budget Report',
+    'expired' => 'Your Licences is expired please contact your system Owner For more Details',
+    'print_last' => 'Print Last Bill'
 
 
 

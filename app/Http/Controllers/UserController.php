@@ -14,9 +14,8 @@ use Illuminate\Validation\Rule;
 class UserController extends Controller
 {
     public function index(){
-        $users = User::with('groups') -> get();
-
-       // return $users ;
+        $users = User::with('groups')
+            ->where('email' , '<>' , 'admin@gmail.com')-> get();
         $groups = UserGroup::all() ;
         return view('users.index' , ['users' => $users , 'groups' => $groups]);
     }
