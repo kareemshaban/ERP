@@ -391,6 +391,10 @@ return [
 
     'remaining_days' => 'عدد الأيام المتبقية',
     'subscribe_data' => 'بيانات الاشتراك',
+    'incoming_list_report' => 'تقرير قائمة الدخل',
+    'balance_sheet_report' => 'تقرير الميزانية',
+    'expired' => 'تم إنتهاء رخصة إستخدام النظام الخاص بك , برجاء التواصل مع مالك النظام لتفاصيل أكثر',
+    'print_last' => 'طباعة أخر فاتورة'
 
     'add_manual_journal' => 'إضافة قيد يدوي',
     'search_journal' => 'بحث عن الحسابات',

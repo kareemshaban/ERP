@@ -368,5 +368,13 @@ class SalesController extends Controller
             json_encode (null);
         exit;
     }
+    public function print_last_pos(){
+        $bills = Sales::orderBy('id', 'desc') -> where('pos' , '<>' , 0)->get();
+       if(count($bills) > 0){
+           $bill = $bills -> first();
+          return $this -> show($bill -> id);
+
+       }
+    }
 }
 

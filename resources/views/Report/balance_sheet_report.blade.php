@@ -32,7 +32,7 @@
 </head>
 
 <body @if(Config::get('app.locale') == 'en') class="g-sidenav-show  bg-gray-100" @else  class="g-sidenav-show rtl bg-gray-100" @endif>
-    @include('layouts.side' , ['slag' => 10 ,   'subSlag' => 100])
+    @include('layouts.side' , ['slag' => 10 ,   'subSlag' => 42])
 
 <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
     @include('flash-message')

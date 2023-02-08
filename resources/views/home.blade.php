@@ -11,11 +11,14 @@
     </title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
-    <link href="../assets/css/nucleo-icons.css" rel="stylesheet" />
-    <link href="../assets/css/nucleo-svg.css" rel="stylesheet" />
+    <link href="{{asset('assets/css/nucleo-icons.css')}}" rel="stylesheet" />
+    <link href="{{asset('assets/css/nucleo-svg.css')}}" rel="stylesheet" />
     <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
-    <link href="../assets/css/nucleo-svg.css" rel="stylesheet" />
-    <link id="pagestyle" href="../assets/css/soft-ui-dashboard.css?v=1.0.7" rel="stylesheet" />
+    <link href="{{asset('assets/css/nucleo-svg.css')}}" rel="stylesheet" />
+
+
+
+    <link id="pagestyle" href= "{{asset('assets/css/soft-ui-dashboard.css')}}" rel="stylesheet" />
 
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
 
@@ -90,10 +93,10 @@
                         <h2 class="col-md-4 blue"><i class="fa fa-th"></i><span class="break"></span>{{__('main.total_movements')}}
                        <label>  </label> ({{\Carbon\Carbon::now() -> format('d - m - Y')}})</h2>
 
-                        <h2 class="col-md-4" style="text-align: center">{{__('main.remaining_days')}} : {{$remaining_days}}</h2>
+                        <h2 class="col-md-4" style="text-align: center; color: #ea0606">{{__('main.remaining_days')}} : {{$remaining_days}}</h2>
 
-                        <h2 class="col-md-4" style="text-align: left">
-                            <a href="javascript:;" onclick="showSubscribeData()">{{__('main.subscribe_data')}}</a>
+                        <h2 class="col-md-4" style="text-align: left; padding-left: 10px;">
+                            <a href="javascript:;" onclick="showSubscribeData()" class="blue">{{__('main.subscribe_data')}}</a>
                         </h2>
 
 
@@ -233,7 +236,7 @@
                             <a class="bred white quick-button small" href="{{route('purchases')}}">
                                 <i class="fa fa-star"></i>
 
-                                <p> {{__('main.purchase')}}</p>
+                                <p> {{__('main.purchases')}}</p>
                             </a>
                         </div>
 
@@ -293,7 +296,7 @@
                         </div>
 
                         <div class="col-md-2 col-xs-4 padding1010">
-                            <a class="bred white quick-button small" href="{{__('main.items_stock_report')}}">
+                            <a class="bred white quick-button small" href="{{route('items_stock_report')}}">
                                 <i class="fa fa-flask"></i>
 
                                 <p>{{__('main.users_transactions_report')}}</p>
@@ -311,181 +314,12 @@
 </main>
 @include('layouts.fixed')
 <!--   Core JS Files   -->
-<script src="../assets/js/core/popper.min.js"></script>
-<script src="../assets/js/core/bootstrap.min.js"></script>
-<script src="../assets/js/plugins/perfect-scrollbar.min.js"></script>
-<script src="../assets/js/plugins/smooth-scrollbar.min.js"></script>
-<script src="../assets/js/plugins/chartjs.min.js"></script>
-<script>
-    var ctx = document.getElementById("chart-bars").getContext("2d");
+<script src=" {{asset('assets/js/core/popper.min.js')}}"></script>
 
-    new Chart(ctx, {
-        type: "bar",
-        data: {
-            labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-            datasets: [{
-                label: "Sales",
-                tension: 0.4,
-                borderWidth: 0,
-                borderRadius: 4,
-                borderSkipped: false,
-                backgroundColor: "#fff",
-                data: [450, 200, 100, 220, 500, 100, 400, 230, 500],
-                maxBarThickness: 6
-            }, ],
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                legend: {
-                    display: false,
-                }
-            },
-            interaction: {
-                intersect: false,
-                mode: 'index',
-            },
-            scales: {
-                y: {
-                    grid: {
-                        drawBorder: false,
-                        display: false,
-                        drawOnChartArea: false,
-                        drawTicks: false,
-                    },
-                    ticks: {
-                        suggestedMin: 0,
-                        suggestedMax: 500,
-                        beginAtZero: true,
-                        padding: 15,
-                        font: {
-                            size: 14,
-                            family: "Open Sans",
-                            style: 'normal',
-                            lineHeight: 2
-                        },
-                        color: "#fff"
-                    },
-                },
-                x: {
-                    grid: {
-                        drawBorder: false,
-                        display: false,
-                        drawOnChartArea: false,
-                        drawTicks: false
-                    },
-                    ticks: {
-                        display: false
-                    },
-                },
-            },
-        },
-    });
+<script src="{{asset('assets/js/plugins/perfect-scrollbar.min.js')}}"></script>
+<script src="{{asset('assets/js/plugins/smooth-scrollbar.min.js')}}"></script>
 
 
-    var ctx2 = document.getElementById("chart-line").getContext("2d");
-
-    var gradientStroke1 = ctx2.createLinearGradient(0, 230, 0, 50);
-
-    gradientStroke1.addColorStop(1, 'rgba(52, 71, 103, 0.7)');
-    gradientStroke1.addColorStop(0.2, 'rgba(72,72,176,0.0)');
-    gradientStroke1.addColorStop(0, 'rgba(203,12,159,0)'); //purple colors
-
-    var gradientStroke2 = ctx2.createLinearGradient(0, 230, 0, 50);
-
-    gradientStroke2.addColorStop(1, 'rgba(20,23,39,0.2)');
-    gradientStroke2.addColorStop(0.2, 'rgba(72,72,176,0.0)');
-    gradientStroke2.addColorStop(0, 'rgba(20,23,39,0)'); //purple colors
-
-    new Chart(ctx2, {
-        type: "line",
-        data: {
-            labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-            datasets: [{
-                label: "Mobile apps",
-                tension: 0.4,
-                borderWidth: 0,
-                pointRadius: 0,
-                borderColor: "#428BCA",
-                borderWidth: 3,
-                backgroundColor: gradientStroke1,
-                fill: true,
-                data: [50, 40, 300, 220, 500, 250, 400, 230, 500],
-                maxBarThickness: 6
-
-            },
-                {
-                    label: "Websites",
-                    tension: 0.4,
-                    borderWidth: 0,
-                    pointRadius: 0,
-                    borderColor: "#3A416F",
-                    borderWidth: 3,
-                    backgroundColor: gradientStroke2,
-                    fill: true,
-                    data: [30, 90, 40, 140, 290, 290, 340, 230, 400],
-                    maxBarThickness: 6
-                },
-            ],
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                legend: {
-                    display: false,
-                }
-            },
-            interaction: {
-                intersect: false,
-                mode: 'index',
-            },
-            scales: {
-                y: {
-                    grid: {
-                        drawBorder: false,
-                        display: true,
-                        drawOnChartArea: true,
-                        drawTicks: false,
-                        borderDash: [5, 5]
-                    },
-                    ticks: {
-                        display: true,
-                        padding: 10,
-                        color: '#428BCA',
-                        font: {
-                            size: 11,
-                            family: "Open Sans",
-                            style: 'normal',
-                            lineHeight: 2
-                        },
-                    }
-                },
-                x: {
-                    grid: {
-                        drawBorder: false,
-                        display: false,
-                        drawOnChartArea: false,
-                        drawTicks: false,
-                        borderDash: [5, 5]
-                    },
-                    ticks: {
-                        display: true,
-                        color: '#428BCA',
-                        padding: 20,
-                        font: {
-                            size: 11,
-                            family: "Open Sans",
-                            style: 'normal',
-                            lineHeight: 2
-                        },
-                    }
-                },
-            },
-        },
-    });
-</script>
 <script>
     var win = navigator.platform.indexOf('Win') > -1;
     if (win && document.querySelector('#sidenav-scrollbar')) {
@@ -498,7 +332,7 @@
 <!-- Github buttons -->
 <script async defer src="https://buttons.github.io/buttons.js"></script>
 <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
-<script src="../assets/js/soft-ui-dashboard.min.js?v=1.0.7"></script>
+<script src="{{asset('assets/js/soft-ui-dashboard.min.js')}}"></script>
 </body>
 
 </html>

@@ -158,8 +158,8 @@
                                             style="direction: rtl">
                                                 <thead style="background-image: linear-gradient(310deg, #428BCA 0%, #428BCA 100%); color: white">
                                                 <tr>
-                                                    <th class="text-center col-md-2">{{__('main.item_name_code')}}</th>
-                                                    <th class="text-center col-md-2">{{__('main.price_with_tax')}}</th>
+                                                    <th class="text-center col-md-3">{{__('main.item_name_code')}}</th>
+                                                    <th class="text-center col-md-1">{{__('main.price_with_tax')}}</th>
                                                     <th class="text-center col-md-1">{{__('main.quantity')}} </th>
                                                     <th class="text-center col-md-1">{{__('main.net')}}</th>
                                                     <th class="text-center col-md-1" style="max-width: 30px !important; text-align: center;">
@@ -200,7 +200,7 @@
                                             <tbody>
                                             <tr>
                                                 <td class="text-center" style="padding-right: 5px">
-                                                    <button type="button" class="btn btn-danger btn-block" id="cancel-bill" style="height:73px;font-size:16px;
+                                                    <button type="button" class="btn btn-danger btn-block" id="cancel_entry" style="height:73px;font-size:16px;
                                                     font-weight:bold; width: 100%;" tabindex="-1">
                                                         <i class="fa fa-close" style="margin-right: 5px;"></i> إلغاء (F3)
                                                     </button>
@@ -215,8 +215,8 @@
                                             </tr>
                                             <tr>
                                                 <td colspan="2" class="text-center">
-                                                <button type="button" class="btn btn-warning btn-block btn-flat" style="font-size:16px;font-weight:bold; width: 100%;" id="reset" tabindex="-1">
-                                                    فاتورة جديدة (F2)
+                                                <button type="button" class="btn btn-warning btn-block btn-flat" style="font-size:16px;font-weight:bold; width: 100%;" id="print" tabindex="-1" >
+                                                    {{__('main.print_last')}} (F2)
                                                 </button>
                                                 </td>
                                             </tr>
@@ -272,13 +272,30 @@
     </div>
 </div>
 <script type="text/javascript">
+    var suggestionItems = {};
+    var sItems = {};
+    var count = 1;
+    var Bill = null ;
 
     $('#payment').click(function (){
         submit();
     });
+    $('#print').click(function (){
+       printBill();
+    });
+    $('#cancel_entry').click(function (){
+        cancelEntry();
+    });
     $(document).keydown(function(event) {
+        console.log(event.keyCode);
         if (event.keyCode == 120) {
             submit();
+        }
+        if (event.keyCode == 113) {
+            printBill();
+        }
+        if (event.keyCode == 114) {
+            cancelEntry();
         }
     });
 
@@ -286,11 +303,30 @@
         let form = document.getElementById("form");
         form.submit();
     }
+    function printBill(){
+        var route = '{{route('print_last_pos')}}';
 
-    var suggestionItems = {};
-    var sItems = {};
-    var count = 1;
-    var Bill = null ;
+        $.get( route, function( data ) {
+            $( ".show_modal" ).html( data );
+            $('#paymentsModal').modal('show');
+        });
+    }
+    function cancelEntry(){
+        $('#sTable tbody').empty();
+        document.getElementById('items').innerHTML = 0 ;
+        document.getElementById('items_count').innerHTML = 0 ;
+
+        document.getElementById('total').innerHTML = 0 ;
+        document.getElementById('total_with_tax').innerHTML = 0 ;
+        document.getElementById('totalBig').innerHTML = 0 ;
+
+        sItems = {};
+        count = 1;
+        Bill = null ;
+        suggestionItems = {};
+    }
+
+
     $(document).ready(function() {
 
         $.ajax({
@@ -629,8 +665,10 @@
             tr_html +=   '<td hidden><input type="text" readonly="readonly" class="form-control" name="total[]" value="'+(item.price_withoute_tax*item.qnt).toFixed(2)+'"></td>';
             tr_html +=   '<td hidden><input type="text" readonly="readonly" class="form-control" name="tax[]" value="'+(item.item_tax*item.qnt).toFixed(2)+'"></td>';
             tr_html +=   '<td><input type="text" readonly="readonly" class="form-control" name="net[]" value="'+(item.price_with_tax*item.qnt).toFixed(2)+'"></td>';
-            tr_html += `<td>      <button type="button" class="btn btn-labeled btn-danger deleteBtn " value=" '+item.id+' ">
-                                            <span class="btn-label" style="margin-right: 10px;"><i class="fa fa-trash"></i></span></button> </td>`;
+            tr_html += `<td class="text-center"  style="display: flex;
+justify-content: center;">
+<button style="display: flex;justify-content: center;flex-direction: column;"  type="button" class="btn  btn-danger deleteBtn " value=" '+item.id+' ">
+                                            <span class="btn-label" ><i class="fa fa-trash"></i></span></button> </td>`;
 
             newTr.html(tr_html);
             newTr.appendTo('#sTable');
