@@ -374,6 +374,7 @@ return [
     'include_tax' => 'شامل الضريبة',
     'no_product_selected' => 'لا توجد بيانات للطباعة',
     'print_barcode' => 'طباعة الباركود',
+    'print_qr' => 'طباعة الQR',
     'box_expenses' => 'مستند صرف الصندوق',
     'box_expenses_list' => 'قائمة مستند صرف الصندوق ',
     'box_expenses_create' => 'إضافة  مستند صرف الصندوق',
@@ -393,8 +394,16 @@ return [
     'incoming_list_report' => 'تقرير قائمة الدخل',
     'balance_sheet_report' => 'تقرير الميزانية',
     'expired' => 'تم إنتهاء رخصة إستخدام النظام الخاص بك , برجاء التواصل مع مالك النظام لتفاصيل أكثر',
-    'print_last' => 'طباعة أخر فاتورة'
+    'print_last' => 'طباعة أخر فاتورة',
 
+    'add_manual_journal' => 'إضافة قيد يدوي',
+    'search_journal' => 'بحث عن الحسابات',
+    'account_code' => 'كود الحساب',
+    'account_name' => 'اسم الحساب',
+    'accounts' => 'الحسابات',
+
+    'enable_inventory' => 'تفعيل نظام المخزون',
+    'enable_accounting' => 'تفعيل الحسابات العامة'
 
 
 

@@ -31,6 +31,8 @@
                 </a >
             </li>
 
+
+            @if($init_data->enable_inventory == 1)
             <li class="nav-item">
                 <a @if($slag == 2) class="nav-link  active" @else class="nav-link" @endif href="javascript:;" class="nav-link dropdown-toggle  text-truncate" id="dropdown" data-bs-toggle="dropdown" aria-expanded="false" @if(Config::get('app.locale') == 'ar') style="direction: rtl" @endif>
                     <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
@@ -63,7 +65,6 @@
 
                 </ul>
             </li>
-
             <li class="nav-item">
 
                 <a @if($slag == 6) class="nav-link  active" @else class="nav-link" @endif href="javascript:;" class="nav-link dropdown-toggle  text-truncate" id="dropdown" data-bs-toggle="dropdown" aria-expanded="false" @if(Config::get('app.locale') == 'ar') style="direction: rtl" @endif>
@@ -95,7 +96,6 @@
 
                 </ul>
             </li>
-
             <li class="nav-item">
                 <a @if($slag == 3) class="nav-link  active" @else class="nav-link" @endif href="{{route('clients' , 3)}}" @if(Config::get('app.locale') == 'ar') style="direction: rtl" @endif>
                     <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
@@ -139,8 +139,6 @@
                     <span class="nav-link-text ms-1">{{__('main.supplier')}}</span>
                 </a >
             </li>
-
-
             <li class="nav-item">
                 <a @if($slag == 7) class="nav-link  active" @else class="nav-link" @endif  href="javascript:;" class="nav-link dropdown-toggle  text-truncate" id="dropdown" data-bs-toggle="dropdown" aria-expanded="false" @if(Config::get('app.locale') == 'ar') style="direction: rtl" @endif>
                     <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
@@ -170,12 +168,12 @@
                     <li><a @if($subSlag == 16) class="dropdown-item active-drop" @else class="dropdown-item" @endif href="{{route('update_qnt')}}">{{__('main.update_qnt')}}</a></li>
                     <li><a @if($subSlag == 17) class="dropdown-item active-drop" @else class="dropdown-item" @endif href="{{route('add_update_qnt')}}">{{__('main.add_update_qnt')}}</a></li>
                     <li><a @if($subSlag == 38) class="dropdown-item active-drop" @else class="dropdown-item" @endif href="{{route('print_barcode')}}">{{__('main.print_barcode')}}</a></li>
+                    <li><a @if($subSlag == 39) class="dropdown-item active-drop" @else class="dropdown-item" @endif href="{{route('print_qr')}}">{{__('main.print_qr')}}</a></li>
 
 
                 </ul>
 
             </li>
-
             <li class="nav-item">
                 <a @if($slag == 8) class="nav-link  active" @else class="nav-link" @endif  href="javascript:;" class="nav-link dropdown-toggle  text-truncate" id="dropdown" data-bs-toggle="dropdown" aria-expanded="false" @if(Config::get('app.locale') == 'ar') style="direction: rtl" @endif>
                     <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
@@ -206,7 +204,6 @@
                 </ul>
 
             </li>
-
             <li class="nav-item">
                 <a @if($slag == 9) class="nav-link  active" @else class="nav-link" @endif  href="javascript:;" class="nav-link dropdown-toggle  text-truncate" id="dropdown" data-bs-toggle="dropdown" aria-expanded="false" @if(Config::get('app.locale') == 'ar') style="direction: rtl" @endif>
                     <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
@@ -235,7 +232,6 @@
                 </ul>
 
             </li>
-
             <li class="nav-item">
                 <a @if($slag == 12) class="nav-link  active" @else class="nav-link" @endif  href="javascript:;" class="nav-link dropdown-toggle  text-truncate" id="dropdown" data-bs-toggle="dropdown" aria-expanded="false" @if(Config::get('app.locale') == 'ar') style="direction: rtl" @endif>
                     <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
@@ -263,7 +259,10 @@
                 </ul>
 
             </li>
+            @endif
 
+            @if($init_data->enable_accounting == 1)
+{{--            Accounting--}}
             <li class="nav-item">
                 <a @if($slag == 11) class="nav-link  active" @else class="nav-link" @endif  href="javascript:;" class="nav-link dropdown-toggle  text-truncate" id="dropdown" data-bs-toggle="dropdown" aria-expanded="false" @if(Config::get('app.locale') == 'ar') style="direction: rtl" @endif>
                     <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
@@ -289,11 +288,14 @@
                     <li><a @if($subSlag == 35) class="dropdown-item active-drop" @else class="dropdown-item" @endif href="{{route('accounts_list')}}">{{__('main.accounts_list')}}</a></li>
                     <li><a @if($subSlag == 36) class="dropdown-item active-drop" @else class="dropdown-item" @endif href="{{route('account_settings_list')}}">{{__('main.account_settings')}}</a></li>
                     <li><a @if($subSlag == 37) class="dropdown-item active-drop" @else class="dropdown-item" @endif href="{{route('journals')}}">{{__('main.journals')}}</a></li>
+                    <li><a @if($subSlag == 38) class="dropdown-item active-drop" @else class="dropdown-item" @endif href="{{route('manual_journal')}}">{{__('main.add_manual_journal')}}</a></li>
 
 
                 </ul>
 
             </li>
+            @endif
+
             <li class="nav-item">
 
                 <a @if($slag == 5) class="nav-link  active" @else class="nav-link" @endif href="javascript:;" class="nav-link dropdown-toggle  text-truncate" id="dropdown" data-bs-toggle="dropdown" aria-expanded="false" @if(Config::get('app.locale') == 'ar') style="direction: rtl" @endif>
@@ -317,12 +319,14 @@
                 </a>
 
                 <ul class="dropdown-menu text-small subM" aria-labelledby="dropdown">
+                    @if($init_data->enable_inventory == 1)
                     <li><a @if($subSlag == 9) class="dropdown-item active-drop" @else class="dropdown-item" @endif href="{{route('system_settings')}}">{{__('main.system_settings')}}</a></li>
                     <li><a @if($subSlag == 10) class="dropdown-item active-drop" @else class="dropdown-item" @endif href="{{route('pos_settings')}}">{{__('main.pos_settings')}}</a></li>
-
-                    @if(\Illuminate\Support\Facades\Auth::user()->email == 'admin@gmail.com')
-                        <li><a onclick="showInitModal()" @if($subSlag == 100) class="dropdown-item active-drop" @else class="dropdown-item" @endif href="javascript:;">{{__('main.init_settings')}}</a></li>
                     @endif
+
+
+                        <li><a onclick="showInitModal()" @if($subSlag == 100) class="dropdown-item active-drop" @else class="dropdown-item" @endif href="javascript:;">{{__('main.init_settings')}}</a></li>
+
                 </ul>
             </li>
 
@@ -349,6 +353,7 @@
                 </a >
 
                 <ul class="dropdown-menu text-small subM" aria-labelledby="dropdown">
+                    @if($init_data->enable_inventory == 1)
                     <li><a @if($subSlag == 25) class="dropdown-item active-drop" @else class="dropdown-item" @endif href="{{route('daily_sales_report')}}">{{__('main.daily_sales_report')}}</a></li>
                     <li><a @if($subSlag == 26) class="dropdown-item active-drop" @else class="dropdown-item" @endif href="{{route('sales_item_report')}}">{{__('main.sales_report_by_item')}}</a></li>
                     <li><a @if($subSlag == 27) class="dropdown-item active-drop" @else class="dropdown-item" @endif href="{{route('purchase_report')}}">{{__('main.purchases_report')}}</a></li>
@@ -358,10 +363,18 @@
                     <li><a @if($subSlag == 29) class="dropdown-item active-drop" @else class="dropdown-item" @endif href="{{route('items_no_balance_report')}}">{{__('main.no_balance_items_report')}}</a></li>
                     <li><a @if($subSlag == 30) class="dropdown-item active-drop" @else class="dropdown-item" @endif href="{{route('items_stock_report')}}">{{__('main.users_transactions_report')}}</a></li>
                     <li><a @if($subSlag == 31) class="dropdown-item active-drop" @else class="dropdown-item" @endif href="{{route('items_purchased_report')}}">{{__('main.imported_items_reports')}}</a></li>
+                    @endif
 
+<<<<<<< HEAD
                     <li><a @if($subSlag == 41) class="dropdown-item active-drop" @else class="dropdown-item" @endif href="{{route('incoming_list')}}">{{__('main.incoming_list_report')}}</a></li>
                     <li><a @if($subSlag == 42) class="dropdown-item active-drop" @else class="dropdown-item" @endif href="{{route('balance_sheet')}}">{{__('main.balance_sheet_report')}}</a></li>
 
+=======
+                    @if($init_data->enable_accounting == 1)
+                        <li><a @if($subSlag == 31) class="dropdown-item active-drop" @else class="dropdown-item" @endif href="{{route('incoming_list')}}">{{__('main.incoming_list_report')}}</a></li>
+                        <li><a @if($subSlag == 31) class="dropdown-item active-drop" @else class="dropdown-item" @endif href="{{route('balance_sheet')}}">{{__('main.balance_sheet_report')}}</a></li>
+                    @endif
+>>>>>>> d0405eaa41da544df5e913709a388e8a60d89ff5
 
                 </ul>
 

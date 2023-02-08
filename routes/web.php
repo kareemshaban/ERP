@@ -28,7 +28,7 @@ Route::get('/', function () {
 
 Auth::routes();
 
-    Route::group(['middleware' => 'auth'], function () {
+    Route::group(['middleware' => ['auth']], function () {
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
@@ -113,6 +113,8 @@ Route::get('/getUserGroup/{id}', [App\Http\Controllers\UserGroupController::clas
     Route::get('/getProduct/{code}', [App\Http\Controllers\ProductController::class, 'getProduct'])->name('getProduct');
     Route::get('/products/print_barcode', [App\Http\Controllers\ProductController::class, 'print_barcode'])->name('print_barcode');
     Route::post('/products/print_barcode', [App\Http\Controllers\ProductController::class, 'do_print_barcode'])->name('preview_barcode');
+        Route::get('/products/print_qr', [App\Http\Controllers\ProductController::class, 'print_qr'])->name('print_qr');
+        Route::post('/products/print_qr', [App\Http\Controllers\ProductController::class, 'do_print_qr'])->name('preview_qr');
 
 
 Route::get('/update_qnt', [App\Http\Controllers\UpdateQuntityController::class, 'index'])->name('update_qnt');
@@ -217,6 +219,10 @@ Route::get('/getUpdateQntBillNo', [App\Http\Controllers\UpdateQuntityController:
     Route::get('/accounts/journals',[\App\Http\Controllers\AccountsTreeController::class,'journals'])->name('journals');
     Route::get('/accounts/journals/preview/{id}',[\App\Http\Controllers\AccountsTreeController::class,'previewJournal'])->name('preview_journal');
 
+    Route::get('/accounts/manual',[\App\Http\Controllers\JournalController::class,'create'])->name('manual_journal');
+    Route::post('/accounts/manual',[\App\Http\Controllers\JournalController::class,'store'])->name('store_manual');
+        Route::get('/getAccounts/{code}', [App\Http\Controllers\AccountsTreeController::class, 'getAccount'])->name('getProduct');
+        Route::get('/journals/delete/{id}',[\App\Http\Controllers\JournalController::class,'delete'])->name('delete_journal');
 
     Route::get('/box_expenses_list', [App\Http\Controllers\ExpensesController::class, 'index'])->name('box_expenses_list');
     Route::get('/create_expenses', [App\Http\Controllers\ExpensesController::class, 'create'])->name('create_expenses');

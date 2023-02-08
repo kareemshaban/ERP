@@ -11,14 +11,11 @@
     </title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
-    <link href="{{asset('assets/css/nucleo-icons.css')}}" rel="stylesheet" />
-    <link href="{{asset('assets/css/nucleo-svg.css')}}" rel="stylesheet" />
+        <link href="../assets/css/nucleo-icons.css" rel="stylesheet" />
+    <link href="../assets/css/nucleo-svg.css" rel="stylesheet" />
     <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
-    <link href="{{asset('assets/css/nucleo-svg.css')}}" rel="stylesheet" />
-
-
-
-    <link id="pagestyle" href= "{{asset('assets/css/soft-ui-dashboard.css')}}" rel="stylesheet" />
+    <link href="../assets/css/nucleo-svg.css" rel="stylesheet" />
+    <link id="pagestyle" href="../assets/css/soft-ui-dashboard.css?v=1.0.7" rel="stylesheet" />
 
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
 
@@ -88,7 +85,7 @@
 
         <div class="row" style="margin-bottom: 15px;">
             <div class="col-lg-12">
-                <div class="box" style="padding-bottom: 30px; width: 100%; margin: auto">
+                <div class="box" style="padding-bottom: 30px; width: 90%; margin: auto">
                     <div class="box-header col-md-12">
                         <h2 class="col-md-4 blue"><i class="fa fa-th"></i><span class="break"></span>{{__('main.total_movements')}}
                        <label>  </label> ({{\Carbon\Carbon::now() -> format('d - m - Y')}})</h2>
@@ -314,10 +311,10 @@
 </main>
 @include('layouts.fixed')
 <!--   Core JS Files   -->
-<script src=" {{asset('assets/js/core/popper.min.js')}}"></script>
-
-<script src="{{asset('assets/js/plugins/perfect-scrollbar.min.js')}}"></script>
-<script src="{{asset('assets/js/plugins/smooth-scrollbar.min.js')}}"></script>
+<script src="../assets/js/core/popper.min.js"></script>
+<script src="../assets/js/core/bootstrap.min.js"></script>
+<script src="../assets/js/plugins/perfect-scrollbar.min.js"></script>
+<script src="../assets/js/plugins/smooth-scrollbar.min.js"></script>
 
 
 <script>
@@ -332,7 +329,7 @@
 <!-- Github buttons -->
 <script async defer src="https://buttons.github.io/buttons.js"></script>
 <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
-<script src="{{asset('assets/js/soft-ui-dashboard.min.js')}}"></script>
+<script src="../assets/js/soft-ui-dashboard.min.js?v=1.0.7"></script>
 </body>
 
 </html>

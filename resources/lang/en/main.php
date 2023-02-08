@@ -307,6 +307,7 @@ return [
     'item_count' => 'Item Count',
     'req_money'=> 'Deserved Amount',
 
+    'accounting' => 'Accounting List',
     'accounts_list' => 'Accounting Tree',
     'account_type' => 'Account Type',
     'parent_account' => 'it pours into',
@@ -366,6 +367,7 @@ return [
     'include_tax' => 'Include Tax',
     'no_product_selected' => 'No Data To print',
     'print_barcode' => 'Barcode Print',
+    'print_qr' => 'QR Print',
 
     'box_expenses' => 'Expenses Receipt',
     'box_expenses_list' => 'Expenses Receipt List ',
@@ -386,8 +388,13 @@ return [
     'incoming_list_report' => 'Income List Report',
     'balance_sheet_report' => 'Budget Report',
     'expired' => 'Your Licences is expired please contact your system Owner For more Details',
-    'print_last' => 'Print Last Bill'
+    'print_last' => 'Print Last Bill',
 
+    'add_manual_journal' => 'Add Manual Journal',
+    'search_journal' => 'Search Journal',
+
+    'enable_inventory' => 'Enable Inventory',
+    'enable_accounting' => 'Enable Accounting'
 
 
 

@@ -7,6 +7,7 @@ use App\Http\Requests\StoreAccountsTreeRequest;
 use App\Http\Requests\UpdateAccountsTreeRequest;
 use App\Models\Journal;
 use App\Models\Payment;
+use App\Models\Product;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 
@@ -183,5 +184,29 @@ class AccountsTreeController extends Controller
             ->get();
         $html = view('accounts.preview_journal',compact('payments'))->render();
         return $html;
+    }
+
+    public function getAccount($code)
+    {
+        $single = $this->getSingleAccount($code);
+
+        if($single){
+            echo response()->json([$single]);
+            exit;
+        }else{
+            $product = AccountsTree::where('code' , 'like' , '%'.$code.'%')
+                ->orWhere('name','like' , '%'.$code.'%')
+                ->limit(5)
+                -> get();
+            echo json_encode ($product);
+            exit;
+        }
+
+    }
+
+    private function getSingleAccount($code){
+        return AccountsTree::where('code' , '=' , $code)
+            ->orWhere('name','=' , $code)
+            -> get()->first();
     }
 }

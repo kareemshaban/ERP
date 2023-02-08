@@ -637,6 +637,7 @@ class SystemController extends Controller
     public function insertJournal($header,$details,$manual = 0){
 
         if($id = $this->getJournal($header)){
+            dd($id);
             $journal = Journal::find($id);
             $journal->update($header);
 
@@ -682,6 +683,7 @@ class SystemController extends Controller
 
                 if($manual  == 1){
                     $journal  = Journal::find($journal_id);
+
 
                     $journal->update(['baseon_text' => 'سند قيد يدوي رقم '.$journal_id]);
                 }
@@ -731,6 +733,45 @@ class SystemController extends Controller
         }
         return AccountsTree::find($id);
 
+    }
+
+    private function getJournalForDelete($data){
+
+        $data = Journal::query()
+            ->where('basedon_id',$data['basedon_id'])
+            ->where('baseon_text',$data['baseon_text'])->get()->first();
+
+        if($data){
+            return $data->id;
+        }
+        return 0;
+    }
+
+    public function deleteJournal($header){
+
+        if($id = $this->getJournalForDelete($header)){
+
+
+            $oldDetails = $this->getOldDetails($id);
+            foreach($oldDetails as $oldDetail){
+                $this->updateAccountBalance($oldDetail->account_id,-1*$oldDetail->credit,-1*$oldDetail->debit
+                    ,$header['date'],$id);
+            }
+
+            DB::table('journal_details')
+                ->where('journal_id' ,$id)
+                ->delete();
+
+            DB::table('account_movements')
+                ->where('journal_id' ,$id)
+                ->delete();
+
+            DB::table('journals')
+                ->where('id' ,$id)
+                ->delete();
+
+            return true;
+        }
     }
 
     //endregion
