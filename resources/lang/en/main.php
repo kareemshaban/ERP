@@ -386,7 +386,10 @@ return [
     'subscribe_data' => 'Subscription Data',
 
     'add_manual_journal' => 'Add Manual Journal',
-    'search_journal' => 'Search Journal'
+    'search_journal' => 'Search Journal',
+
+    'enable_inventory' => 'Enable Inventory',
+    'enable_accounting' => 'Enable Accounting'
 
 
 

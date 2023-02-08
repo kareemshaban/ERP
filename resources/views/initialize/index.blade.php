@@ -55,6 +55,24 @@
                     </div>
 
                     <div class="row">
+                        <div class="col-4">
+                            <div class="form-group checkRow">
+                                <label>{{ __('main.enable_inventory') }} <span style="color:red; font-size:20px; font-weight:bold;">*</span> </label>
+                                <input type="checkbox"   id="enable_inventory" name="enable_inventory" @if($settings->enable_inventory == 1) checked @endif
+                                       class="form-check"/>
+                            </div>
+                        </div>
+
+                        <div class="col-4">
+                            <div class="form-group checkRow">
+                                <label>{{ __('main.enable_accounting') }} <span style="color:red; font-size:20px; font-weight:bold;">*</span> </label>
+                                <input type="checkbox"   id="enable_accounting" name="enable_accounting" @if($settings->enable_accounting == 1) checked @endif
+                                       class="form-check"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
                         <div class="col-12" style="display: block; margin: 20px auto; text-align: center;">
                             <button type="submit" class="btn btn-labeled btn-primary"  >
                                 {{__('main.save_btn')}}</button>

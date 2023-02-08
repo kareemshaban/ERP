@@ -396,7 +396,10 @@ return [
     'search_journal' => 'بحث عن الحسابات',
     'account_code' => 'كود الحساب',
     'account_name' => 'اسم الحساب',
-    'accounts' => 'الحسابات'
+    'accounts' => 'الحسابات',
+
+    'enable_inventory' => 'تفعيل نظام المخزون',
+    'enable_accounting' => 'تفعيل الحسابات العامة'
 
 
 

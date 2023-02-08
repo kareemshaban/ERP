@@ -40,6 +40,8 @@ class InitializeController extends Controller
                 'max_branches' => $request->max_branches,
                 'valid_to' => $request->valid_to,
                 'contact_phone' => $request->contact_phone,
+                'enable_accounting' => $request->enable_accounting ? 1 : 0,
+                'enable_inventory' => $request->enable_inventory ? 1 : 0
                 ]);
 
         return redirect()->route('home');
