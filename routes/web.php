@@ -221,7 +221,7 @@ Route::get('/getUpdateQntBillNo', [App\Http\Controllers\UpdateQuntityController:
 
     Route::get('/accounts/manual',[\App\Http\Controllers\JournalController::class,'create'])->name('manual_journal');
     Route::post('/accounts/manual',[\App\Http\Controllers\JournalController::class,'store'])->name('store_manual');
-        Route::get('/getAccounts/{code}', [App\Http\Controllers\AccountsTreeController::class, 'getAccount'])->name('getProduct');
+        Route::get('/getAccounts/{code}', [App\Http\Controllers\AccountsTreeController::class, 'getAccount'])->name('getAccounts');
         Route::get('/journals/delete/{id}',[\App\Http\Controllers\JournalController::class,'delete'])->name('delete_journal');
 
     Route::get('/box_expenses_list', [App\Http\Controllers\ExpensesController::class, 'index'])->name('box_expenses_list');

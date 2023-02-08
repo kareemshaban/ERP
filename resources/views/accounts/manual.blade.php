@@ -215,7 +215,7 @@ margin: 30px auto;" value="{{__('main.save_btn')}}"></input>
         });
     }
     function searchProduct(code){
-        var url = '{{route('getProduct',":id")}}';
+        var url = '{{route('getAccounts',":id")}}';
         url = url.replace(":id",code);
         $.ajax({
             type:'get',
