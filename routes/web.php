@@ -136,7 +136,7 @@ Route::get('/getUpdateQntBillNo', [App\Http\Controllers\UpdateQuntityController:
     Route::get('/purchases', [App\Http\Controllers\PurchaseController::class, 'index'])->name('purchases');
     Route::get('/add_purchase', [App\Http\Controllers\PurchaseController::class, 'create'])->name('add_purchase');
     Route::post('/add_purchase', [App\Http\Controllers\PurchaseController::class, 'store'])->name('store_purchase');
-    Route::get('/get_purchase_number', [App\Http\Controllers\PurchaseController::class, 'getNo'])->name('get_purchase_number');
+    Route::get('/get_purchase_number/{id}', [App\Http\Controllers\PurchaseController::class, 'getNo'])->name('get_purchase_number');
     Route::get('/preview_purchase/{id}', [App\Http\Controllers\PurchaseController::class, 'show'])->name('preview_purchase');
     Route::get('/return_purchase/{id}', [App\Http\Controllers\PurchaseController::class, 'edit'])->name('return_purchase');
     Route::get('/get_purchaseR_number', [App\Http\Controllers\PurchaseController::class, 'getNoR'])->name('get_purchaseR_number');
@@ -151,7 +151,7 @@ Route::get('/getUpdateQntBillNo', [App\Http\Controllers\UpdateQuntityController:
 
     Route::get('/sales/return/{id}', [App\Http\Controllers\SalesController::class, 'returnSale'])->name('add_return');
     Route::post('/sales/return/{id}', [App\Http\Controllers\SalesController::class, 'storeReturn'])->name('store_return');
-    Route::get('/get_sales_number', [App\Http\Controllers\SalesController::class, 'getNo'])->name('get_sale_no');
+    Route::get('/get_sales_number/{id}', [App\Http\Controllers\SalesController::class, 'getNo'])->name('get_sale_no');
     Route::get('/get_sales_return_number', [App\Http\Controllers\SalesController::class, 'getReturnNo'])->name('get_sale_return_no');
     Route::get('/sales/payments/{id}',[\App\Http\Controllers\PaymentController::class,'getSalesPayments'])->name('sales_payments');
     Route::get('/sales/payments/add/{id}',[\App\Http\Controllers\PaymentController::class,'addSalePayment'])->name('add_sales_payments');
@@ -236,6 +236,9 @@ Route::get('/getUpdateQntBillNo', [App\Http\Controllers\UpdateQuntityController:
     Route::get('/subscribe_data',[\App\Http\Controllers\InitializeController::class,'subscribeData'])->name('subscribe_data');
     Route::post('/init',[\App\Http\Controllers\InitializeController::class,'storeInitialize'])->name('store_init');
 
+
+
+        Route::get('/settings',[\App\Http\Controllers\SystemSettingsController::class,'settings'])->name('settings');
 
 
 });

@@ -23,7 +23,7 @@
                             <tr>
                                 <td>{{$payment->date}}</td>
                                 <td>{{$payment->paid_by}}</td>
-                                <td>{{$payment->amount}}</td>
+                                <td>{{$payment->amount}} <span>{{$setting ->currency -> symbol}}</span></td>
                                 <td>{{$payment->user -> name}}</td>
                                 <td>
                                     <a href="{{route('delete_sales_payments',$payment->id)}}">

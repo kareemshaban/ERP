@@ -124,7 +124,7 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-12 " >
+                        <div class="col-6 " >
                             <div class="form-group">
                                 <label>{{ __('main.phone') }} <span style="color:red; font-size:20px; font-weight:bold;">*</span> </label>
                                 <input type="text"  id="phone" name="phone"
@@ -132,14 +132,40 @@
                                        placeholder="{{ __('main.phone') }}"  />
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12 " >
+                        <div class="col-6 " >
                             <div class="form-group">
                                 <label>{{ __('main.email') }} <span style="color:red; font-size:20px; font-weight:bold;">*</span> </label>
                                 <input type="text"  id="email" name="email"
                                        class="form-control"
                                        placeholder="{{ __('main.email') }}"  />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6 " >
+                            <div class="form-group">
+                                <label>{{ __('main.vat_no') }} <span style="color:red; font-size:20px; font-weight:bold;">*</span> </label>
+                                <input type="text"  id="tax_number" name="tax_number"
+                                       class="form-control"
+                                       placeholder="{{ __('main.vat_no') }}"  />
+                            </div>
+                        </div>
+                        <div class="col-6 " >
+                            <div class="form-group">
+                                <label>{{ __('main.commercial_register') }} <span style="color:red; font-size:20px; font-weight:bold;">*</span> </label>
+                                <input type="text"  id="commercial_registration" name="commercial_registration"
+                                       class="form-control"
+                                       placeholder="{{ __('main.commercial_register') }}"  />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6 " >
+                            <div class="form-group">
+                                <label>{{ __('main.serial_prefix') }} <span style="color:red; font-size:20px; font-weight:bold;">*</span> </label>
+                                <input type="text"  id="serial_prefix" name="serial_prefix"
+                                       class="form-control"
+                                       placeholder="{{ __('main.serial_prefix') }}"  />
                             </div>
                         </div>
                     </div>
@@ -213,6 +239,9 @@
                     $(".modal-body #phone").val( "" );
                     $(".modal-body #email").val( "" );
                     $(".modal-body #address").val( "" );
+                    $(".modal-body #tax_number").val( "" );
+                    $(".modal-body #commercial_registration").val( "" );
+                    $(".modal-body #serial_prefix").val( "" );
                     $(".modal-body #id").val( 0 );
                 },
                 complete: function() {
@@ -287,6 +316,9 @@
                             $(".modal-body #phone").val( response.phone );
                             $(".modal-body #email").val(  response.email );
                             $(".modal-body #address").val(  response.address);
+                            $(".modal-body #tax_number").val( response.tax_number );
+                            $(".modal-body #commercial_registration").val( response.commercial_registration );
+                            $(".modal-body #serial_prefix").val( response.serial_prefix );
                             $(".modal-body #id").val( response.id );
 
                         },

@@ -62,6 +62,10 @@
                                         />
                                     </div>
                                 </div>
+                                <div class="col-4" style="background: #428BCA;color: white;font-size: 30px;text-align: center;width: 30%;margin: 0 auto;
+                                 border-top-left-radius: 15px; border-top-right-radius: 15px">
+                                        {{__('main.total')}}
+                                </div>
                             </div>
                             <div class="row">
                                 <div class="col-4 " >
@@ -71,7 +75,7 @@
                                                 name="warehouse_id" id="warehouse_id">
                                             <option  value="0" selected>Choose...</option>
                                             @foreach ($warehouses as $item)
-                                                <option value="{{$item -> id}}"> {{ $item -> name}}</option>
+                                                <option value="{{$item -> id}}"  @if($item -> id == $settings -> branch_id) selected @endif> {{ $item -> name}}</option>
 
                                             @endforeach
                                         </select>
@@ -90,6 +94,10 @@
                                             @endforeach
                                         </select>
                                     </div>
+                                </div>
+                                <div class="col-4" style="background: #428BCA;color: white;font-size: 30px;text-align: center;width: 30%;margin: 0 auto;
+                                border-bottom-left-radius: 15px; border-bottom-right-radius: 15px">
+                                     <span id="total-text">0</span> {{$settings -> currency -> symbol}}
                                 </div>
                             </div>
 
@@ -226,6 +234,10 @@ margin: 30px auto;" value="{{__('main.save_btn')}}"></input>
         document.getElementById('bill_date').value = now.toISOString().slice(0, -1);
 
         getBillNo();
+        $('#warehouse_id').change(function (){
+            getBillNo();
+        });
+
         //document.getElementById('bill_date').valueAsDate = new Date();
         $('input[name=add_item]').change(function() {
             console.log($('#add_item').val());
@@ -262,11 +274,11 @@ margin: 30px auto;" value="{{__('main.save_btn')}}"></input>
 
 
   function getBillNo(){
-
+      const id = document.getElementById('warehouse_id').value ;
       let bill_number = document.getElementById('bill_number');
       $.ajax({
           type:'get',
-          url:'{{route('get_sale_no')}}',
+          url:'/get_sales_number/' + id ,
           dataType: 'json',
 
           success:function(response){
@@ -483,6 +495,7 @@ margin: 30px auto;" value="{{__('main.save_btn')}}"></input>
     }
   function loadItems(){
 
+       var total = 0 ;
       $('#sTable tbody').empty();
       $.each(sItems,function (i,item) {
           console.log(item);
@@ -498,9 +511,12 @@ margin: 30px auto;" value="{{__('main.save_btn')}}"></input>
           tr_html += `<td>      <button type="button" class="btn btn-labeled btn-danger deleteBtn " value=" '+item.id+' ">
                                             <span class="btn-label" style="margin-right: 10px;"><i class="fa fa-trash"></i></span></button> </td>`;
 
+          total += (item.price_with_tax*item.qnt);
            newTr.html(tr_html);
            newTr.appendTo('#sTable');
       });
+
+       document.getElementById('total-text').innerHTML =  total ;
 
   }
 </script>

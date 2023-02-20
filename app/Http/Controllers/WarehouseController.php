@@ -45,11 +45,11 @@ class WarehouseController extends Controller
         $usersCount = DB::table('users')->get()->count();
         $maxUsers = DB::table('system_settings')->select('max_branches')->get()->first()->max_branches;
 
-        if($usersCount >= $maxUsers){
-            return redirect()->back()->with('error',__('main.Max Branches Reached'));
+        if($usersCount >= $maxUsers && $request -> id == 0){
+            return redirect()->back()->with('error',__('main.max_warehouse'));
         }
 
-        
+
         if($request -> id == 0){
             $validated = $request->validate([
                 'code' => 'required|unique:warehouses',
@@ -62,6 +62,9 @@ class WarehouseController extends Controller
                     'phone' => $request->phone ? $request->phone : ' ' ,
                     'email' => $request->email ? $request->email : ' ',
                     'address' => $request->address ? $request->address : ' ',
+                    'tax_number' => $request->tax_number ?? ' ',
+                    'commercial_registration' => $request->commercial_registration ??  ' ',
+                    'serial_prefix' => $request->serial_prefix ?? ' ',
                 ]);
                 return redirect()->route('warehouses')->with('success' , __('main.created'));
             } catch(QueryException $ex){
@@ -119,6 +122,9 @@ class WarehouseController extends Controller
                 'phone' => $request->phone ? $request->phone : ' ' ,
                 'email' => $request->email ? $request->email : ' ',
                 'address' => $request->address ? $request->address : ' ',
+                'tax_number' => $request->tax_number ?? ' ',
+                'commercial_registration' => $request->commercial_registration ??  ' ',
+                'serial_prefix' => $request->serial_prefix ?? ' ',
             ]);
                 return redirect()->route('warehouses')->with('success' , __('main.updated'));
             } catch(QueryException $ex){

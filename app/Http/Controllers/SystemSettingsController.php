@@ -237,4 +237,10 @@ class SystemSettingsController extends Controller
     {
         //
     }
+
+    public function settings(){
+        $settings = SystemSettings::all() -> first();
+        echo json_encode($settings);
+        exit();
+    }
 }

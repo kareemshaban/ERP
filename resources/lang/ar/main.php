@@ -403,7 +403,9 @@ return [
     'accounts' => 'الحسابات',
 
     'enable_inventory' => 'تفعيل نظام المخزون',
-    'enable_accounting' => 'تفعيل الحسابات العامة'
+    'enable_accounting' => 'تفعيل الحسابات العامة',
+    'serial_prefix' => 'بادئة سريال الفواتير',
+    'max_warehouse' => 'تم الوصول للحد الأقصي المسموح به من الفروع'
 
 
 

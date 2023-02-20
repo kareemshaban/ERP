@@ -241,35 +241,47 @@
             event.preventDefault();
             let href = $(this).attr('data-attr');
             $.ajax({
-                url: href,
-                beforeSend: function() {
-                    $('#loader').show();
-                },
-                // return the result
-                success: function(result) {
-                    $('#createModal').modal("show");
-                    $(".modal-body #company").val( "" );
-                    $(".modal-body #name").val( "" );
-                    $(".modal-body #phone").val( "" );
-                    $(".modal-body #email").val( "" );
-                    $(".modal-body #address").val( "" );
-                    $(".modal-body #id").val( 0 );
-                    $(".modal-body #commercial_register").val( "" );
-                    $(".modal-body #tax_number").val( "" );
-                    $(".modal-body #bill_holder1").val( "" );
-                    $(".modal-body #bill_holder2").val( "" );
+                type: 'get',
+                url: '/settings',
+                dataType: 'json',
 
-                },
-                complete: function() {
-                    $('#loader').hide();
-                },
-                error: function(jqXHR, testStatus, error) {
-                    console.log(error);
-                    alert("Page " + href + " cannot open. Error:" + error);
-                    $('#loader').hide();
-                },
-                timeout: 8000
-            })
+                success: function (response) {
+
+                    $.ajax({
+                        url: href,
+                        beforeSend: function() {
+                            $('#loader').show();
+                        },
+                        // return the result
+                        success: function(result) {
+                            $('#createModal').modal("show");
+                            $(".modal-body #company").val( response.company_name );
+                            $(".modal-body #name").val( "" );
+                            $(".modal-body #phone").val( "" );
+                            $(".modal-body #email").val( "" );
+                            $(".modal-body #address").val( "" );
+                            $(".modal-body #id").val( 0 );
+                            $(".modal-body #commercial_register").val( "" );
+                            $(".modal-body #tax_number").val( "" );
+                            $(".modal-body #bill_holder1").val( "" );
+                            $(".modal-body #bill_holder2").val( "" );
+
+                        },
+                        complete: function() {
+                            $('#loader').hide();
+                        },
+                        error: function(jqXHR, testStatus, error) {
+                            console.log(error);
+                            alert("Page " + href + " cannot open. Error:" + error);
+                            $('#loader').hide();
+                        },
+                        timeout: 8000
+                    })
+                }
+
+            });
+
+
         });
         $(document).on('click', '.deleteBtn', function(event) {
              id = event.currentTarget.id ;

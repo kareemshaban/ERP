@@ -394,7 +394,9 @@ return [
     'search_journal' => 'Search Journal',
 
     'enable_inventory' => 'Enable Inventory',
-    'enable_accounting' => 'Enable Accounting'
+    'enable_accounting' => 'Enable Accounting',
+    'serial_prefix' => 'Invoices Prefix',
+    'max_warehouse' => 'The maximum number of branches allowed has been reached'
 
 
 

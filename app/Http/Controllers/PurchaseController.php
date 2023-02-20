@@ -10,6 +10,8 @@ use App\Http\Requests\StorePurchaseRequest;
 use App\Http\Requests\UpdatePurchaseRequest;
 use App\Models\PurchaseDetails;
 use App\Models\SystemSettings;
+use App\Models\Warehouse;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -42,8 +44,9 @@ class PurchaseController extends Controller
         $siteContrller = new SystemController();
         $warehouses = $siteContrller->getAllWarehouses();
         $customers = $siteContrller->getAllVendors();
+        $setting = SystemSettings::all() -> first();
 
-        return view('purchases.create',compact('warehouses','customers'));
+        return view('purchases.create',compact('warehouses','customers' ,'setting'));
     }
 
     /**
@@ -362,8 +365,9 @@ class PurchaseController extends Controller
         }
     }
 
-    public function getNo(){
-        $bills = Purchase::orderBy('id', 'ASC')->get();
+    public function getNo($id){
+        $warehouse = Warehouse::find($id);
+        $bills = Purchase::where('warehouse_id' , '=' , 0) -> orderBy('id', 'ASC')->get();
         if(count($bills) > 0){
             $id = $bills[count($bills) -1] -> id ;
         } else
@@ -378,6 +382,9 @@ class PurchaseController extends Controller
         } else {
             $prefix = "";
         }
+        if($warehouse -> serial_prefix)
+            $prefix = $prefix . '-'. $warehouse -> serial_prefix ;
+
         $no = json_encode($prefix . str_pad($id + 1, 6 , '0' , STR_PAD_LEFT)) ;
         echo $no ;
         exit;

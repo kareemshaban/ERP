@@ -292,40 +292,51 @@
             event.preventDefault();
             let href = $(this).attr('data-attr');
             $.ajax({
-                url: href,
-                beforeSend: function() {
-                    $('#loader').show();
-                },
-                // return the result
-                success: function(result) {
-                    $('#createModal').modal("show");
-                    $(".modal-body #company").val( "" );
-                    $(".modal-body #name").val( "" );
-                    $(".modal-body #phone").val( "" );
-                    $(".modal-body #email").val( "" );
-                    $(".modal-body #account_id").val( "" );
-                    $(".modal-body #vat_no").val( "" );
-                    $(".modal-body #opening_balance").val( "" );
-                   try {
-                       $(".modal-body #customer_group_id").val( "" );
-                       $(".modal-body #credit_amount").val( "" );
-                       $(".modal-body #stop_sale").prop('checked' ,0);
-                   }catch (err){
+                type:'get',
+                url:'/settings',
+                dataType: 'json',
 
-                   }
-                    $(".modal-body #address").val( "" );
-                    $(".modal-body #id").val( 0 );
-                },
-                complete: function() {
-                    $('#loader').hide();
-                },
-                error: function(jqXHR, testStatus, error) {
-                    console.log(error);
-                    alert("Page " + href + " cannot open. Error:" + error);
-                    $('#loader').hide();
-                },
-                timeout: 8000
-            })
+                success:function(response) {
+                    $.ajax({
+                        url: href,
+                        beforeSend: function() {
+                            $('#loader').show();
+                        },
+                        // return the result
+                        success: function(result) {
+                            $('#createModal').modal("show");
+                            $(".modal-body #company").val( response.company_name );
+                            $(".modal-body #name").val( "" );
+                            $(".modal-body #phone").val( "" );
+                            $(".modal-body #email").val( "" );
+                            $(".modal-body #account_id").val( "" );
+                            $(".modal-body #vat_no").val( "" );
+                            $(".modal-body #opening_balance").val( "0" );
+                            try {
+                                $(".modal-body #customer_group_id").val( response.client_group_id );
+                                $(".modal-body #credit_amount").val( "0" );
+                                $(".modal-body #stop_sale").prop('checked' ,0);
+                            }catch (err){
+
+                            }
+                            $(".modal-body #address").val( "" );
+                            $(".modal-body #id").val( 0 );
+                        },
+                        complete: function() {
+                            $('#loader').hide();
+                        },
+                        error: function(jqXHR, testStatus, error) {
+                            console.log(error);
+                            alert("Page " + href + " cannot open. Error:" + error);
+                            $('#loader').hide();
+                        },
+                        timeout: 8000
+                    })
+                }
+        });
+
+
+
         });
         $(document).on('click', '.deleteBtn', function(event) {
              id = event.currentTarget.id ;

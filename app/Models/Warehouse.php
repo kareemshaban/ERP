@@ -13,6 +13,9 @@ class Warehouse extends Model
         'name',
         'phone',
         'email',
-        'address'
+        'address',
+        'tax_number',
+        'commercial_registration',
+        'serial_prefix'
     ];
 }

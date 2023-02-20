@@ -7,6 +7,7 @@ use App\Models\Company;
 use App\Http\Requests\StoreCompanyRequest;
 use App\Http\Requests\UpdateCompanyRequest;
 use App\Models\CustomerGroup;
+use App\Models\SystemSettings;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 
@@ -22,8 +23,10 @@ class CompanyController extends Controller
         $companies = Company::with('group') -> get();
         $groups = CustomerGroup::all();
         $accounts = AccountsTree::query()->where('type','>',1)->get();
+        $settings = SystemSettings::all()-> first();
+
         return view('company.index' , ['type' => $type , 'companies' =>
-            $companies , 'groups' => $groups , 'accounts' => $accounts] );
+            $companies , 'groups' => $groups , 'accounts' => $accounts , 'settings' => $settings] );
     }
 
     /**

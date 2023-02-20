@@ -7,6 +7,7 @@ use App\Http\Requests\StorePaymentRequest;
 use App\Http\Requests\UpdatePaymentRequest;
 use App\Models\Purchase;
 use App\Models\Sales;
+use App\Models\SystemSettings;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -15,7 +16,8 @@ class PaymentController extends Controller
     public function getSalesPayments($id){
         $payments = Payment::where('sale_id',$id)
             ->where('sale_id','<>',null)->get();
-        $html = view('sales.payments',compact('payments'))->render();
+        $setting = SystemSettings::with('currency') -> get()-> first() ;
+        $html = view('sales.payments',compact('payments' , 'setting'))->render();
         return $html;
     }
 
@@ -101,7 +103,8 @@ class PaymentController extends Controller
     public function getPurchasesPayments($id){
         $payments = Payment::where('purchase_id',$id)
             ->where('purchase_id','<>',null)->get();
-        $html = view('purchases.payments',compact('payments'))->render();
+        $setting = SystemSettings::with('currency') -> get()-> first() ;
+        $html = view('purchases.payments',compact('payments' , 'setting'))->render();
         return $html;
     }
 
