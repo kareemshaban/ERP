@@ -271,6 +271,11 @@ Route::get('/getUpdateQntBillNo', [App\Http\Controllers\UpdateQuntityController:
         Route::resource('reward',\App\Http\Controllers\RewardController::class);
         Route::resource('advance_payments',\App\Http\Controllers\AdvancePaymentController::class);
 
+
+        Route::get('/salary',[\App\Http\Controllers\SalaryDocController::class,'index'])->name('salary_docs');
+        Route::get('/open_salary',[\App\Http\Controllers\SalaryDocController::class,'openSalaryDoc'])->name('open_salary');
+        Route::post('/get_salary',[\App\Http\Controllers\SalaryDocController::class,'getSalaryDoc'])->name('get_salary');
+        Route::post('/store_salary',[\App\Http\Controllers\SalaryDocController::class,'storeSalary'])->name('store_salary');
     });
 
 });
