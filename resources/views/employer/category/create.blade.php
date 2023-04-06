@@ -43,11 +43,11 @@
                     <div class="col-lg-12">
                         <div class="card m-b-30">
                             <div class="card-header">
-                                <h5 class="card-title">{{__('forms.Code')}}</h5>
+                                <h5 class="card-title">{{__('main.Code')}}</h5>
                             </div>
                             <div class="card-body">
                                 <div class="form-group mb-0">
-                                    <input type="text" class="form-control" readonly required name="code" id="inputText" placeholder="{{__('forms.Code')}}" value="{{$code}}">
+                                    <input type="text" class="form-control" readonly required name="code" id="inputText" placeholder="{{__('main.Code')}}" value="{{$code}}">
                                 </div>
                             </div>
                         </div>
@@ -57,11 +57,11 @@
                     <div class="col-lg-12">
                         <div class="card m-b-30">
                             <div class="card-header">
-                                <h5 class="card-title">{{__('forms.Name')}}</h5>
+                                <h5 class="card-title">{{__('main.Name')}}</h5>
                             </div>
                             <div class="card-body">
                                 <div class="form-group mb-0">
-                                    <input type="text" class="form-control" required name="name" id="inputText" placeholder="{{__('forms.Name')}}">
+                                    <input type="text" class="form-control" required name="name" id="inputText" placeholder="{{__('main.Name')}}">
                                 </div>
                             </div>
                         </div>

@@ -405,7 +405,41 @@ return [
     'enable_inventory' => 'تفعيل نظام المخزون',
     'enable_accounting' => 'تفعيل الحسابات العامة',
     'serial_prefix' => 'بادئة سريال الفواتير',
-    'max_warehouse' => 'تم الوصول للحد الأقصي المسموح به من الفروع'
+    'max_warehouse' => 'تم الوصول للحد الأقصي المسموح به من الفروع',
+
+
+    'advance_payments' => 'السلف',
+    'advance_payment' => 'السلف',
+    'add_advance_payment' => 'إضافة سلفة',
+    'update_advance_payment' => 'تعديل سلفة',
+    'Date' => 'التاريخ',
+    'Employer' => 'الموظف',
+    'Amount' => 'المبلغ',
+    'Remain' => 'المتبقي',
+    'Actions' => 'الاجراءات',
+    'Advance Amount' => 'قيمة الاستقطاع الشهري',
+
+    'rewards' => 'المكافئات',
+    'reason' => 'السبب',
+    'Reason' => 'السبب',
+    'add_reward' => 'إضافة مكافئة',
+    'update_reward' => 'تعديل مكافئة',
+    'employer_categories' => 'فئات الموظفين',
+    'Code' => 'الكود',
+    'Name' => 'الاسم',
+    'add_category' => 'إضافة فئة',
+    'update_category' => 'تعديل فئة',
+
+    'employers' => 'الموظفين',
+    'Phone' => 'الجوال',
+    'Address' => 'العنوان',
+    'Job' => 'الوظيفة',
+    'Salary' => 'الراتب الشهري',
+    'Hours Count' => 'عدد ساعات العمل',
+    'Hour Amount' => 'قيمة الساعة',
+    'add_employer' => 'إضافة موظف',
+    'update_employer' => 'تعديل موظف'
+
 
 
 

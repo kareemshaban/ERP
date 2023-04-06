@@ -57,12 +57,12 @@
                             <table  id="table" class="table align-items-center mb-0 border">
                                 <thead>
                                 <tr>
-                                    <th width="30%">{{__('forms.Name')}}</th>
-                                    <th width="10%">{{__('forms.Phone')}}</th>
-                                    <th width="30%">{{__('forms.Address')}}</th>
-                                    <th width="10%">{{__('forms.Job')}}</th>
-                                    <th width="10%">{{__('forms.Salary')}}</th>
-                                    <th width="10%">{{__('forms.Actions')}}</th>
+                                    <th width="30%">{{__('main.Name')}}</th>
+                                    <th width="10%">{{__('main.Phone')}}</th>
+                                    <th width="30%">{{__('main.Address')}}</th>
+                                    <th width="10%">{{__('main.Job')}}</th>
+                                    <th width="10%">{{__('main.Salary')}}</th>
+                                    <th width="10%">{{__('main.Actions')}}</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -155,8 +155,8 @@
     }
     function remove(id){
         swal({
-            title: '{{__('forms.Are you sure?')}}',
-            text: '{{__('forms.You won\'t be able to revert this!')}}',
+            title: '{{__('main.Are you sure?')}}',
+            text: '{{__('main.You won\'t be able to revert this!')}}',
             type: 'warning',
             showCancelButton: true,
             confirmButtonClass: 'btn btn-success',
@@ -171,8 +171,8 @@
                 url: url,
                 success: function () {
                     swal(
-                        '{{__('forms.Deleted?')}}',
-                        '{{__('forms.Your data has been deleted.')}}',
+                        '{{__('main.Deleted?')}}',
+                        '{{__('main.Your data has been deleted.')}}',
                         'success'
                     );
 

@@ -46,7 +46,7 @@
 
                             <div class="card m-b-30 col-md-4">
                                 <div class="card-header">
-                                    <h5 class="card-title">{{__('forms.Date')}}</h5>
+                                    <h5 class="card-title">{{__('main.Date')}}</h5>
                                 </div>
                                 <div class="card-body">
                                     <div class="input-group">
@@ -61,7 +61,7 @@
 
                             <div class="card m-b-30 col-md-4">
                                 <div class="card-header">
-                                    <h5 class="card-title">{{__('forms.Employer')}}</h5>
+                                    <h5 class="card-title">{{__('main.Employer')}}</h5>
                                 </div>
                                 <div class="card-body">
                                     <div class="form-group mb-0">
@@ -82,19 +82,19 @@
                         <div class="row">
                             <div class="card m-b-30 col-md-4">
                                 <div class="card-header">
-                                    <h5 class="card-title">{{__('forms.Amount')}}</h5>
+                                    <h5 class="card-title">{{__('main.Amount')}}</h5>
                                 </div>
                                 <div class="card-body">
                                     <div class="form-group mb-0">
                                         <input type="number" step="0.01"
-                                               class="form-control" required name="amount" id="amount" placeholder="{{__('forms.Amount')}}" value="{{$reward->amount}}">
+                                               class="form-control" required name="amount" id="amount" placeholder="{{__('main.Amount')}}" value="{{$reward->amount}}">
                                     </div>
                                 </div>
                             </div>
 
                             <div class="card m-b-30 col-md-8">
                                 <div class="card-header">
-                                    <h5 class="card-title">{{__('forms.reason')}}</h5>
+                                    <h5 class="card-title">{{__('main.reason')}}</h5>
                                 </div>
                                 <div class="card-body">
                                     <div class="form-group mb-0">

@@ -1,5 +1,5 @@
 @section('title')
-    {{__('forms.Show Receipt')}}
+    {{__('main.Show Receipt')}}
 @endsection
 @extends('layouts.main')
 @section('style')
@@ -24,8 +24,8 @@
                                     </div>
                                     <div class="col-12 col-md-5 col-lg-5">
                                         <div class="invoice-name">
-                                            <h5 class="text-uppercase mb-3">{{__('forms.print invoice')}}</h5>
-                                            <p class="mb-1">{{__('forms.Code')}} : {{$catchReceipt->no}}</p>
+                                            <h5 class="text-uppercase mb-3">{{__('main.print invoice')}}</h5>
+                                            <p class="mb-1">{{__('main.Code')}} : {{$catchReceipt->no}}</p>
                                             <p class="mb-0">{{$catchReceipt->date}}</p>
                                             <h4 class="text-success mb-0 mt-3">{{$catchReceipt->amount}}</h4>
                                             @if($catchReceipt->type == 2)
@@ -39,7 +39,7 @@
                                 <div class="row">
                                     <div class="col-sm-6 col-md-4 col-lg-4">
                                         <div class="invoice-address">
-                                            <h6 class="mb-3">{{__('forms.patient')}}</h6>
+                                            <h6 class="mb-3">{{__('main.patient')}}</h6>
                                             <h6 class="text-muted">{{$catchReceipt->Patient->name}}</h6>
                                             <ul class="list-unstyled">
 
@@ -50,8 +50,8 @@
                                         <div class="invoice-address">
                                             <div class="card">
                                                 <div class="card-body bg-secondary-rgba text-center">
-                                                    <h6>{{__('forms.Catch Type')}}</h6>
-                                                    <p>@if($catchReceipt->type == 1 ) {{__('forms.Safe')}} @elseif($catchReceipt->type == 2) {{__('forms.Bank')}}@endif</p>
+                                                    <h6>{{__('main.Catch Type')}}</h6>
+                                                    <p>@if($catchReceipt->type == 1 ) {{__('main.Safe')}} @elseif($catchReceipt->type == 2) {{__('main.Bank')}}@endif</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -63,7 +63,7 @@
                                     <div class="col-md-12 order-2 order-lg-1 col-lg-5 col-xl-6">
                                         <div class="order-note">
                                             <p class="mb-3"><span class="badge badge-info-inverse font-14"></span></p>
-                                            <h6>{{__('forms.Notes')}}</h6>
+                                            <h6>{{__('main.Notes')}}</h6>
                                             <p>{{$catchReceipt->notes}}</p>
                                         </div>
                                     </div>

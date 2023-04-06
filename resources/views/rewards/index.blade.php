@@ -57,11 +57,11 @@
                             <table  id="table" class="table align-items-center mb-0 border">
                                 <thead>
                                 <tr>
-                                    <th width="20%">{{__('forms.Date')}}</th>
-                                    <th width="10%">{{__('forms.Employer')}}</th>
-                                    <th class="sum" width="20%">{{__('forms.Amount')}}</th>
-                                    <th width="35%">{{__('forms.reason')}}</th>
-                                    <th width="15%">{{__('forms.Actions')}}</th>
+                                    <th width="20%">{{__('main.Date')}}</th>
+                                    <th width="10%">{{__('main.Employer')}}</th>
+                                    <th class="sum" width="20%">{{__('main.Amount')}}</th>
+                                    <th width="35%">{{__('main.reason')}}</th>
+                                    <th width="15%">{{__('main.Actions')}}</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -153,8 +153,8 @@
     }
     function remove(id){
         swal({
-            title: '{{__('forms.Are you sure?')}}',
-            text: '{{__('forms.You won\'t be able to revert this!')}}',
+            title: '{{__('main.Are you sure?')}}',
+            text: '{{__('main.You won\'t be able to revert this!')}}',
             type: 'warning',
             showCancelButton: true,
             confirmButtonClass: 'btn btn-success',
@@ -169,8 +169,8 @@
                 url: url,
                 success: function () {
                     swal(
-                        '{{__('forms.Deleted?')}}',
-                        '{{__('forms.Your data has been deleted.')}}',
+                        '{{__('main.Deleted?')}}',
+                        '{{__('main.Your data has been deleted.')}}',
                         'success'
                     );
 

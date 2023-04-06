@@ -43,11 +43,11 @@
                     <div class="col-lg-4">
                         <div class="card m-b-30">
                             <div class="card-header">
-                                <h5 class="card-title">{{__('forms.Name')}}</h5>
+                                <h5 class="card-title">{{__('main.Name')}}</h5>
                             </div>
                             <div class="card-body">
                                 <div class="form-group mb-0">
-                                    <input type="text" class="form-control" required name="name" id="inputText" placeholder="{{__('forms.Name')}}" value="{!! $employer->name !!}" >
+                                    <input type="text" class="form-control" required name="name" id="inputText" placeholder="{{__('main.Name')}}" value="{!! $employer->name !!}" >
                                 </div>
                             </div>
                         </div>
@@ -56,11 +56,11 @@
                     <div class="col-lg-4">
                         <div class="card m-b-30">
                             <div class="card-header">
-                                <h5 class="card-title">{{__('forms.Phone')}}</h5>
+                                <h5 class="card-title">{{__('main.Phone')}}</h5>
                             </div>
                             <div class="card-body">
                                 <div class="form-group mb-0">
-                                    <input type="tel" class="form-control" required name="phone" id="inputmask-decimal" placeholder="{{__('forms.Phone')}}" value="{!! $employer->phone !!}">
+                                    <input type="tel" class="form-control" required name="phone" id="inputmask-decimal" placeholder="{{__('main.Phone')}}" value="{!! $employer->phone !!}">
                                 </div>
                             </div>
                         </div>
@@ -69,11 +69,11 @@
                     <div class="col-lg-4">
                         <div class="card m-b-30">
                             <div class="card-header">
-                                <h5 class="card-title">{{__('forms.Address')}}</h5>
+                                <h5 class="card-title">{{__('main.Address')}}</h5>
                             </div>
                             <div class="card-body">
                                 <div class="form-group mb-0">
-                                    <input type="text" class="form-control" required name="address" id="inputText" placeholder="{{__('forms.Address')}}" value="{!! $employer->address !!}">
+                                    <input type="text" class="form-control" required name="address" id="inputText" placeholder="{{__('main.Address')}}" value="{!! $employer->address !!}">
                                 </div>
                             </div>
                         </div>
@@ -83,11 +83,11 @@
                     <div class="col-lg-4">
                         <div class="card m-b-30">
                             <div class="card-header">
-                                <h5 class="card-title">{{__('forms.Hours Count')}}</h5>
+                                <h5 class="card-title">{{__('main.Hours Count')}}</h5>
                             </div>
                             <div class="card-body">
                                 <div class="form-group mb-0">
-                                    <input type="number" step="0.01" min="0"  class="form-control" required name="salary" id="inputText" placeholder="{{__('forms.Salary')}}" value="{!! $employer->salary !!}">
+                                    <input type="number" step="0.01" min="0"  class="form-control" required name="salary" id="inputText" placeholder="{{__('main.Salary')}}" value="{!! $employer->salary !!}">
                                 </div>
                             </div>
                         </div>
@@ -96,11 +96,11 @@
                     <div class="col-lg-4">
                         <div class="card m-b-30">
                             <div class="card-header">
-                                <h5 class="card-title">{{__('forms.Hour Amount')}}</h5>
+                                <h5 class="card-title">{{__('main.Hour Amount')}}</h5>
                             </div>
                             <div class="card-body">
                                 <div class="form-group mb-0">
-                                    <input type="number" step="0.0001" min="0"  class="form-control" required name="additional_salary" id="inputText" placeholder="{{__('forms.Additional Service Amount')}}" value="{!! $employer->additional_salary !!}">
+                                    <input type="number" step="0.0001" min="0"  class="form-control" required name="additional_salary" id="inputText" placeholder="{{__('main.Additional Service Amount')}}" value="{!! $employer->additional_salary !!}">
                                 </div>
                             </div>
                         </div>
@@ -111,7 +111,7 @@
                     <div class="col-lg-4">
                         <div class="card m-b-30">
                             <div class="card-header">
-                                <h5 class="card-title">{{__('forms.Job')}}</h5>
+                                <h5 class="card-title">{{__('main.Job')}}</h5>
                             </div>
                             <div class="card-body">
                                 <div class="form-group mb-0">
