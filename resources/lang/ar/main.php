@@ -438,7 +438,11 @@ return [
     'Hours Count' => 'عدد ساعات العمل',
     'Hour Amount' => 'قيمة الساعة',
     'add_employer' => 'إضافة موظف',
-    'update_employer' => 'تعديل موظف'
+    'update_employer' => 'تعديل موظف',
+
+    'deductions' => 'الجزاءات',
+    'add_deduction' => 'إضافة جزاء',
+    'update_deduction' => 'تعديل الجزاء'
 
 
 
