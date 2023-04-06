@@ -19,12 +19,12 @@
 // {{ site.product.name }} components
 
 // Variables
-@import "variables/navbar-vertical";
-@import "variables/social-buttons";
-@import "variables/breadcrumb";
+@import "public/assets/scss/soft-ui-dashboard/variables/navbar-vertical";
+@import "public/assets/scss/soft-ui-dashboard/variables/social-buttons";
+@import "public/assets/scss/soft-ui-dashboard/variables/breadcrumb";
 
 // Mixin
-@import "mixins/mixins";
+@import "public/assets/scss/soft-ui-dashboard/mixins/mixins";
 
 // Core Components - extra styling
 @import "alert";
@@ -37,7 +37,7 @@
 @import "dropup";
 @import "header";
 @import "fixed-plugin";
-@import "forms/forms";
+@import "public/assets/scss/soft-ui-dashboard/forms/forms";
 @import "footer";
 @import "gradients";
 @import "info-areas";
@@ -57,4 +57,4 @@
 @import "typography";
 
 // Plugins
-@import "plugins/free/plugins";
+@import "public/assets/scss/soft-ui-dashboard/plugins/free/plugins";

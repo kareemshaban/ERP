@@ -91,7 +91,7 @@
     <div class="modal-dialog modal-md" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <label class="modelTitle"> {{__('main.brands')}}</label>
+                <label class="modelTitle"> {{__('main.units')}}</label>
                 <button type="button" class="close modal-close-btn"  data-bs-dismiss="modal"  aria-label="Close" >
                     <span aria-hidden="true">&times;</span>
                 </button>

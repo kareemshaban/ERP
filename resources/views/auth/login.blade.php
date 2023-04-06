@@ -8,7 +8,7 @@
     <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
     <link rel="icon" type="image/png" href="../assets/img/favicon.png">
     <title>
-        klazma
+        ERP
     </title>
     <!--     Fonts and icons     -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
@@ -80,26 +80,7 @@
 <footer class="footer py-5">
     <div class="container">
         <div class="row">
-            <div class="col-lg-8 mb-4 mx-auto text-center">
-                <a href="javascript:;"  class="text-secondary me-xl-5 me-3 mb-sm-0 mb-2">
-                    Company
-                </a>
-                <a href="javascript:;"  class="text-secondary me-xl-5 me-3 mb-sm-0 mb-2">
-                    About Us
-                </a>
-                <a href="javascript:;" class="text-secondary me-xl-5 me-3 mb-sm-0 mb-2">
-                    Team
-                </a>
-                <a href="javascript:;"  class="text-secondary me-xl-5 me-3 mb-sm-0 mb-2">
-                    Products
-                </a>
-                <a href="javascript:;"  class="text-secondary me-xl-5 me-3 mb-sm-0 mb-2">
-                    Blog
-                </a>
-                <a href="javascript:;"  class="text-secondary me-xl-5 me-3 mb-sm-0 mb-2">
-                    Pricing
-                </a>
-            </div>
+
             <div class="col-lg-8 mx-auto text-center mb-4 mt-2">
                 <a href="javascript:;"  class="text-secondary me-xl-4 me-4">
                     <span class="text-lg fab fa-dribbble"></span>

@@ -362,7 +362,8 @@ class SalesController extends Controller
     public function pos(){
         $vendors = Company::where('group_id' , '=' , 3) -> get();
         $warehouses = Warehouse::all();
-        return view('sales.pos' , compact('vendors' , 'warehouses'));
+        $settings = SystemSettings::with('currency') -> get() -> first();
+        return view('sales.pos' , compact('vendors' , 'warehouses' , 'settings'));
     }
     public function getLastSalesBill(){
         $bills = Sales::orderBy('id', 'desc')->get();

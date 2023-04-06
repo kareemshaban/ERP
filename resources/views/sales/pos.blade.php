@@ -27,17 +27,17 @@
             box-shadow: inset 0 1px 1px rgba(0,0,0,.05);
             overflow-x: hidden;
         }
-       #sTable th{
+        #sTable th{
             white-space: pre-line !important;
         }
         #sTable td{
             white-space: pre-line !important;
         }
         .footer{
-          height: 30%;
+            height: 30%;
         }
         .body{
-             height: 45%;
+            height: 45%;
             min-height: 300px;
         }
         .header{
@@ -77,163 +77,182 @@
         <div class="row">
             <div class="col-12">
 
-                    <div class="card-body px-0 pt-0 pb-2">
-                        <form   method="POST" action="{{ route('store_sale') }}"
-                                enctype="multipart/form-data" id="form">
-                            @csrf
-                            <div class="row" style="padding: 10px; border-radius: 30px">
-                               <div class="col-6 ">
+                <div class="card-body px-0 pt-0 pb-2">
+                    <form   method="POST" action="{{ route('store_sale') }}"
+                            enctype="multipart/form-data" id="form">
+                        @csrf
+                        <div class="row" style="padding: 10px; border-radius: 30px">
+                            <div class="col-6 ">
 
-                                   <div class="row header" style="min-height: 200px">
-                                       <table class="hedaer_table table-bordered " style="width: 98%; direction: rtl">
-                                           <tr style="background: black !important; color: white; padding: 5px">
-                                               <td class="text-center ">{{__('main.total')}}</td>
-                                               <td class="text-center" id="totalBig">0.00</td>
-                                           </tr>
-                                       </table>
-                                   </div>
-                                   <div class="row body" style="min-height: 400px">
+                                <div class="row header" style="min-height: 200px">
+                                    <table class="hedaer_table table-bordered " style="width: 98%; direction: rtl">
+                                        <tr style="background: black !important; color: white; padding: 5px">
+                                            <td class="text-center ">{{__('main.total')}}</td>
+                                            <td class="text-center" id="totalBig">0.00</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="row body" style="min-height: 400px">
 
-                                   </div>
-                                   <div class="row footer" style="min-height: 200px">
-                                   </div>
-                               </div>
-                                <div class="col-5 sim" >
-                                    <div class="row header" >
-                                        <input type="datetime-local"  id="bill_date" name="bill_date" hidden
-                                               class="form-control"
-                                        />
-                                        <input type="text"  id="bill_number" name="bill_number" hidden
-                                               class="form-control" placeholder="bill_number" readonly
-                                        />
-                                        <input type="text"  id="POS" name="POS" hidden value="1"
-                                               class="form-control" placeholder="bill_number" readonly
-                                        />
+                                </div>
+                                <div class="row footer" style="min-height: 200px">
+                                </div>
+                            </div>
+                            <div class="col-5 sim" >
+                                <div class="row header" >
+                                    <input type="datetime-local"  id="bill_date" name="bill_date" hidden
+                                           class="form-control"
+                                    />
+                                    <input type="text"  id="bill_number" name="bill_number" hidden
+                                           class="form-control" placeholder="bill_number" readonly
+                                    />
+                                    <input type="text"  id="POS" name="POS" hidden value="1"
+                                           class="form-control" placeholder="bill_number" readonly
+                                    />
 
 
-                                        <div class="col-12">
-                                            <div class="col-md-12" id="sticker">
-                                                <div class="well well-sm">
-                                                    <div class="form-group" style="margin-bottom:0;">
-                                                            <label for="customer_id">{{__('main.clients')}}</label>
-                                                            <select id="customer_id" name="customer_id" class="form-select" style="direction: ltr">
-                                                                @foreach($vendors as $vendor)
-                                                                    <option value="{{$vendor -> id}}">{{$vendor -> name}}</option>
-                                                                @endforeach
-                                                            </select>
-                                                    </div>
-                                                    <div class="form-group" style="margin-bottom:0;">
-                                                        <label for="warehouse_id">{{__('main.warehouse')}}</label>
-                                                        <select id="warehouse_id" name="warehouse_id" class="form-select" style="direction: ltr">
-                                                            @foreach($warehouses as $warehouse)
-                                                                <option value="{{$warehouse -> id}}">{{$warehouse -> name}}</option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
+                                    <div class="col-12">
+                                        <div class="col-md-12" id="sticker">
+                                            <div class="well well-sm">
+                                                <div class="form-group" style="margin-bottom:0;">
+                                                    <label for="customer_id">{{__('main.clients')}}</label>
+                                                    <select id="customer_id" name="customer_id" class="form-select" style="direction: ltr">
+                                                        @foreach($vendors as $vendor)
+                                                            <option value="{{$vendor -> id}}">{{$vendor -> name}}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                                <div class="form-group" style="margin-bottom:0;">
+                                                    <label for="warehouse_id">{{__('main.warehouse')}}</label>
+                                                    <select class="form-select mr-sm-2"
+                                                            name="warehouse_id" id="warehouse_id">
+                                                        <option  value="0" selected>Choose...</option>
+                                                        @foreach ($warehouses as $item)
+                                                            <option value="{{$item -> id}}"  @if($item -> id == $settings -> branch_id) selected @endif> {{ $item -> name}}</option>
 
-                                                    <div class="form-group" style="margin-bottom:0; margin-top: 20px">
-                                                        <div class="input-group wide-tip">
-                                                            <div class="input-group-addon" style="padding-left: 10px; padding-right: 10px;">
-                                                                <i class="fa fa-2x fa-barcode addIcon"></i></div>
-                                                            <input style="border-radius: 0 !important;padding-left: 10px;padding-right: 10px;"
-                                                                   type="text" name="add_item" value="" class="form-control input-lg ui-autocomplete-input" id="add_item" placeholder="{{__('main.add_item_hint')}}" autocomplete="off">
+                                                        @endforeach
+                                                    </select>
+                                                </div>
 
-                                                        </div>
-                                                        <ul class="suggestions" id="products_suggestions" style="display: block">
-
-                                                        </ul>
-                                                        <div class="clearfix"></div>
+                                                <div class="form-group" style="margin-bottom:0; margin-top: 20px">
+                                                    <div class="input-group wide-tip" @if(Config::get('app.locale') == 'ar')style="direction: rtl;" @endif>
+                                                        <div class="input-group-addon" style="padding-left: 10px; padding-right: 10px;">
+                                                            <i class="fa fa-2x fa-barcode addIcon"></i></div>
+                                                        <input style="border-radius: 0 !important;padding-left: 10px;padding-right: 10px;"
+                                                               type="text" name="add_item" value="" class="form-control input-lg ui-autocomplete-input" id="add_item" placeholder="{{__('main.add_item_hint')}}" autocomplete="off">
 
                                                     </div>
+                                                    <ul class="suggestions" id="products_suggestions" style="display: block">
+
+                                                    </ul>
+                                                    <div class="clearfix"></div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+
+                                <div class="row body">
+
+                                    <div class="col-md-12">
+
+
+                                        <div class="card mb-4">
+                                            <div class="card-header pb-0">
+                                                <h4 class="table-label text-center">{{__('main.items')}} </h4>
+                                            </div>
+
+                                            <div class="card-body px-0 pt-0 pb-2">
+                                                <div class="table-responsive p-0">
+
+                                                    <table id="sTable" style="width:100%; direction: rtl;" class="table align-items-center mb-0"
+                                                           style="direction: rtl">
+                                                        <thead style="background-image: linear-gradient(310deg, #428BCA 0%, #428BCA 100%); color: white">
+                                                        <tr>
+                                                            <th class="text-center col-md-3">{{__('main.item_name_code')}}</th>
+                                                            <th class="text-center col-md-1">{{__('main.price_with_tax')}}</th>
+                                                            <th class="text-center col-md-1">{{__('main.quantity')}} </th>
+                                                            <th class="text-center col-md-1">{{__('main.net')}}</th>
+                                                            <th class="text-center col-md-1" style="max-width: 30px !important; text-align: center;">
+                                                                <i class="fa fa-trash-o" style="opacity:0.5; filter:alpha(opacity=50);"></i>
+                                                            </th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody id="tbody"></tbody>
+                                                        <tfoot></tfoot>
+                                                    </table>
+
                                                 </div>
                                             </div>
 
-
                                         </div>
                                     </div>
-
-                                    <div class="row body">
-                                        <div class="controls table-controls">
-                                            <table id="sTable" class="table items table-striped table-bordered table-condensed table-hover sortable_table"
-                                            style="direction: rtl">
-                                                <thead style="background-image: linear-gradient(310deg, #428BCA 0%, #428BCA 100%); color: white">
-                                                <tr>
-                                                    <th class="text-center col-md-3">{{__('main.item_name_code')}}</th>
-                                                    <th class="text-center col-md-1">{{__('main.price_with_tax')}}</th>
-                                                    <th class="text-center col-md-1">{{__('main.quantity')}} </th>
-                                                    <th class="text-center col-md-1">{{__('main.net')}}</th>
-                                                    <th class="text-center col-md-1" style="max-width: 30px !important; text-align: center;">
-                                                        <i class="fa fa-trash-o" style="opacity:0.5; filter:alpha(opacity=50);"></i>
-                                                    </th>
-                                                </tr>
-                                                </thead>
-                                                <tbody id="tbody"></tbody>
-                                                <tfoot></tfoot>
-                                            </table>
-                                        </div>
-                                    </div>
-                                    <div class="footer">
-                                        <div class="row">
-                                            <table class="hedaer_table table-bordered " style="width: 98%; direction: rtl">
-                                                <tr >
-                                                    <td class="text-center tabletitle">{{__('main.total')}}</td>
-                                                    <td class="text-center" id="total">0.00</td>
-                                                    <td class="text-center tabletitle">{{__('main.total_without_tax')}}</td>
-                                                    <td class="text-center" id="total_with_tax">0.00</td>
-                                                </tr>
-                                                <tr >
-                                                    <td class="text-center tabletitle">{{__('main.items')}}</td>
-                                                    <td class="text-center" id="items">0</td>
-                                                    <td class="text-center tabletitle">{{__('main.item_count')}}</td>
-                                                    <td class="text-center" id="items_count">0</td>
-                                                </tr>
-                                                <tr style="background: black !important; color: white; padding: 5px">
-                                                    <td colspan="2" class="text-center " style="padding: 8px">{{__('main.req_money')}}</td>
-                                                    <td colspan="2" class="text-center ">0</td>
-                                                </tr>
-
-                                            </table>
-                                        </div>
-
-                                        <table style="width: 100%;">
-                                            <thead></thead>
-                                            <tbody>
-                                            <tr>
-                                                <td class="text-center" style="padding-right: 5px">
-                                                    <button type="button" class="btn btn-danger btn-block" id="cancel_entry" style="height:73px;font-size:16px;
-                                                    font-weight:bold; width: 100%;" tabindex="-1">
-                                                        <i class="fa fa-close" style="margin-right: 5px;"></i> إلغاء (F3)
-                                                    </button>
-
-                                                </td>
-                                                <td class="text-center"style="padding-left: 5px">
-                                                    <button type="button" class="btn btn-success btn-block" id="payment" style="height:73px;font-size:16px;font-weight:bold;
-                                                    width:100%;" tabindex="-1">
-                                                        <i class="fa fa-money" style="margin-right: 5px;"></i> دفع (F9)
-                                                    </button>
-                                                </td>
+                                </div>
+                                <div class="footer">
+                                    <div class="row">
+                                        <table class="hedaer_table table-bordered " style="width: 98%; direction: rtl">
+                                            <tr >
+                                                <td class="text-center tabletitle">{{__('main.total')}}</td>
+                                                <td class="text-center" id="total">0.00</td>
+                                                <td class="text-center tabletitle">{{__('main.total_without_tax')}}</td>
+                                                <td class="text-center" id="total_with_tax">0.00</td>
                                             </tr>
-                                            <tr>
-                                                <td colspan="2" class="text-center">
+                                            <tr >
+                                                <td class="text-center tabletitle">{{__('main.items')}}</td>
+                                                <td class="text-center" id="items">0</td>
+                                                <td class="text-center tabletitle">{{__('main.item_count')}}</td>
+                                                <td class="text-center" id="items_count">0</td>
+                                            </tr>
+                                            <tr style="background: black !important; color: white; padding: 5px">
+                                                <td colspan="2" class="text-center " style="padding: 8px">{{__('main.req_money')}}</td>
+                                                <td colspan="2" class="text-center ">0</td>
+                                            </tr>
+
+                                        </table>
+                                    </div>
+
+                                    <table style="width: 100%;">
+                                        <thead></thead>
+                                        <tbody>
+                                        <tr>
+                                            <td class="text-center" style="padding-right: 5px">
+                                                <button type="button" class="btn btn-danger btn-block" id="cancel_entry" style="height:73px;font-size:16px;
+                                                    font-weight:bold; width: 100%;" tabindex="-1">
+                                                    <i class="fa fa-close" style="margin-right: 5px;"></i> إلغاء (F3)
+                                                </button>
+
+                                            </td>
+                                            <td class="text-center"style="padding-left: 5px">
+                                                <button type="button" class="btn btn-success btn-block" id="payment" style="height:73px;font-size:16px;font-weight:bold;
+                                                    width:100%;" tabindex="-1">
+                                                    <i class="fa fa-money" style="margin-right: 5px;"></i> دفع (F9)
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2" class="text-center">
                                                 <button type="button" class="btn btn-warning btn-block btn-flat" style="font-size:16px;font-weight:bold; width: 100%;" id="print" tabindex="-1" >
                                                     {{__('main.print_last')}} (F2)
                                                 </button>
-                                                </td>
-                                            </tr>
+                                            </td>
+                                        </tr>
 
 
-                                            </tbody>
-                                        </table>
-
-
-                                    </div>
+                                        </tbody>
+                                    </table>
 
 
                                 </div>
-                            </div>
-                        </form>
 
-                    </div>
+
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
 
 
             </div>
@@ -281,7 +300,7 @@
         submit();
     });
     $('#print').click(function (){
-       printBill();
+        printBill();
     });
     $('#cancel_entry').click(function (){
         cancelEntry();
@@ -344,7 +363,7 @@
                             Bill = response;
                             addPayments(Bill.id);
                         } else {
-                          Bill = null ;
+                            Bill = null ;
                         }
 
                     } else {
@@ -421,12 +440,13 @@
             $('#paymentsModal').modal('show');
         });
     }
-    function getBillNo(){
 
+    function getBillNo(){
+        const id = document.getElementById('warehouse_id').value ;
         let bill_number = document.getElementById('bill_number');
         $.ajax({
             type:'get',
-            url:'{{route('get_sale_no')}}',
+            url:'/get_sales_number/' + id ,
             dataType: 'json',
 
             success:function(response){

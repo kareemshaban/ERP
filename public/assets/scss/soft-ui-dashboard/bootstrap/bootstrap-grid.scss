@@ -1,4 +1,4 @@
-@import "mixins/banner";
+@import "public/assets/scss/soft-ui-dashboard/bootstrap/mixins/banner";
 @include bsBanner(Grid);
 
 $include-column-box-sizing: true !default;
@@ -7,13 +7,13 @@ $include-column-box-sizing: true !default;
 @import "variables";
 @import "maps";
 
-@import "mixins/lists";
-@import "mixins/breakpoints";
-@import "mixins/container";
-@import "mixins/grid";
-@import "mixins/utilities";
+@import "public/assets/scss/soft-ui-dashboard/bootstrap/mixins/lists";
+@import "public/assets/scss/soft-ui-dashboard/bootstrap/mixins/breakpoints";
+@import "public/assets/scss/soft-ui-dashboard/bootstrap/mixins/container";
+@import "public/assets/scss/soft-ui-dashboard/bootstrap/mixins/grid";
+@import "public/assets/scss/soft-ui-dashboard/bootstrap/mixins/utilities";
 
-@import "vendor/rfs";
+@import "public/assets/scss/soft-ui-dashboard/bootstrap/vendor/rfs";
 
 @import "root";
 
@@ -61,4 +61,4 @@ $utilities: map-get-multiple(
   )
 );
 
-@import "utilities/api";
+@import "public/assets/scss/soft-ui-dashboard/bootstrap/utilities/api";

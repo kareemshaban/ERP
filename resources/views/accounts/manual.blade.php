@@ -57,7 +57,7 @@
                             <div class="row">
                                 <div class="col-12">
                                     <div class="col-md-12" id="sticker">
-                                        <div class="well well-sm">
+                                        <div class="well well-sm" @if(Config::get('app.locale') == 'ar')style="direction: rtl;" @endif>
                                             <div class="form-group" style="margin-bottom:0;">
                                                 <div class="input-group wide-tip">
                                                     <div class="input-group-addon" style="padding-left: 10px; padding-right: 10px;">
@@ -80,26 +80,37 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
-                                    <div class="control-group table-group">
-                                        <label class="table-label">{{__('main.accounts')}} </label>
 
-                                        <div class="controls table-controls">
-                                            <table id="sTable" class="table items table-striped table-bordered table-condensed table-hover">
-                                                <thead>
-                                                <tr>
-                                                    <th class="col-md-2">{{__('main.account_code')}}</th>
-                                                    <th class="col-md-6">{{__('main.account_name')}}</th>
-                                                    <th class="col-md-1">{{__('main.Credit')}}</th>
-                                                    <th class="col-md-1">{{__('main.Debit')}} </th>
-                                                    <th style="max-width: 30px !important; text-align: center;">
-                                                        <i class="fa fa-trash-o" style="opacity:0.5; filter:alpha(opacity=50);"></i>
-                                                    </th>
-                                                </tr>
-                                                </thead>
-                                                <tbody id="tbody"></tbody>
-                                                <tfoot></tfoot>
-                                            </table>
+
+                                    <div class="card mb-4">
+                                        <div class="card-header pb-0">
+                                            <h4 class="table-label text-center">{{__('main.accounts')}} </h4>
                                         </div>
+
+                                        <div class="card-body px-0 pt-0 pb-2">
+                                            <div class="table-responsive p-0">
+
+
+                                                <table id="sTable" style="width:100%" class="table align-items-center mb-0">
+                                                    <thead>
+                                                    <tr>
+                                                        <th class="text-center">{{__('main.account_code')}}</th>
+                                                        <th class="text-center">{{__('main.account_name')}}</th>
+                                                        <th class="text-center">{{__('main.Credit')}}</th>
+                                                        <th class="text-center">{{__('main.Debit')}} </th>
+                                                        <th style="max-width: 30px !important; text-align: center;" class="text-center">
+                                                            <i class="fa fa-trash-o" style="opacity:0.5; filter:alpha(opacity=50);"></i>
+                                                        </th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody id="tbody"></tbody>
+                                                    <tfoot></tfoot>
+                                                </table>
+
+
+                                            </div>
+                                        </div>
+
                                     </div>
                                 </div>
                             </div>
@@ -197,22 +208,22 @@ margin: 30px auto;" value="{{__('main.save_btn')}}"></input>
 
     function getBillNo(){
 
-        let bill_number = document.getElementById('bill_number');
-        $.ajax({
-            type:'get',
-            url:'{{route('get_sale_no')}}',
-            dataType: 'json',
+        {{--let bill_number = document.getElementById('bill_number');--}}
+        {{--$.ajax({--}}
+        {{--    type:'get',--}}
+        {{--    url:'{{route('get_sale_no')}}',--}}
+        {{--    dataType: 'json',--}}
 
-            success:function(response){
-                console.log(response);
+        {{--    success:function(response){--}}
+        {{--        console.log(response);--}}
 
-                if(response){
-                    bill_number.value = response ;
-                } else {
-                    bill_number.value = '' ;
-                }
-            }
-        });
+        {{--        if(response){--}}
+        {{--            bill_number.value = response ;--}}
+        {{--        } else {--}}
+        {{--            bill_number.value = '' ;--}}
+        {{--        }--}}
+        {{--    }--}}
+        {{--});--}}
     }
     function searchProduct(code){
         var url = '{{route('getAccounts',":id")}}';
@@ -394,11 +405,11 @@ margin: 30px auto;" value="{{__('main.save_btn')}}"></input>
             totalCredit += item.credit;
             totalDebit += item.debit;
             var newTr = $('<tr data-item-id="'+item.date_item_id+'">');
-            var tr_html ='<td><input type="hidden" name="account_id[]" value="'+item.id+'"> <span>'+item.code+'</span> </td>';
-            tr_html +=   '<td>'+item.name+'</td>';
-            tr_html +=   '<td><input type="text" class="form-control iCredit" name="credit[]" value="'+item.credit.toFixed(2)+'"></td>';
-            tr_html +=   '<td><input type="text" class="form-control iDebit" name="debit[]" value="'+item.debit.toFixed(2)+'"></td>';
-            tr_html += `<td>      <button type="button" class="btn btn-labeled btn-danger deleteBtn " value=" '+item.id+' ">
+            var tr_html ='<td class="text-center"><input type="hidden" name="account_id[]" value="'+item.id+'"> <span>'+item.code+'</span> </td>';
+            tr_html +=   '<td class="text-center">'+item.name+'</td>';
+            tr_html +=   '<td class="text-center"><input type="text" class="form-control iCredit" name="credit[]" value="'+item.credit.toFixed(2)+'"></td>';
+            tr_html +=   '<td class="text-center"><input type="text" class="form-control iDebit" name="debit[]" value="'+item.debit.toFixed(2)+'"></td>';
+            tr_html += `<td class="text-center">      <button type="button" class="btn btn-labeled btn-danger deleteBtn " value=" '+item.id+' ">
                                             <span class="btn-label" style="margin-right: 10px;"><i class="fa fa-trash"></i></span></button> </td>`;
 
             newTr.html(tr_html);

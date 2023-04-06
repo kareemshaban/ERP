@@ -104,7 +104,7 @@
                             <div class="row">
                                 <div class="col-12">
                                     <div class="col-md-12" id="sticker">
-                                        <div class="well well-sm">
+                                        <div class="well well-sm" @if(Config::get('app.locale') == 'ar')style="direction: rtl;" @endif>
                                             <div class="form-group" style="margin-bottom:0;">
                                                 <div class="input-group wide-tip">
                                                     <div class="input-group-addon" style="padding-left: 10px; padding-right: 10px;">
@@ -127,29 +127,38 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
-                                    <div class="control-group table-group">
-                                        <label class="table-label">{{__('main.items')}} </label>
 
-                                        <div class="controls table-controls">
-                                            <table id="sTable" class="table items table-striped table-bordered table-condensed table-hover">
-                                                <thead>
-                                                <tr>
-                                                    <th>{{__('main.item_name_code')}}</th>
-                                                    <th class="col-md-2">{{__('main.price_without_tax')}}</th>
-                                                    <th class="col-md-2">{{__('main.price_with_tax')}}</th>
-                                                    <th class="col-md-1">{{__('main.quantity')}} </th>
-                                                    <th class="col-md-2">{{__('main.total_without_tax')}}</th>
-                                                    <th class="col-md-2">{{__('main.tax')}}</th>
-                                                    <th class="col-md-2">{{__('main.net')}}</th>
-                                                    <th style="max-width: 30px !important; text-align: center;">
-                                                        <i class="fa fa-trash-o" style="opacity:0.5; filter:alpha(opacity=50);"></i>
-                                                    </th>
-                                                </tr>
-                                                </thead>
-                                                <tbody id="tbody"></tbody>
-                                                <tfoot></tfoot>
-                                            </table>
+
+                                    <div class="card mb-4">
+                                        <div class="card-header pb-0">
+                                            <h4 class="table-label text-center">{{__('main.items')}} </h4>
                                         </div>
+
+                                        <div class="card-body px-0 pt-0 pb-2">
+                                            <div class="table-responsive p-0">
+
+
+                                                <table id="sTable" style="width:100%" class="table align-items-center mb-0">
+                                                    <thead>
+                                                    <tr>
+                                                        <th class="text-center">{{__('main.item_name_code')}}</th>
+                                                        <th class="text-center">{{__('main.price_without_tax')}}</th>
+                                                        <th class="text-center">{{__('main.price_with_tax')}}</th>
+                                                        <th class="text-center">{{__('main.quantity')}} </th>
+                                                        <th class="text-center">{{__('main.total_without_tax')}}</th>
+                                                        <th class="text-center">{{__('main.tax')}}</th>
+                                                        <th class="text-center">{{__('main.net')}}</th>
+                                                        <th style="max-width: 30px !important; text-align: center;" class="text-center">
+                                                            <i class="fa fa-trash-o" style="opacity:0.5; filter:alpha(opacity=50);"></i>
+                                                        </th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody id="tbody"></tbody>
+                                                    <tfoot></tfoot>
+                                                </table>
+                                            </div>
+                                        </div>
+
                                     </div>
                                 </div>
                             </div>

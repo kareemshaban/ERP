@@ -16,6 +16,17 @@
     <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
     <link href="../../assets/css/nucleo-svg.css" rel="stylesheet" />
     <link id="pagestyle" href="../../assets/css/soft-ui-dashboard.css?v=1.0.7" rel="stylesheet" />
+
+    <style>
+        .itemCaRD{
+            background: white;
+            width: 90%;
+            display: block;
+            margin: 50px auto;
+            border-radius: 25px;
+        }
+    </style>
+
 </head>
 
 <body @if(Config::get('app.locale') == 'en') class="g-sidenav-show  bg-gray-100" @else  class="g-sidenav-show rtl bg-gray-100" @endif>
@@ -27,7 +38,7 @@
     <!-- Navbar -->
     @include('layouts.nav' , ['page_title' => __('main.products_list'). ' / '. __('main.add_product')])
     <!-- End Navbar -->
-        <div class="modal-body" id="paymentBody">
+        <div class="modal-body itemCaRD" id="paymentBody">
             <form   method="POST" action="{{ route('storeProduct') }}">
                 @csrf
 
