@@ -1,7 +1,7 @@
-@import "./bootstrap/functions";
-@import "./bootstrap/variables";
-@import "./bootstrap/maps";
-@import "./bootstrap/utilities";
+@import "public/assets/scss/soft-ui-dashboard/bootstrap/functions";
+@import "public/assets/scss/soft-ui-dashboard/bootstrap/variables";
+@import "public/assets/scss/soft-ui-dashboard/bootstrap/maps";
+@import "public/assets/scss/soft-ui-dashboard/bootstrap/utilities";
 
 $utilities: (
   // scss-docs-start utils-vertical-align

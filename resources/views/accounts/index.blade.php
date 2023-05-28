@@ -52,9 +52,10 @@
                         </div>
 
                     </div>
+
                     <div class="card-body px-0 pt-0 pb-2">
                         <div class="table-responsive p-0">
-                            <table  id="table" class="table align-items-center mb-0 border">
+                            <table  id="table" style="width:100%" class="table align-items-center mb-0">
                                 <thead>
                                 <tr>
                                     <th class="text-uppercase text-secondary text-md-center font-weight-bolder opacity-7">#</th>

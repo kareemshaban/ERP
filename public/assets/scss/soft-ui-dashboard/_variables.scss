@@ -1701,30 +1701,30 @@ $tilt-transform-up-transition:      all 0.5s !default;
 
 // Variables for Core
 
-@import "variables/animations";
-@import "variables/avatars";
-@import "variables/cards";
-@import "variables/dark-version";
-@import "variables/dropdowns";
-@import 'variables/header';
-@import 'variables/info-areas';
-@import 'variables/navbar';
-@import 'variables/navbar-vertical';
-@import 'variables/utilities';
-@import 'variables/utilities-extend';
-@import 'variables/misc';
-@import 'variables/misc-extend';
-@import 'variables/form-switch';
-@import 'variables/fixed-plugin';
-@import 'variables/pagination';
-@import 'variables/badge';
-@import 'variables/rtl';
-@import 'variables/cards-extend';
-@import 'variables/choices';
-@import 'variables/timeline';
-@import 'variables/full-calendar';
-@import 'variables/social-buttons';
-@import 'variables/virtual-reality';
+@import "public/assets/scss/soft-ui-dashboard/variables/animations";
+@import "public/assets/scss/soft-ui-dashboard/variables/avatars";
+@import "public/assets/scss/soft-ui-dashboard/variables/cards";
+@import "public/assets/scss/soft-ui-dashboard/variables/dark-version";
+@import "public/assets/scss/soft-ui-dashboard/variables/dropdowns";
+@import 'public/assets/scss/soft-ui-dashboard/variables/header';
+@import 'public/assets/scss/soft-ui-dashboard/variables/info-areas';
+@import 'public/assets/scss/soft-ui-dashboard/variables/navbar';
+@import 'public/assets/scss/soft-ui-dashboard/variables/navbar-vertical';
+@import 'public/assets/scss/soft-ui-dashboard/variables/utilities';
+@import 'public/assets/scss/soft-ui-dashboard/variables/utilities-extend';
+@import 'public/assets/scss/soft-ui-dashboard/variables/misc';
+@import 'public/assets/scss/soft-ui-dashboard/variables/misc-extend';
+@import 'public/assets/scss/soft-ui-dashboard/variables/form-switch';
+@import 'public/assets/scss/soft-ui-dashboard/variables/fixed-plugin';
+@import 'public/assets/scss/soft-ui-dashboard/variables/pagination';
+@import 'public/assets/scss/soft-ui-dashboard/variables/badge';
+@import 'public/assets/scss/soft-ui-dashboard/variables/rtl';
+@import 'public/assets/scss/soft-ui-dashboard/variables/cards-extend';
+@import 'public/assets/scss/soft-ui-dashboard/variables/choices';
+@import 'public/assets/scss/soft-ui-dashboard/variables/timeline';
+@import 'public/assets/scss/soft-ui-dashboard/variables/full-calendar';
+@import 'public/assets/scss/soft-ui-dashboard/variables/social-buttons';
+@import 'public/assets/scss/soft-ui-dashboard/variables/virtual-reality';
 
 
 // Import Utilities

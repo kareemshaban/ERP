@@ -88,8 +88,8 @@
 
 @font-face {
     font-family: 'icomoon';
-    src: url("../fonts/ArbFONTS-The-Sans-Plain.otf");
-    src: url("../fonts/ArbFONTS-The-Sans-Plain.otf") ;
+    src: url("public/assets/fonts/ArbFONTS-The-Sans-Plain.otf");
+    src: url("public/assets/fonts/ArbFONTS-The-Sans-Plain.otf") ;
     font-weight: normal;
     font-style: normal;
 }
@@ -23321,7 +23321,7 @@ html {
 }
 
 .navbar-vertical .navbar-nav>.nav-item .nav-link.active .icon {
-    background-image: linear-gradient(310deg, #428BCA  0%, #428BCA  100%);
+    background-image: linear-gradient(310deg, lightblue 0%, lightgray 100%);
 }
 
 .navbar-vertical .navbar-nav>.nav-item .nav-link.active .icon svg .color-background,
@@ -26692,9 +26692,10 @@ pre[class*="language-"] {
 }
 .active-drop{
     font-weight: bold;
-    background: lightblue;
+    background: aliceblue;
     color: black;
-    border-radius: 15px;
+    border-radius: 14px;
+    width: 90%;
 }
 .modal-close-btn {
     color: white;

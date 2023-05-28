@@ -16,6 +16,17 @@
     <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
     <link href="../../assets/css/nucleo-svg.css" rel="stylesheet" />
     <link id="pagestyle" href="../../assets/css/soft-ui-dashboard.css?v=1.0.7" rel="stylesheet" />
+
+
+    <style>
+        .itemCaRD{
+            background: white;
+            width: 90%;
+            display: block;
+            margin: 50px auto;
+            border-radius: 25px;
+        }
+    </style>
 </head>
 
 <body @if(Config::get('app.locale') == 'en') class="g-sidenav-show  bg-gray-100" @else  class="g-sidenav-show rtl bg-gray-100" @endif>
@@ -27,15 +38,15 @@
     <!-- Navbar -->
     @include('layouts.nav' , ['page_title' => __('main.account_list'). ' / '. __('main.add_account')])
     <!-- End Navbar -->
-        <div class="modal-body" id="paymentBody">
+        <div class="modal-body itemCaRD" id="paymentBody">
             <form   method="POST" action="{{ route('store_account') }}">
                 @csrf
 
                 <div class="row" style="padding: 20px">
-                    <div class="col-md-6 col-sm-6">
+                    <div class="col-md-12 col-sm-12">
 
                         <div class="row">
-                            <div class="col-12">
+                            <div class="col-6">
                                 <div class="form-group">
                                     <label>{{ __('main.code') }} <span style="color:red; font-size:20px; font-weight:bold;">*</span> </label>
                                     <input type="text"  id="code" name="code"
@@ -48,10 +59,7 @@
                                     @enderror
                                 </div>
                             </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-12 " >
+                            <div class="col-6 " >
                                 <div class="form-group">
                                     <label>{{ __('main.name') }} <span style="color:red; font-size:20px; font-weight:bold;">*</span>  </label>
                                     <input type="text"  id="name" name="name"
@@ -67,7 +75,9 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-12">
+
+
+                            <div class="col-6">
                                 <div class="form-group">
                                     <label>{{ __('main.account_type') }} <span style="color:red; font-size:20px; font-weight:bold;">*</span> </label>
                                     <select class="form-control @error('type') is-invalid @enderror" id="account_type" name="type">
@@ -83,14 +93,7 @@
                                     @enderror
                                 </div>
                             </div>
-                        </div>
-
-
-
-
-
-                        <div class="row">
-                            <div class="col-12">
+                            <div class="col-6">
                                 <div class="form-group">
                                     <label>{{ __('main.parent_id') }} <span style="color:red; font-size:20px; font-weight:bold;">*</span> </label>
                                     <select class="form-control @error('brand') is-invalid @enderror" id="parent_id" name="parent_id" disabled>
@@ -108,8 +111,10 @@
                             </div>
                         </div>
 
+
+
                         <div class="row">
-                            <div class="col-12 " >
+                            <div class="col-6 " >
                                 <div class="form-group">
                                     <label>{{ __('main.account_level') }} <span style="color:red; font-size:20px; font-weight:bold;">*</span>  </label>
                                     <input type="text"  id="level" name="level" readonly  value="1"
@@ -122,10 +127,7 @@
                                     @enderror
                                 </div>
                             </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-12">
+                            <div class="col-6">
                                 <div class="form-group">
                                     <label>{{ __('main.account_list') }} <span style="color:red; font-size:20px; font-weight:bold;">*</span> </label>
                                     <select class="form-control @error('type') is-invalid @enderror" id="list" name="list">
@@ -143,9 +145,8 @@
                             </div>
                         </div>
 
-
                         <div class="row">
-                            <div class="col-12">
+                            <div class="col-6">
                                 <div class="form-group">
                                     <label>{{ __('main.account_department') }} <span style="color:red; font-size:20px; font-weight:bold;">*</span> </label>
                                     <select class="form-control @error('type') is-invalid @enderror" id="department" name="department">
@@ -159,11 +160,7 @@
                                     @enderror
                                 </div>
                             </div>
-                        </div>
-
-
-                        <div class="row">
-                            <div class="col-12">
+                            <div class="col-6">
                                 <div class="form-group">
                                     <label>{{ __('main.account_side') }} <span style="color:red; font-size:20px; font-weight:bold;">*</span> </label>
                                     <select class="form-control @error('type') is-invalid @enderror" id="side" name="side">
@@ -178,10 +175,6 @@
                                 </div>
                             </div>
                         </div>
-
-
-
-
 
 
                     </div>

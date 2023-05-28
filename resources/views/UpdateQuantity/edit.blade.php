@@ -81,7 +81,7 @@
                             <div class="row">
                                 <div class="col-12">
                                     <div class="col-md-12" id="sticker">
-                                        <div class="well well-sm">
+                                        <div class="well well-sm" @if(Config::get('app.locale') == 'ar')style="direction: rtl;" @endif>
                                             <div class="form-group" style="margin-bottom:0;">
                                                 <div class="input-group wide-tip">
                                                     <div class="input-group-addon" style="padding-left: 10px; padding-right: 10px;">

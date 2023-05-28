@@ -25,6 +25,8 @@
             font-size: 13px;
             border-radius: 15px;
             box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+            width: 100%;
+            height: 100%;
         }
         .quick-button.small:hover{
             transform: scale(1.1);
@@ -87,14 +89,12 @@
             <div class="col-lg-12">
                 <div class="box" style="padding-bottom: 30px; width: 90%; margin: auto">
                     <div class="box-header col-md-12">
-                        <h2 class="col-md-4 blue"><i class="fa fa-th"></i><span class="break"></span>{{__('main.total_movements')}}
+                        <h2 class="col-md-6 blue"><i class="fa fa-th"></i><span class="break"></span>
                        <label>  </label> ({{\Carbon\Carbon::now() -> format('d - m - Y')}})</h2>
 
-                        <h2 class="col-md-4" style="text-align: center; color: #ea0606">{{__('main.remaining_days')}} : {{$remaining_days}}</h2>
+                        <h3 class="col-md-6" style="text-align: left; color: #ea0606; font-size: 18px; padding-left: 5px;">{{__('main.remaining_days')}} : {{$remaining_days}}</h3>
 
-                        <h2 class="col-md-4" style="text-align: left; padding-left: 10px;">
-                            <a href="javascript:;" onclick="showSubscribeData()" class="blue">{{__('main.subscribe_data')}}</a>
-                        </h2>
+
 
 
 
@@ -102,7 +102,7 @@
                     <div class="box-content" style=" background: whitesmoke;">
 
                         <div class="row" style=" margin: 30px auto; width: 80% ;" >
-                            <div class="col-xl-6 col-sm-6 " >
+                            <div class="col-xl-6 col-sm-6 " style="  padding: 10px;">
                                 <div class="card" style="height: 150px; ">
                                     <div class="card-body p-3" style="display: flex; flex-direction: column; justify-content: center">
                                         <div class="row">
@@ -123,7 +123,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-xl-6 col-sm-6">
+                            <div class="col-xl-6 col-sm-6" style="  padding: 10px;">
                                 <div class="card" style="height: 150px; ">
                                     <div class="card-body p-3" style="display: flex; flex-direction: column; justify-content: center">
                                         <div class="row">
@@ -146,7 +146,7 @@
                             </div>
                         </div>
                         <div class="row"  style=" margin: 30px auto; width: 80% ;">
-                            <div class="col-xl-6 col-sm-6 ">
+                            <div class="col-xl-6 col-sm-6 " style="  padding: 10px;">
                                 <div class="card" style="height: 150px; ">
                                     <div class="card-body p-3" style="display: flex; flex-direction: column; justify-content: center">
                                         <div class="row">
@@ -168,7 +168,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-xl-6 col-sm-6">
+                            <div class="col-xl-6 col-sm-6" style="  padding: 10px;">
                                 <div class="card" style="height: 150px; ">
                                     <div class="card-body p-3" style="display: flex; flex-direction: column; justify-content: center">
                                         <div class="row">
@@ -206,14 +206,14 @@
                         <h2 class="blue"><i class="fa fa-th"></i><span class="break"></span>روابط سريعة</h2>
                     </div>
                     <div class="box-content" style="display: flex;flex-flow: wrap; padding: 20px; background: whitesmoke;">
-                        <div class="col-md-2 col-xs-4 padding1010">
+                        <div class="col-xl-3 col-sm-6  col-6  mb-xl-0 mb-4 padding1010">
                             <a class="bblue white quick-button small" href="{{route('products')}}">
                                 <i class="fa fa-barcode"></i>
 
                                 <p>{{__('main.items')}}</p>
                             </a>
                         </div>
-                        <div class="col-md-2 col-xs-4 padding1010">
+                        <div class="col-xl-3 col-sm-6  col-6 mb-xl-0 mb-4 padding1010">
                             <a class="bdarkGreen white quick-button small" href="{{route('sales')}}">
                                 <i class="fa fa-heart"></i>
 
@@ -221,7 +221,7 @@
                             </a>
                         </div>
 
-                        <div class="col-md-2 col-xs-4 padding1010">
+                        <div class="col-xl-3 col-sm-6  col-6 mb-xl-0 mb-4 padding1010">
                             <a class="blightOrange white quick-button small" href="{{route('pos')}}">
                                 <i class="fa fa-heart-o"></i>
 
@@ -229,7 +229,7 @@
                             </a>
                         </div>
 
-                        <div class="col-md-2 col-xs-4 padding1010">
+                        <div class="col-xl-3 col-sm-6  col-6 mb-xl-0 mb-4 padding1010">
                             <a class="bred white quick-button small" href="{{route('purchases')}}">
                                 <i class="fa fa-star"></i>
 
@@ -237,7 +237,7 @@
                             </a>
                         </div>
 
-                        <div class="col-md-2 col-xs-4 padding1010">
+                        <div class="col-xl-3 col-sm-6  col-6 mb-xl-0 mb-4 padding1010">
                             <a class="bpink white quick-button small" href="{{route('account_settings_list')}}">
                                 <i class="fa fa-star-o"></i>
 
@@ -245,7 +245,7 @@
                             </a>
                         </div>
 
-                        <div class="col-md-2 col-xs-4 padding1010">
+                        <div class="col-xl-3 col-sm-6  col-6 mb-xl-0 mb-4 padding1010">
                             <a class="bgrey white quick-button small" href="{{route('clients' , 3)}}">
                                 <i class="fa fa-users"></i>
 
@@ -253,7 +253,7 @@
                             </a>
                         </div>
 
-                        <div class="col-md-2 col-xs-4 padding1010">
+                        <div class="col-xl-3 col-sm-6  col-6 mb-xl-0 mb-4 padding1010">
                             <a class="bgrey white quick-button small" href="{{route('clients' , 4)}}">
                                 <i class="fa fa-users"></i>
 
@@ -261,7 +261,7 @@
                             </a>
                         </div>
 
-                        <div class="col-md-2 col-xs-4 padding1010">
+                        <div class="col-xl-3 col-sm-6  col-6 mb-xl-0 mb-4 padding1010">
                             <a class="blightBlue white quick-button small" href="{{route('purchase_report')}}">
                                 <i class="fa fa-comments"></i>
 
@@ -270,13 +270,13 @@
                             </a>
                         </div>
 
-                        <div class="col-md-2 col-xs-4 padding1010">
+                        <div class="col-xl-3 col-sm-6  col-6 mb-xl-0 mb-4 padding1010">
                             <a class="bblue white quick-button small" href="{{route('users')}}">
                                 <i class="fa fa-group"></i>
                                 <p>{{__('main.users_label')}}</p>
                             </a>
                         </div>
-                        <div class="col-md-2 col-xs-4 padding1010">
+                        <div class="col-xl-3 col-sm-6  col-6 mb-xl-0 mb-4 padding1010">
                             <a class="bpink white white quick-button small" href="{{route('system_settings')}}">
                                 <i class="fa fa-cogs"></i>
 
@@ -284,7 +284,7 @@
                             </a>
                         </div>
 
-                        <div class="col-md-2 col-xs-4 padding1010">
+                        <div class="col-xl-3 col-sm-6  col-6 mb-xl-0 mb-4 padding1010">
                             <a class="bdarkGreen white quick-button small" href="{{route('daily_sales_report')}}">
                                 <i class="fa fa-money"></i>
 
@@ -292,7 +292,7 @@
                             </a>
                         </div>
 
-                        <div class="col-md-2 col-xs-4 padding1010">
+                        <div class="col-xl-3 col-sm-6  col-6 mb-xl-0 mb-4 padding1010">
                             <a class="bred white quick-button small" href="{{route('items_stock_report')}}">
                                 <i class="fa fa-flask"></i>
 

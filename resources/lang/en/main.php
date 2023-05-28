@@ -396,7 +396,10 @@ return [
     'enable_inventory' => 'Enable Inventory',
     'enable_accounting' => 'Enable Accounting',
     'serial_prefix' => 'Invoices Prefix',
-    'max_warehouse' => 'The maximum number of branches allowed has been reached'
+    'max_warehouse' => 'The maximum number of branches allowed has been reached',
+    'home_title' => 'With an inventory management system and accounts system all your work is under control',
+    'home_subtitle' => 'Inventory management - Accounting - personnel affairs - archives',
+    'journals_list' => 'Accounting entries'
 
 
 
