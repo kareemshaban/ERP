@@ -276,6 +276,10 @@ Route::get('/getUpdateQntBillNo', [App\Http\Controllers\UpdateQuntityController:
         Route::get('/open_salary',[\App\Http\Controllers\SalaryDocController::class,'openSalaryDoc'])->name('open_salary');
         Route::post('/get_salary',[\App\Http\Controllers\SalaryDocController::class,'getSalaryDoc'])->name('get_salary');
         Route::post('/store_salary',[\App\Http\Controllers\SalaryDocController::class,'storeSalary'])->name('store_salary');
+
+
+        Route::get('/reports/account_balance',[\App\Http\Controllers\ReportController::class,'account_balance'])->name('account_balance');
+        Route::post('/reports/account_balance',[\App\Http\Controllers\ReportController::class,'account_balance'])->name('search_account_balance');
     });
 
 });
