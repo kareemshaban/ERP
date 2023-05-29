@@ -417,7 +417,7 @@ margin: 30px auto;" value="{{__('main.save_btn')}}"></input>
         });
 
 
-        if(totalCredit !== totalDebit){
+        if(totalCredit != totalDebit){
             $(':input[type="submit"]').prop('disabled', true);
         }else{
             $(':input[type="submit"]').prop('disabled', false);

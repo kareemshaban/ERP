@@ -138,6 +138,8 @@
                     <li><a @if($subSlag == 11) class="dropdown-item active-drop" @else class="dropdown-item" @endif href="{{route('users')}}">{{__('main.users')}}</a></li>
                     <li><a @if($subSlag == 12) class="dropdown-item active-drop" @else class="dropdown-item" @endif href="{{route('cashiers')}}">{{__('main.cashiers')}}</a></li>
                     <li><a @if($subSlag == 13) class="dropdown-item active-drop" @else class="dropdown-item" @endif href="{{route('user_groups')}}">{{__('main.user_groups')}}</a></li>
+                    <li><a @if($subSlag == 130) class="dropdown-item active-drop" @else class="dropdown-item" @endif href="{{route('representatives')}}">{{__('main.representatives')}}</a></li>
+
 
 
                 </ul>
@@ -321,6 +323,33 @@
                     <li><a @if($subSlag == 41) class="dropdown-item active-drop" @else class="dropdown-item" @endif href="{{route('incoming_list')}}">{{__('main.incoming_list_report')}}</a></li>
                     <li><a @if($subSlag == 42) class="dropdown-item active-drop" @else class="dropdown-item" @endif href="{{route('balance_sheet')}}">{{__('main.balance_sheet_report')}}</a></li>
                         @endif
+
+
+                </ul>
+
+            </li>
+
+
+
+            <li class="nav-item">
+                <a @if($slag == 13) class="nav-link  active" @else class="nav-link" @endif  href="javascript:;" class="nav-link dropdown-toggle  text-truncate"
+                   @if(Config::get('app.locale') == 'ar') style="direction: rtl" @endif>
+                    <div class="icon icon-shape icon-md shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                        <img src="../../assets/img/report.png" style="width: 30px;">
+                    </div>
+                    <span class="nav-link-text ms-1">{{__('main.hr_title')}}</span>
+                    <button class="Arrowbutton @if(Config::get('app.locale') == 'en') btn_pos_en @else btn_pos_ar @endif"  value="dropdown-menu-13" id="dropdown-button-13"><i class="fas fa-chevron-down" ></i></button>
+
+                </a >
+
+                <ul class="dropdown-menu text-small subM" aria-labelledby="dropdown" id="dropdown-menu-13">
+                    <li><a @if($subSlag == 43) class="dropdown-item active-drop" @else class="dropdown-item" @endif href="{{route('employer.categories.index')}}">{{__('main.employer_categories')}}</a></li>
+                    <li><a @if($subSlag == 44) class="dropdown-item active-drop" @else class="dropdown-item" @endif href="{{route('employers.index')}}">{{__('main.employers')}}</a></li>
+                    <li><a @if($subSlag == 45) class="dropdown-item active-drop" @else class="dropdown-item" @endif href="{{route('deduction.index')}}">{{__('main.deductions')}}</a></li>
+                    <li><a @if($subSlag == 46) class="dropdown-item active-drop" @else class="dropdown-item" @endif href="{{route('reward.index')}}">{{__('main.rewards')}}</a></li>
+                    <li><a @if($subSlag == 47) class="dropdown-item active-drop" @else class="dropdown-item" @endif href="{{route('advance_payments.index')}}">{{__('main.advance_payments')}}</a></li>
+                    <li><a @if($subSlag == 48) class="dropdown-item active-drop" @else class="dropdown-item" @endif href="{{route('salary_docs')}}">{{__('main.Salary')}}</a></li>
+
 
 
                 </ul>

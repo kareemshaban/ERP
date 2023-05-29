@@ -399,7 +399,50 @@ return [
     'max_warehouse' => 'The maximum number of branches allowed has been reached',
     'home_title' => 'With an inventory management system and accounts system all your work is under control',
     'home_subtitle' => 'Inventory management - Accounting - personnel affairs - archives',
-    'journals_list' => 'Accounting entries'
+    'journals_list' => 'Accounting entries',
+
+
+    'advance_payments' => 'السلف',
+    'advance_payment' => 'السلف',
+    'add_advance_payment' => 'إضافة سلفة',
+    'update_advance_payment' => 'تعديل سلفة',
+    'Date' => 'التاريخ',
+    'Employer' => 'الموظف',
+    'Amount' => 'المبلغ',
+    'Remain' => 'المتبقي',
+    'Actions' => 'الاجراءات',
+    'Advance Amount' => 'قيمة الاستقطاع الشهري',
+
+    'rewards' => 'rewards',
+    'reason' => 'reason',
+    'Reason' => 'Reason',
+    'add_reward' => 'Add Reward',
+    'update_reward' => 'Edit Reward',
+    'employer_categories' => 'Employer Categories',
+    'Code' => 'Code',
+    'Name' => 'Name',
+    'add_category' => 'Add Category',
+    'update_category' => 'Edit Category',
+
+    'employers' => 'Employers',
+    'Phone' => 'Phone',
+    'Address' => 'Address',
+    'Job' => 'Job',
+    'Salary' => 'Salary',
+    'Hours Count' => 'Work Hours Count',
+    'Hour Amount' => 'Hour Amount',
+    'add_employer' => 'Add Employer',
+    'update_employer' => 'Edit Employer',
+
+    'deductions' => 'deductions',
+    'add_deduction' => 'Add deduction',
+    'update_deduction' => 'Edit deduction',
+
+    'hr_title' => 'Employees & HR',
+    'representatives' => 'Representatives',
+    'user_name' => 'User Name',
+    'connect_with_client' => 'connect With Client ',
+    'done' => 'done successfully'
 
 
 

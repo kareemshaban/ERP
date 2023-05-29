@@ -30,7 +30,8 @@ class Company extends Model
         'opening_balance',
         'account_id',
         'credit_amount',
-        'stop_sale'
+        'stop_sale',
+        'representative_id_'
     ];
 
     public function group()

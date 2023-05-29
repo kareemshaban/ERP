@@ -104,6 +104,18 @@ Route::get('/deleteUserGroup/{id}', [App\Http\Controllers\UserGroupController::c
 Route::get('/getUserGroup/{id}', [App\Http\Controllers\UserGroupController::class, 'edit'])->name('getUserGroup');
 
 
+Route::get('/representatives', [App\Http\Controllers\RepresentativeController::class, 'index'])->name('representatives');
+Route::post('storeRepresentative', [App\Http\Controllers\RepresentativeController::class, 'store'])->name('storeRepresentative');
+Route::get('/deleteRepresentative/{id}', [App\Http\Controllers\RepresentativeController::class, 'destroy'])->name('deleteRepresentative');
+Route::get('/getRepresentative/{id}', [App\Http\Controllers\RepresentativeController::class, 'edit'])->name('getRepresentative');
+Route::get('/getRepresentativeClients/{id}', [App\Http\Controllers\RepresentativeController::class, 'show'])->name('getRepresentativeClients');
+Route::post('connect_to_client', [App\Http\Controllers\RepresentativeController::class, 'connect_to_client'])->name('connect_to_client');
+Route::get('disconnectClientRep/{id}', [App\Http\Controllers\RepresentativeController::class, 'disconnectClientRep'])->name('disconnectClientRep');
+
+
+
+
+
     Route::get('/products', [App\Http\Controllers\ProductController::class, 'index'])->name('products');
     Route::get('/products/create', [App\Http\Controllers\ProductController::class, 'create'])->name('createProduct');
     Route::post('products/create', [App\Http\Controllers\ProductController::class, 'store'])->name('storeProduct');
@@ -241,6 +253,41 @@ Route::get('/getUpdateQntBillNo', [App\Http\Controllers\UpdateQuntityController:
         Route::get('/settings',[\App\Http\Controllers\SystemSettingsController::class,'settings'])->name('settings');
 
 
-});
+
+        Route::get('/employer-categories',[\App\Http\Controllers\EmployerCategoryController::class,'index'])->name('employer.categories.index');
+
+        Route::get('/create-employer-category',[\App\Http\Controllers\EmployerCategoryController::class,'create'])->name('employer.categories.create');
+
+        Route::post('/create-employer-category',[\App\Http\Controllers\EmployerCategoryController::class,'store'])->name('employer.categories.store');
+
+        Route::get('/update-employer-category/{employerCategory}',[\App\Http\Controllers\EmployerCategoryController::class,'edit'])->name('employer.categories.edit');
+
+        Route::post('/update-employer-category/{employerCategory}',[\App\Http\Controllers\EmployerCategoryController::class,'update'])->name('employer.categories.update');
+        Route::get('/delete-employer-category/{employerCategory}',[\App\Http\Controllers\EmployerCategoryController::class,'destroy'])->name('employer.categories.delete');
+
+
+        Route::get('/employers',[\App\Http\Controllers\EmployerController::class,'index'])->name('employers.index');
+
+        Route::get('/create-employer',[\App\Http\Controllers\EmployerController::class,'create'])->name('employers.create');
+
+        Route::post('/create-employer',[\App\Http\Controllers\EmployerController::class,'store'])->name('employers.store');
+
+        Route::get('/update-employer/{employer}',[\App\Http\Controllers\EmployerController::class,'edit'])->name('employers.edit');
+
+        Route::post('/update-employer/{employer}',[\App\Http\Controllers\EmployerController::class,'update'])->name('employers.update');
+
+        Route::get('/delete-employer/{employer}',[\App\Http\Controllers\EmployerController::class,'destroy'])->name('employers.delete');
+
+
+        Route::resource('deduction',\App\Http\Controllers\DeductionController::class);
+        Route::resource('reward',\App\Http\Controllers\RewardController::class);
+        Route::resource('advance_payments',\App\Http\Controllers\AdvancePaymentController::class);
+
+
+        Route::get('/salary',[\App\Http\Controllers\SalaryDocController::class,'index'])->name('salary_docs');
+        Route::get('/open_salary',[\App\Http\Controllers\SalaryDocController::class,'openSalaryDoc'])->name('open_salary');
+        Route::post('/get_salary',[\App\Http\Controllers\SalaryDocController::class,'getSalaryDoc'])->name('get_salary');
+        Route::post('/store_salary',[\App\Http\Controllers\SalaryDocController::class,'storeSalary'])->name('store_salary');
+    });
 
 });

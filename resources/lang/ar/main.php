@@ -408,7 +408,52 @@ return [
     'max_warehouse' => 'تم الوصول للحد الأقصي المسموح به من الفروع',
     'home_title' => 'مع  نظام إدارة المخزون والحسابات كل شغلك تحت السيطرة',
     'home_subtitle' => 'إدارة مخزون - حسابات عامة - شئوون موظفين - أرشيف',
-    'journals_list' => 'القيود المحاسبية'
+    'journals_list' => 'القيود المحاسبية',
+
+
+
+    'advance_payments' => 'السلف',
+    'advance_payment' => 'السلف',
+    'add_advance_payment' => 'إضافة سلفة',
+    'update_advance_payment' => 'تعديل سلفة',
+    'Date' => 'التاريخ',
+    'Employer' => 'الموظف',
+    'Amount' => 'المبلغ',
+    'Remain' => 'المتبقي',
+    'Actions' => 'الاجراءات',
+    'Advance Amount' => 'قيمة الاستقطاع الشهري',
+
+    'rewards' => 'المكافئات',
+    'reason' => 'السبب',
+    'Reason' => 'السبب',
+    'add_reward' => 'إضافة مكافئة',
+    'update_reward' => 'تعديل مكافئة',
+    'employer_categories' => 'فئات الموظفين',
+    'Code' => 'الكود',
+    'Name' => 'الاسم',
+    'add_category' => 'إضافة فئة',
+    'update_category' => 'تعديل فئة',
+
+    'employers' => 'الموظفين',
+    'Phone' => 'الجوال',
+    'Address' => 'العنوان',
+    'Job' => 'الوظيفة',
+    'Salary' => 'الراتب الشهري',
+    'Hours Count' => 'عدد ساعات العمل',
+    'Hour Amount' => 'قيمة الساعة',
+    'add_employer' => 'إضافة موظف',
+    'update_employer' => 'تعديل موظف',
+
+    'deductions' => 'الجزاءات',
+    'add_deduction' => 'إضافة جزاء',
+    'update_deduction' => 'تعديل الجزاء',
+    'hr_title' => 'شوؤن الموظفين',
+    'representatives' => 'المناديب',
+    'user_name' => 'إسم المستخدم',
+    'connect_with_client' => 'ربط مع عميل ',
+    'done' => 'تم بنجاح'
+
+
 
 
 

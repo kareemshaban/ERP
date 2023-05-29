@@ -171,7 +171,7 @@
                                                         @endif
                                                     </span>
                                                 @endif
-                                                    <p style="font-family: 'Libre Barcode 39';font-size: 30px;color: black;padding: 0px;margin: 0px;line-height: 1.2;">{{$item['barcode']}}</p>
+                                                    <p style="font-family: 'Libre Barcode 39 !important';font-size: 30px;color: black;padding: 0px;margin: 0px;line-height: 1.2;">{{$item['barcode']}}</p>
                                         </div>
                                     </div>
                                 @endfor
