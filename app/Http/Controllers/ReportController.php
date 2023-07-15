@@ -313,4 +313,47 @@ class ReportController extends Controller
         return view('Report.client_movement_report',compact('data' , 'slag'));
     }
 
+
+    public function account_balance(Request $request){
+        $startDate = Carbon::now()->addYears(-5);
+        $endDate = Carbon::now();
+
+        if($request->has('start_date')){
+            $startDate = $request->start_date;
+        }
+
+        if($request->has('end_date')){
+            $endDate = $request->end_date;
+        }
+
+
+        $accounts = DB::table('accounts_trees')
+            ->join('account_movements','accounts_trees.id','=','account_movements.account_id')
+            ->select('accounts_trees.code','accounts_trees.name',
+                DB::raw('sum(account_movements.credit) as credit'),
+                DB::raw('sum(account_movements.debit) as debit'))
+            ->groupBy('accounts_trees.id','accounts_trees.code','accounts_trees.name')
+            ->where('account_movements.date','>=',$startDate)
+            ->where('account_movements.date','<=',$endDate)
+            ->get();
+
+        foreach ($accounts as $account){
+
+            $accountBalance = DB::table('accounts_trees')
+                ->join('account_movements','accounts_trees.id','=','account_movements.account_id')
+                ->select('accounts_trees.code','accounts_trees.name',
+                    DB::raw('sum(account_movements.credit) as credit'),
+                    DB::raw('sum(account_movements.debit) as debit'))
+                ->groupBy('accounts_trees.id','accounts_trees.code','accounts_trees.name')
+                ->where('account_movements.date','<',$startDate)
+                ->where('accounts_trees.code','<',$account->code)
+                ->get()->first();
+
+            $account->before_credit = $accountBalance->credit;
+            $account->before_debit = $accountBalance->debit;
+        }
+
+        return view('Report.account_balance_report',compact('accounts'));
+
+    }
 }
